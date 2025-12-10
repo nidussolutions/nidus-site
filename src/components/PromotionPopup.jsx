@@ -34,7 +34,6 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
 
     setLoading(true);
 
-    // Simulate API call with localStorage
     setTimeout(() => {
       try {
         const promotions = JSON.parse(localStorage.getItem('nidus_promotions') || '[]');
@@ -102,7 +101,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
               <Input
                 type="email"
                 placeholder="seu.email@exemplo.com"
-                className="bg-white border-gray-300 text-nidus-text-dark h-12 focus-visible:ring-nidus-purple placeholder:text-nidus-text-light"
+                className="bg-white border-gray-300 text-black h-12 focus-visible:ring-nidus-purple placeholder:text-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -111,7 +110,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                <Input
                 type="tel"
                 placeholder="Telefone (Opcional)"
-                className="bg-white border-gray-300 text-nidus-text-dark h-12 focus-visible:ring-nidus-purple placeholder:text-nidus-text-light"
+                className="bg-white border-gray-300 text-black h-12 focus-visible:ring-nidus-purple placeholder:text-black"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={loading}

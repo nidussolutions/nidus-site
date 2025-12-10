@@ -19,14 +19,12 @@ const footerLinks = {
     { name: 'Política de Cookies', path: '/cookies-policy' },
   ],
   Recursos: [
-    { name: 'Admin', path: '/admin' },
-    { name: 'Carreiras', path: '/careers' },
     { name: 'FAQ', path: '/faq' },
   ],
 };
 
 const socialLinks = [
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/nidus-solu%C3%A7%C3%B5es-digitais', label: 'LinkedIn' },
   { icon: Instagram, href: 'https://www.instagram.com/mynidus/', label: 'Instagram' },
 ];
 
@@ -129,7 +127,7 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
                 aria-label="Email para newsletter"
-                className="bg-nidus-dark border-nidus-blue-light text-nidus-white h-11"
+                className="bg-nidus-dark border-nidus-blue-light text-black h-11"
               />
 
               <Button
