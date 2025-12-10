@@ -50,7 +50,10 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
         const promotionsRaw = localStorage.getItem('nidus_promotions');
         const promotions = promotionsRaw ? JSON.parse(promotionsRaw) : [];
 
-        if (Array.isArray(promotions) && promotions.some((promo) => promo.email === email)) {
+        if (
+          Array.isArray(promotions) &&
+          promotions.some((promo) => promo.email === email)
+        ) {
           toast({
             title: 'Email já cadastrado',
             description: 'Este email já está participando da promoção.',
@@ -70,7 +73,10 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
           ? [...promotions, newPromo]
           : [newPromo];
 
-        localStorage.setItem('nidus_promotions', JSON.stringify(updatedPromotions));
+        localStorage.setItem(
+          'nidus_promotions',
+          JSON.stringify(updatedPromotions)
+        );
 
         toast({
           title: 'Inscrição confirmada! 🎉',
@@ -82,7 +88,8 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
         console.error('Error submitting email:', error);
         toast({
           title: 'Erro na inscrição',
-          description: 'Não foi possível registrar seus dados. Tente novamente.',
+          description:
+            'Não foi possível registrar seus dados. Tente novamente.',
           variant: 'destructive',
         });
       } finally {
@@ -106,11 +113,12 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                 <Gift className="w-8 h-8 text-nidus-blue" />
               </div>
               <DialogTitle className="text-2xl font-bold tracking-tighter text-nidus-text-dark">
-                Ganhe <span className="text-nidus-purple">30% OFF</span> no seu primeiro projeto
+                Ganhe <span className="text-nidus-purple">40% OFF</span> no seu
+                primeiro projeto
               </DialogTitle>
               <DialogDescription className="text-nidus-text-light pt-2">
-                Participe da nossa newsletter e receba um desconto exclusivo, além de conteúdos
-                sobre tecnologia, automação e produtividade.
+                Participe da nossa newsletter e receba um desconto exclusivo,
+                além de conteúdos sobre tecnologia, automação e produtividade.
               </DialogDescription>
 
               <div className="mt-4 flex flex-col gap-1 text-xs items-center">
@@ -168,8 +176,9 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
               </div>
 
               <p className="text-[11px] text-nidus-text-light/80 leading-snug pt-1">
-                Ao continuar, você concorda em receber comunicações da Nidus. Seus dados são
-                armazenados localmente e podem ser removidos a qualquer momento.
+                Ao continuar, você concorda em receber comunicações da Nidus.
+                Seus dados são armazenados localmente e podem ser removidos a
+                qualquer momento.
               </p>
             </div>
 
