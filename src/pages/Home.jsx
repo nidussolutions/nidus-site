@@ -26,9 +26,8 @@ const Home = () => {
     if (!sessionStorage.getItem('nidus_promotion_seen')) {
       const timer = setTimeout(() => {
         setIsPopupOpen(true);
-        sessionStorage.setItem('nidus_promotion_seen', 'true');
+        sessionStorage.setItem('nidus_promotion_seen', 'false');
       }, 3000);
-
       return () => clearTimeout(timer);
     }
   }, []);

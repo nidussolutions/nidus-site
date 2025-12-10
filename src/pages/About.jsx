@@ -56,7 +56,6 @@ const About = () => {
       />
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
-        {/* Hero Section */}
         <motion.section 
           className="py-16 sm:py-20 px-6 text-center"
           initial="offscreen"
@@ -71,7 +70,6 @@ const About = () => {
           </p>
         </motion.section>
 
-        {/* Story Section */}
         <section className="py-20 bg-background/50 border-y border-border">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -102,7 +100,7 @@ const About = () => {
                 className="flex justify-center"
               >
                 <div className="relative w-full max-w-md h-96 rounded-lg overflow-hidden border border-border shadow-lg">
-                  <img className="w-full h-full object-cover" alt="Equipe de desenvolvimento colaborando em um escritório moderno, com gráficos digitais sobrepostos." src="https://images.unsplash.com/photo-1556761175-5973dd30399d" />
+                  <img className="w-full h-full object-cover" alt="Equipe de desenvolvimento colaborando em um escritório moderno, com gráficos digitais sobrepostos." src="/about.jpg" />
                 </div>
               </motion.div>
             </div>
