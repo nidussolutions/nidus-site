@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -25,10 +24,6 @@ const App = () => {
     <>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          {/* Redirect any legacy admin routes to home */}
-          <Route path="/admin/*" element={<Navigate to="/" replace />} />
-
-          {/* Public Routes */}
           <Route
             path="/*"
             element={
@@ -41,7 +36,10 @@ const App = () => {
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/cookies-policy" element={<CookiesPolicy />} />
-                  <Route path="/terms-of-service" element={<TermsOfService />} />
+                  <Route
+                    path="/terms-of-service"
+                    element={<TermsOfService />}
+                  />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 </Routes>
               </PublicLayout>
