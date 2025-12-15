@@ -42,14 +42,11 @@ const Home = () => {
     <>
       <SEO
         title="Desenvolvimento Web e Automação Inteligente"
-        description="Agência especialista em desenvolvimento web moderno e automação de processos."
+        description="Agência especialista em desenvolvimento web moderno e automação de processos para o Brasil."
         keywords="desenvolvimento web, automação, react, javascript, nidus"
       />
 
-      <PromotionPopup
-        isOpen={isPopupOpen}
-        onOpenChange={setIsPopupOpen}
-      />
+      <PromotionPopup isOpen={isPopupOpen} onOpenChange={setIsPopupOpen} />
 
       <div ref={targetRef} className="bg-background">
         <motion.div style={{ y: heroY }}>

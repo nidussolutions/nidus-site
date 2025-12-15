@@ -1,34 +1,50 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 
-const SEO = ({ title, description, keywords, ogTitle, ogDescription, ogImage, ogUrl, author, children }) => {
+const SEO = ({
+  title,
+  description,
+  keywords,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogUrl,
+  author,
+  children,
+}) => {
   const siteName = 'Nidus - Desenvolvimento Web e Automação';
   const fullTitle = `${title} | ${siteName}`;
-  const defaultDescription = 'Agência especialista em desenvolvimento web moderno com React e automação de processos para impulsionar a eficiência e o crescimento do seu negócio.';
-  const defaultKeywords = 'desenvolvimento web, automação, react, javascript, frontend, nidus, agência digital, supabase, tailwindcss';
+  const defaultDescription =
+    'Agência brasileira especializada em desenvolvimento web moderno para empresas no Brasil com React e automação de processos para impulsionar a eficiência e o crescimento do seu negócio.';
+  const defaultKeywords =
+    'desenvolvimento web, automação, react, javascript, frontend, nidus, agência digital, supabase, tailwindcss';
 
   const metaDescription = description || defaultDescription;
-  const metaKeywords = keywords ? `${defaultKeywords}, ${keywords}` : defaultKeywords;
+  const metaKeywords = keywords
+    ? `${defaultKeywords}, ${keywords}`
+    : defaultKeywords;
   const metaOgTitle = ogTitle || fullTitle;
   const metaOgDescription = ogDescription || metaDescription;
   const metaOgImage = ogImage || 'https://www.mynidus.dev/og-image.png'; // A default OG image
   const metaOgUrl = ogUrl || window.location.href;
 
   const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Nidus",
-    "url": "https://www.mynidus.dev",
-    "logo": "https://www.mynidus.dev/nidus-logo.png",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+55-28-99961-8665",
-      "contactType": "Customer Service",
-      "email": "ola@mynidus.dev"
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Nidus',
+    url: 'https://www.mynidus.dev',
+    logo: 'https://www.mynidus.dev/nidus-logo.png',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'BR',
     },
-    "sameAs": [
-      "https://www.instagram.com/mynidus/"
-    ]
+    areaServed: 'BR',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+55-28-99961-8665',
+      contactType: 'Atendimento ao Cliente',
+      areaServed: 'BR',
+      availableLanguage: 'Portuguese',
+    },
   };
 
   return (
