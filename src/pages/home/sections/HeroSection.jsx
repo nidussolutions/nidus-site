@@ -32,66 +32,80 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
     
     const ctx = gsap.context(() => {
       // Badge animation
-      gsap.from(badgeRef.current, {
-        opacity: 0,
-        y: isMobile ? 10 : 20,
-        duration: animDuration,
-      });
-
-      // Title letters animation - simplificado em mobile
-      if (isMobile) {
-        gsap.from(titleRef.current, {
+      if (badgeRef.current) {
+        gsap.from(badgeRef.current, {
           opacity: 0,
-          y: 10,
+          y: isMobile ? 10 : 20,
           duration: animDuration,
-          delay: 0.1,
-        });
-      } else {
-        const letters = titleRef.current.querySelectorAll('.letter');
-        gsap.from(letters, {
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          stagger: animStagger,
-          delay: 0.2,
         });
       }
 
-      // Description animation
-      gsap.from(descRef.current, {
-        opacity: 0,
-        y: isMobile ? 10 : 20,
-        duration: animDuration,
-        delay: isMobile ? 0.15 : 0.4,
-      });
+      // Title letters animation - simplificado em mobile
+      if (isMobile) {
+        if (titleRef.current) {
+          gsap.from(titleRef.current, {
+            opacity: 0,
+            y: 10,
+            duration: animDuration,
+            delay: 0.1,
+          });
+        }
+      } else {
+        if (titleRef.current) {
+          const letters = titleRef.current.querySelectorAll('.letter');
+          if (letters && letters.length > 0) {
+            gsap.from(letters, {
+              opacity: 0,
+              y: 20,
+              duration: 0.6,
+              stagger: animStagger,
+              delay: 0.2,
+            });
+          }
+        }
+      }
 
-      // Buttons animation
-      gsap.fromTo(buttonsRef.current.children,
-        {
+      // Description animation
+      if (descRef.current) {
+        gsap.from(descRef.current, {
           opacity: 0,
           y: isMobile ? 10 : 20,
-        },
-        {
-          opacity: 1,
-          y: 0,
           duration: animDuration,
-          delay: isMobile ? 0.2 : 0.6,
-          stagger: isMobile ? 0.05 : 0.1,
-          ease: 'power2.out',
-        }
-      );
+          delay: isMobile ? 0.15 : 0.4,
+        });
+      }
+
+      // Buttons animation
+      if (buttonsRef.current && buttonsRef.current.children && buttonsRef.current.children.length > 0) {
+        gsap.fromTo(buttonsRef.current.children,
+          {
+            opacity: 0,
+            y: isMobile ? 10 : 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: animDuration,
+            delay: isMobile ? 0.2 : 0.6,
+            stagger: isMobile ? 0.05 : 0.1,
+            ease: 'power2.out',
+          }
+        );
+      }
 
       // Stats animation
-      gsap.from(statsRef.current.children, {
-        opacity: 0,
-        y: isMobile ? 10 : 20,
-        duration: animDuration,
-        delay: isMobile ? 0.25 : 0.8,
-        stagger: isMobile ? 0.05 : 0.1,
-      });
+      if (statsRef.current && statsRef.current.children && statsRef.current.children.length > 0) {
+        gsap.from(statsRef.current.children, {
+          opacity: 0,
+          y: isMobile ? 10 : 20,
+          duration: animDuration,
+          delay: isMobile ? 0.25 : 0.8,
+          stagger: isMobile ? 0.05 : 0.1,
+        });
+      }
 
       // Explore button scroll animation - desabilitado em mobile
-      if (!isMobile) {
+      if (!isMobile && exploreRef.current) {
         gsap.to(exploreRef.current, {
           opacity: 0,
           y: 10,
@@ -105,13 +119,18 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       }
 
       // Chevron bounce animation
-      gsap.to(exploreRef.current.querySelector('.chevron'), {
-        y: 6,
-        duration: isMobile ? 1 : 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      });
+      if (exploreRef.current) {
+        const chevron = exploreRef.current.querySelector('.chevron');
+        if (chevron) {
+          gsap.to(chevron, {
+            y: 6,
+            duration: isMobile ? 1 : 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+          });
+        }
+      }
     });
 
     return () => {

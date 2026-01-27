@@ -40,17 +40,19 @@ const Careers = () => {
   }, [fetchJobs]);
 
   useEffect(() => {
-    if (jobsGridRef.current && jobs.length > 0 && !loading) {
+    if (jobsGridRef.current && jobsGridRef.current.children && jobs.length > 0 && !loading) {
       const children = jobsGridRef.current.children;
-      gsap.fromTo(children, 
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-        }
-      );
+      if (children && children.length > 0) {
+        gsap.fromTo(children, 
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+          }
+        );
+      }
     }
   }, [jobs, loading]);
 

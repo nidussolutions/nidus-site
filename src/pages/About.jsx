@@ -49,18 +49,22 @@ const About = () => {
       const tl = gsap.timeline();
 
       // Título do hero com split de palavras
-      tl.fromTo(
-        heroTitleRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: 'power3.out'
-        }
-      )
-        .fromTo(
+      if (heroTitleRef.current) {
+        tl.fromTo(
+          heroTitleRef.current,
+          { opacity: 0, y: 50, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power3.out'
+          }
+        );
+      }
+
+      if (heroSubtitleRef.current) {
+        tl.fromTo(
           heroSubtitleRef.current,
           { opacity: 0, y: 30 },
           {
@@ -71,23 +75,26 @@ const About = () => {
           },
           '-=0.5'
         );
+      }
 
       // Mission section com ScrollTrigger
-      gsap.fromTo(
-        missionTitleRef.current,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: missionSectionRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
+      if (missionTitleRef.current && missionSectionRef.current) {
+        gsap.fromTo(
+          missionTitleRef.current,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: missionSectionRef.current,
+              start: 'top 70%',
+              toggleActions: 'play none none reverse',
+            }
           }
-        }
-      );
+        );
+      }
 
       // Parágrafos da missão com stagger
       const paragraphs = missionTextRef.current?.querySelectorAll('p');
@@ -111,13 +118,14 @@ const About = () => {
       }
 
       // Imagem com efeito parallax e scale
-      gsap.fromTo(
-        imageRef.current,
-        { opacity: 0, scale: 0.9, rotationY: -15 },
-        {
-          opacity: 1,
-          scale: 1,
-          rotationY: 0,
+      if (imageRef.current) {
+        gsap.fromTo(
+          imageRef.current,
+          { opacity: 0, scale: 0.9, rotationY: -15 },
+          {
+            opacity: 1,
+            scale: 1,
+            rotationY: 0,
           duration: 1.2,
           ease: 'power3.out',
           scrollTrigger: {
@@ -129,55 +137,62 @@ const About = () => {
       );
 
       // Parallax sutil na imagem durante scroll
-      gsap.to(imageRef.current, {
-        yPercent: -10,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: missionSectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      });
+      if (missionSectionRef.current) {
+        gsap.to(imageRef.current, {
+          yPercent: -10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: missionSectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        });
+      }
 
       // Values header animation
-      gsap.fromTo(
-        valuesHeaderRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: valuesHeaderRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          }
-        }
-      );
-
-      // Values cards com stagger e hover effects
-      if (valuesGridRef.current) {
-        const cards = valuesGridRef.current.children;
-
+      if (valuesHeaderRef.current) {
         gsap.fromTo(
-          cards,
-          { opacity: 0, y: 50, scale: 0.9 },
+          valuesHeaderRef.current,
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'back.out(1.4)',
+            duration: 1,
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: valuesGridRef.current,
-              start: 'top 80%',
+              trigger: valuesHeaderRef.current,
+              start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
           }
         );
+      }
+        }
+      );
+
+      // Values cards com stagger e hover effects
+      if (valuesGridRef.current && valuesGridRef.current.children) {
+        const cards = valuesGridRef.current.children;
+
+        if (cards && cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, y: 50, scale: 0.9 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.15,
+              ease: 'back.out(1.4)',
+              scrollTrigger: {
+                trigger: valuesGridRef.current,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse',
+              }
+            }
+          );
 
         // Hover animations para cada card
         Array.from(cards).forEach((card) => {
@@ -218,7 +233,8 @@ const About = () => {
               });
             }
           });
-        });
+          });
+        }
       }
     });
 

@@ -46,18 +46,22 @@ const Contact = () => {
       // Hero section animations
       const heroTl = gsap.timeline();
 
-      heroTl.fromTo(
-        heroTitleRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: 'power3.out'
-        }
-      )
-        .fromTo(
+      if (heroTitleRef.current) {
+        heroTl.fromTo(
+          heroTitleRef.current,
+          { opacity: 0, y: 50, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power3.out'
+          }
+        );
+      }
+
+      if (heroSubtitleRef.current) {
+        heroTl.fromTo(
           heroSubtitleRef.current,
           { opacity: 0, y: 30 },
           {
@@ -68,82 +72,91 @@ const Contact = () => {
           },
           '-=0.5'
         );
+      }
 
       // Form section animations
-      gsap.fromTo(
-        formSectionRef.current,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: formSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          }
-        }
-      );
-
-      gsap.fromTo(
-        formTitleRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          delay: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: formSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          }
-        }
-      );
-
-      gsap.fromTo(
-        formRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: 0.4,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: formSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          }
-        }
-      );
-
-      // Contact info cards animations
-      if (contactInfoRef.current) {
-        const cards = contactInfoRef.current.children;
-
+      if (formSectionRef.current) {
         gsap.fromTo(
-          cards,
-          { opacity: 0, x: 50, scale: 0.95 },
+          formSectionRef.current,
+          { opacity: 0, x: -50 },
           {
             opacity: 1,
             x: 0,
-            scale: 1,
-            duration: 0.7,
-            stagger: 0.15,
-            ease: 'back.out(1.3)',
+            duration: 1,
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: contactInfoRef.current,
+              trigger: formSectionRef.current,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
           }
         );
+      }
 
-        // Hover animations para cada card
-        Array.from(cards).forEach((card) => {
+      if (formTitleRef.current) {
+        gsap.fromTo(
+          formTitleRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: formSectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
+          }
+        );
+      }
+
+      if (formRef.current) {
+        gsap.fromTo(
+          formRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.4,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: formSectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
+          }
+        );
+      }
+
+      // Contact info cards animations
+      if (contactInfoRef.current && contactInfoRef.current.children) {
+        const cards = contactInfoRef.current.children;
+
+        if (cards && cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, x: 50, scale: 0.95 },
+            {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.15,
+              ease: 'back.out(1.3)',
+              scrollTrigger: {
+                trigger: contactInfoRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse',
+              }
+            }
+          );
+        }
+
+          // Hover animations para cada card
+          Array.from(cards).forEach((card) => {
           const icon = card.querySelector('.contact-icon');
 
           card.addEventListener('mouseenter', () => {

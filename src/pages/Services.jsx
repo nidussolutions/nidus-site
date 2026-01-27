@@ -37,53 +37,60 @@ const Services = () => {
       // Hero section animations
       const heroTl = gsap.timeline();
       
-      heroTl.fromTo(
-        heroTitleRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1,
-          duration: 1,
-          ease: 'power3.out'
-        }
-      )
-      .fromTo(
-        heroSubtitleRef.current,
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out'
-        },
-        '-=0.5'
-      );
-
-      // Services grid animations
-      if (servicesGridRef.current) {
-        const cards = servicesGridRef.current.children;
-        
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 60, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
+      if (heroTitleRef.current) {
+        heroTl.fromTo(
+          heroTitleRef.current,
+          { opacity: 0, y: 50, scale: 0.95 },
+          { 
+            opacity: 1, 
+            y: 0, 
             scale: 1,
-            duration: 0.7,
-            stagger: 0.12,
-            ease: 'back.out(1.3)',
-            scrollTrigger: {
-              trigger: servicesGridRef.current,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse',
-            }
+            duration: 1,
+            ease: 'power3.out'
           }
         );
+      }
 
-        // Hover animations para cada card
-        Array.from(cards).forEach((card) => {
+      if (heroSubtitleRef.current) {
+        heroTl.fromTo(
+          heroSubtitleRef.current,
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          },
+          '-=0.5'
+        );
+      }
+
+      // Services grid animations
+      if (servicesGridRef.current && servicesGridRef.current.children) {
+        const cards = servicesGridRef.current.children;
+        
+        if (cards && cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, y: 60, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: 'back.out(1.3)',
+              scrollTrigger: {
+                trigger: servicesGridRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse',
+              }
+            }
+          );
+        }
+
+          // Hover animations para cada card
+          Array.from(cards).forEach((card) => {
           const icon = card.querySelector('.service-icon');
           const features = card.querySelectorAll('.service-feature');
           
@@ -141,57 +148,64 @@ const Services = () => {
               });
             }
           });
-        });
+          });
+        }
       }
 
       // CTA section animations
-      gsap.fromTo(
-        ctaTitleRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: ctaSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
+      if (ctaTitleRef.current && ctaSectionRef.current) {
+        gsap.fromTo(
+          ctaTitleRef.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: ctaSectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
           }
-        }
-      );
+        );
+      }
 
-      gsap.fromTo(
-        ctaTextRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: ctaSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
+      if (ctaTextRef.current && ctaSectionRef.current) {
+        gsap.fromTo(
+          ctaTextRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: ctaSectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
           }
-        }
-      );
+        );
+      }
 
-      gsap.fromTo(
-        ctaButtonRef.current,
-        { opacity: 0, scale: 0.9 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          ease: 'back.out(1.5)',
-          scrollTrigger: {
-            trigger: ctaSectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
+      if (ctaButtonRef.current && ctaSectionRef.current) {
+        gsap.fromTo(
+          ctaButtonRef.current,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: 'back.out(1.5)',
+            scrollTrigger: {
+              trigger: ctaSectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
           }
-        }
-      );
+        );
+      }
 
       // CTA button hover
       const button = ctaButtonRef.current;
