@@ -18,12 +18,20 @@ jobs:
       - name: Create .env file
         run: |
           echo "VITE_FORMSPREE_FORM_ID=${{ secrets.VITE_FORMSPREE_FORM_ID }}" > .env
+          echo "Conteúdo do .env:"
+          cat .env
       
       - name: Install dependencies
         run: npm install
       
       - name: Build
         run: npm run build
+      
+      - name: Verify build
+        run: |
+          echo "Procurando pela variável no build..."
+          echo "Arquivos gerados:"
+          ls -la dist/assets/
       
       - name: Deploy via SSH
         uses: appleboy/scp-action@master
