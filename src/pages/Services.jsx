@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Code, Zap, CheckCircle, Smartphone, Palette, Briefcase, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -36,14 +35,14 @@ const Services = () => {
     const ctx = gsap.context(() => {
       // Hero section animations
       const heroTl = gsap.timeline();
-      
+
       if (heroTitleRef.current) {
         heroTl.fromTo(
           heroTitleRef.current,
           { opacity: 0, y: 50, scale: 0.95 },
-          { 
-            opacity: 1, 
-            y: 0, 
+          {
+            opacity: 1,
+            y: 0,
             scale: 1,
             duration: 1,
             ease: 'power3.out'
@@ -55,8 +54,8 @@ const Services = () => {
         heroTl.fromTo(
           heroSubtitleRef.current,
           { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
+          {
+            opacity: 1,
             y: 0,
             duration: 0.8,
             ease: 'power2.out'
@@ -67,8 +66,8 @@ const Services = () => {
 
       // Services grid animations
       if (servicesGridRef.current && servicesGridRef.current.children) {
-        const cards = servicesGridRef.current.children;
-        
+        const cards = Array.from(servicesGridRef.current.children);
+
         if (cards && cards.length > 0) {
           gsap.fromTo(
             cards,
@@ -87,67 +86,69 @@ const Services = () => {
               }
             }
           );
-        }
 
           // Hover animations para cada card
-          Array.from(cards).forEach((card) => {
-          const icon = card.querySelector('.service-icon');
-          const features = card.querySelectorAll('.service-feature');
-          
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, {
-              y: -8,
-              boxShadow: '0 20px 40px rgba(139, 92, 246, 0.15)',
-              borderColor: 'rgba(139, 92, 246, 0.5)',
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-            
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1.15,
-                rotation: 5,
-                duration: 0.4,
-                ease: 'back.out(2)',
-              });
-            }
+          cards.forEach((card) => {
+            const icon = card.querySelector('.service-icon');
+            const features = card.querySelectorAll('.service-feature');
 
-            if (features.length) {
-              gsap.to(features, {
-                x: 5,
-                duration: 0.3,
-                stagger: 0.05,
-                ease: 'power2.out',
-              });
-            }
-          });
-
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-              y: 0,
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-              borderColor: 'hsl(var(--border))',
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-            
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1,
-                rotation: 0,
+            const handleMouseEnter = () => {
+              gsap.to(card, {
+                y: -8,
+                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.15)',
+                borderColor: 'rgba(139, 92, 246, 0.5)',
                 duration: 0.3,
                 ease: 'power2.out',
               });
-            }
 
-            if (features.length) {
-              gsap.to(features, {
-                x: 0,
+              if (icon) {
+                gsap.to(icon, {
+                  scale: 1.15,
+                  rotation: 5,
+                  duration: 0.4,
+                  ease: 'back.out(2)',
+                });
+              }
+
+              if (features.length > 0) {
+                gsap.to(features, {
+                  x: 5,
+                  duration: 0.3,
+                  stagger: 0.05,
+                  ease: 'power2.out',
+                });
+              }
+            };
+
+            const handleMouseLeave = () => {
+              gsap.to(card, {
+                y: 0,
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                borderColor: 'hsl(var(--border))',
                 duration: 0.3,
                 ease: 'power2.out',
               });
-            }
-          });
+
+              if (icon) {
+                gsap.to(icon, {
+                  scale: 1,
+                  rotation: 0,
+                  duration: 0.3,
+                  ease: 'power2.out',
+                });
+              }
+
+              if (features.length > 0) {
+                gsap.to(features, {
+                  x: 0,
+                  duration: 0.3,
+                  ease: 'power2.out',
+                });
+              }
+            };
+
+            card.addEventListener('mouseenter', handleMouseEnter);
+            card.addEventListener('mouseleave', handleMouseLeave);
           });
         }
       }
@@ -210,21 +211,24 @@ const Services = () => {
       // CTA button hover
       const button = ctaButtonRef.current;
       if (button) {
-        button.addEventListener('mouseenter', () => {
+        const handleButtonEnter = () => {
           gsap.to(button, {
             scale: 1.05,
             duration: 0.3,
             ease: 'power2.out',
           });
-        });
+        };
 
-        button.addEventListener('mouseleave', () => {
+        const handleButtonLeave = () => {
           gsap.to(button, {
             scale: 1,
             duration: 0.3,
             ease: 'power2.out',
           });
-        });
+        };
+
+        button.addEventListener('mouseenter', handleButtonEnter);
+        button.addEventListener('mouseleave', handleButtonLeave);
       }
     });
 
@@ -240,17 +244,17 @@ const Services = () => {
       />
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
-        <section 
+        <section
           ref={heroRef}
           className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 
+          <h1
             ref={heroTitleRef}
             className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0"
           >
             Nossos <span className="text-primary">Serviços</span>
           </h1>
-          <p 
+          <p
             ref={heroSubtitleRef}
             className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0"
           >
@@ -259,7 +263,7 @@ const Services = () => {
         </section>
 
         <section className="py-12 sm:py-16 lg:py-20 bg-background/50 border-y border-border">
-          <div 
+          <div
             ref={servicesGridRef}
             className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
@@ -286,18 +290,18 @@ const Services = () => {
           </div>
         </section>
 
-        <section 
+        <section
           ref={ctaSectionRef}
           className="py-12 sm:py-16 lg:py-20 bg-background"
         >
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <h2 
+            <h2
               ref={ctaTitleRef}
               className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-foreground mb-4 sm:mb-6 px-4 sm:px-0"
             >
               Vamos construir algo incrível juntos?
             </h2>
-            <p 
+            <p
               ref={ctaTextRef}
               className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 px-4 sm:px-0"
             >
