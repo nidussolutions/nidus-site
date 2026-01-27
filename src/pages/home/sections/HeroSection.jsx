@@ -53,13 +53,20 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       });
 
       // Buttons animation
-      gsap.from(buttonsRef.current.children, {
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        delay: 0.6,
-        stagger: 0.1,
-      });
+      gsap.fromTo(buttonsRef.current.children, 
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out',
+        }
+      );
 
       // Stats animation
       gsap.from(statsRef.current.children, {
@@ -150,6 +157,7 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
         <div
           ref={buttonsRef}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          style={{ opacity: 1 }}
         >
           <Button size="lg" onClick={onContact} className="group">
             Agende uma Reunião
