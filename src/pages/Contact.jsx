@@ -153,7 +153,6 @@ const Contact = () => {
               }
             }
           );
-        }
 
           // Hover animations para cada card
           Array.from(cards).forEach((card) => {
@@ -199,6 +198,7 @@ const Contact = () => {
             }
           });
         });
+        }
       }
     });
 
