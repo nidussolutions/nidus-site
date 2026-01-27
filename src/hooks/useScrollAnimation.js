@@ -2,11 +2,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Registrar plugin
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 /**
  * Hook para animações disparadas por scroll
  * @param {Object} config - Configuração da animação
@@ -20,14 +15,14 @@ export const useScrollAnimation = (config = {}, scrollConfig = {}) => {
 
     const defaultScrollConfig = {
       trigger: ref.current,
-      start: 'top 80%',
-      toggleActions: 'play none none reverse',
+      start: 'top 85%',
+      toggleActions: 'play none none none',
       ...scrollConfig,
     };
 
     const {
-      from = { opacity: 0, y: 50 },
-      to = { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      from = { opacity: 0, y: 30 },
+      to = { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
     } = config;
 
     const animation = gsap.fromTo(ref.current, from, {
@@ -52,10 +47,10 @@ export const useScrollAnimation = (config = {}, scrollConfig = {}) => {
 export const useScrollReveal = (options = {}) => {
   const {
     direction = 'up',
-    distance = 50,
-    duration = 0.8,
+    distance = 30,
+    duration = 0.5,
     delay = 0,
-    ease = 'power3.out',
+    ease = 'power2.out',
   } = options;
 
   const directionMap = {
@@ -70,7 +65,7 @@ export const useScrollReveal = (options = {}) => {
       from: { opacity: 0, ...directionMap[direction] },
       to: { opacity: 1, x: 0, y: 0, duration, delay, ease },
     },
-    { start: 'top 80%', toggleActions: 'play none none reverse' }
+    { start: 'top 85%', toggleActions: 'play none none none' }
   );
 };
 
@@ -118,12 +113,12 @@ export const useStaggerScrollReveal = (options = {}) => {
     if (!children.length) return;
 
     const {
-      from = { opacity: 0, y: 30 },
+      from = { opacity: 0, y: 20 },
       to = { opacity: 1, y: 0 },
-      stagger = 0.15,
-      duration = 0.6,
+      stagger = 0.08,
+      duration = 0.4,
       ease = 'power2.out',
-      start = 'top 80%',
+      start = 'top 85%',
     } = options;
 
     const animation = gsap.fromTo(children, from, {
@@ -134,7 +129,7 @@ export const useStaggerScrollReveal = (options = {}) => {
       scrollTrigger: {
         trigger: ref.current,
         start,
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play none none none',
       },
     });
 
@@ -183,10 +178,20 @@ export const useFadeInSection = (delay = 0) => {
   return useScrollAnimation(
     {
       from: { opacity: 0 },
-      to: { opacity: 1, duration: 1, delay, ease: 'power2.out' },
+      to: { opacity: 1, duration: 0.6, delay, ease: 'power2.out' },
     },
-    { start: 'top 75%', toggleActions: 'play none none reverse' }
+    { start: 'top 80%', toggleActions: 'play none none none' }
   );
 };
 
+export const useFadeInStagger = (stagger = 0.1, delay = 0) => {
+  return useStaggerScrollReveal({
+    from: { opacity: 0, y: 20 },
+    to: { opacity: 1, y: 0, duration: 0.5, delay, ease: 'power2.out' },
+    stagger,
+    start: 'top 80%',
+  });
+}
+
 export default useScrollAnimation;
+

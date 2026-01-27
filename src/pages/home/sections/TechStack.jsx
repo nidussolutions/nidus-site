@@ -3,8 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SiReact, SiNodedotjs, SiTypescript, SiTailwindcss, SiSupabase, SiPython, SiDocker, SiFigma } from 'react-icons/si';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const technologies = [
   { name: 'React', icon: SiReact, color: '#61DAFB', description: 'Interfaces modernas' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', description: 'Backend robusto' },

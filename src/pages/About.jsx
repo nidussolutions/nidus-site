@@ -5,10 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const values = [
   {
     icon: Zap,

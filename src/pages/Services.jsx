@@ -7,10 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const services = [
   { icon: Code, title: 'Desenvolvimento Web Sob Medida', description: 'Criamos sites, landing pages e sistemas web com React e outras tecnologias de ponta, com foco em performance e SEO.', features: ['Sites Institucionais', 'Landing Pages de Conversão', 'Plataformas Web Complexas', 'Otimização de Performance (Core Web Vitals)'], },
   { icon: Zap, title: 'Automação de Processos', description: 'Desenvolvemos workflows de automação para conectar suas ferramentas, eliminar tarefas manuais e otimizar a eficiência operacional.', features: ['Integração de APIs', 'Automação de Marketing e Vendas', 'Sincronização de Dados', 'Processos de Onboarding Automatizados'], },

@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const projects = [
   {
     title: 'E-commerce de Alto Desempenho',

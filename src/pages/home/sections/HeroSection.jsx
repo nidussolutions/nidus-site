@@ -4,10 +4,6 @@ import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const text1 = 'Transformando Ideias em';
 const text2 = 'Soluções Digitais';
 
@@ -27,15 +23,15 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    const animDuration = isMobile ? 0.25 : 0.5;
-    const animStagger = isMobile ? 0.02 : 0.04;
+    const animDuration = isMobile ? 0.2 : 0.35;
+    const animStagger = isMobile ? 0.015 : 0.025;
     
     const ctx = gsap.context(() => {
       // Badge animation
       if (badgeRef.current) {
         gsap.from(badgeRef.current, {
           opacity: 0,
-          y: isMobile ? 10 : 20,
+          y: isMobile ? 8 : 15,
           duration: animDuration,
         });
       }
@@ -45,9 +41,9 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
         if (titleRef.current) {
           gsap.from(titleRef.current, {
             opacity: 0,
-            y: 10,
+            y: 8,
             duration: animDuration,
-            delay: 0.1,
+            delay: 0.05,
           });
         }
       } else {
@@ -56,10 +52,10 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
           if (letters && letters.length > 0) {
             gsap.from(letters, {
               opacity: 0,
-              y: 20,
-              duration: 0.6,
+              y: 15,
+              duration: 0.4,
               stagger: animStagger,
-              delay: 0.2,
+              delay: 0.1,
             });
           }
         }
@@ -69,9 +65,9 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       if (descRef.current) {
         gsap.from(descRef.current, {
           opacity: 0,
-          y: isMobile ? 10 : 20,
+          y: isMobile ? 8 : 15,
           duration: animDuration,
-          delay: isMobile ? 0.15 : 0.4,
+          delay: isMobile ? 0.1 : 0.25,
         });
       }
 
@@ -80,14 +76,14 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
         gsap.fromTo(buttonsRef.current.children,
           {
             opacity: 0,
-            y: isMobile ? 10 : 20,
+            y: isMobile ? 8 : 15,
           },
           {
             opacity: 1,
             y: 0,
             duration: animDuration,
-            delay: isMobile ? 0.2 : 0.6,
-            stagger: isMobile ? 0.05 : 0.1,
+            delay: isMobile ? 0.15 : 0.35,
+            stagger: isMobile ? 0.04 : 0.08,
             ease: 'power2.out',
           }
         );
@@ -97,10 +93,10 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       if (statsRef.current && statsRef.current.children && statsRef.current.children.length > 0) {
         gsap.from(statsRef.current.children, {
           opacity: 0,
-          y: isMobile ? 10 : 20,
+          y: isMobile ? 8 : 15,
           duration: animDuration,
-          delay: isMobile ? 0.25 : 0.8,
-          stagger: isMobile ? 0.05 : 0.1,
+          delay: isMobile ? 0.2 : 0.45,
+          stagger: isMobile ? 0.04 : 0.08,
         });
       }
 
@@ -124,7 +120,7 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
         if (chevron) {
           gsap.to(chevron, {
             y: 6,
-            duration: isMobile ? 1 : 1.5,
+            duration: isMobile ? 0.8 : 1.2,
             repeat: -1,
             yoyo: true,
             ease: 'power1.inOut',

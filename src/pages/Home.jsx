@@ -3,10 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
 import PromotionPopup from '@/components/PromotionPopup';

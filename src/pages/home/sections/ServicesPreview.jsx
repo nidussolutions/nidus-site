@@ -5,8 +5,6 @@ import { Code, Zap, Database, Smartphone, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const services = [
     {
         icon: Code,

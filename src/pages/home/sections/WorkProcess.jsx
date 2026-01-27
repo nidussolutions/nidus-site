@@ -3,8 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Lightbulb, FileCode, Rocket, LineChart, Check } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const processSteps = [
   {
     icon: Lightbulb,

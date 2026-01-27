@@ -40,7 +40,14 @@ export default defineConfig({
         "./src/main.jsx",
         "./src/pages/**/*.jsx",
         "./src/components/**/*.jsx",
+        "./src/hooks/**/*.js",
+        "./src/lib/**/*.js",
       ],
+    },
+  },
+  preview: {
+    headers: {
+      "Cache-Control": "public, max-age=31536000, immutable",
     },
   },
   resolve: {
@@ -106,6 +113,7 @@ export default defineConfig({
       "react-router-dom",
       "framer-motion",
       "gsap",
+      "gsap/ScrollTrigger",
     ],
     exclude: [
       "@babel/parser",
@@ -113,6 +121,7 @@ export default defineConfig({
       "@babel/generator",
       "@babel/types",
     ],
+    force: false,
   },
   esbuild: {
     logOverride: { "this-is-undefined-in-esm": "silent" },

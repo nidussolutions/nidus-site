@@ -3,8 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Star, Quote } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const testimonials = [
   {
     name: 'Carlos Silva',
