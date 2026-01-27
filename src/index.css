@@ -83,6 +83,7 @@
   html {
     @apply scroll-smooth;
     overflow-x: hidden;
+    width: 100%;
   }
   
   body {
@@ -92,6 +93,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    width: 100%;
+  }
+  
+  #root {
+    overflow-x: hidden;
+    width: 100%;
   }
   
   /* Custom Scrollbar - Design System */

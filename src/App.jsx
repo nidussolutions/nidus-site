@@ -51,7 +51,7 @@ const App = () => {
 
   // Renderiza o app principal com fade in suave
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in overflow-x-hidden">
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
