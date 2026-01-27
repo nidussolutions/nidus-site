@@ -1,0 +1,133 @@
+import { motion } from 'framer-motion';
+import { Star, Quote } from 'lucide-react';
+
+const testimonials = [
+  {
+    name: 'Carlos Silva',
+    role: 'CEO, TechStart',
+    company: 'TechStart Solutions',
+    rating: 5,
+    text: 'A Nidus transformou completamente nosso processo de vendas. O sistema desenvolvido aumentou nossa eficiência em 60% e a experiência do cliente melhorou drasticamente.',
+    avatar: 'CS',
+  },
+  {
+    name: 'Marina Costa',
+    role: 'Diretora de Marketing',
+    company: 'Innovate Digital',
+    rating: 5,
+    text: 'Profissionalismo e qualidade excepcionais. A equipe entendeu perfeitamente nossa visão e entregou além das expectativas. Recomendo fortemente!',
+    avatar: 'MC',
+  },
+  {
+    name: 'Pedro Santos',
+    role: 'Founder',
+    company: 'FoodTech Pro',
+    rating: 5,
+    text: 'O app desenvolvido pela Nidus revolucionou nosso negócio. Interface intuitiva, performance impecável e suporte sempre presente. Parceria de longo prazo garantida!',
+    avatar: 'PS',
+  },
+];
+
+const Testimonials = () => {
+  return (
+    <section className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            O Que Nossos Clientes Dizem
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Confiança construída através de resultados reais
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={testimonial.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className="relative group"
+            >
+              <div className="relative h-full p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
+                {/* Quote Icon */}
+                <div className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 opacity-50 group-hover:opacity-100 transition-opacity">
+                  <Quote className="w-6 h-6 text-primary" />
+                </div>
+
+                {/* Rating */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+
+                {/* Testimonial Text */}
+                <p className="text-muted-foreground mb-6 leading-relaxed italic">
+                  "{testimonial.text}"
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 pt-4 border-t border-border">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <div className="font-semibold">{testimonial.name}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {testimonial.role}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonial.company}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Trust Indicators */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex items-center gap-8 p-6 bg-card border rounded-2xl">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary mb-1">4.9/5</div>
+              <div className="text-sm text-muted-foreground">Avaliação Média</div>
+            </div>
+            <div className="h-12 w-px bg-border" />
+            <div className="text-center">
+              <div className="text-3xl font-bold text-secondary mb-1">100%</div>
+              <div className="text-sm text-muted-foreground">Satisfação</div>
+            </div>
+            <div className="h-12 w-px bg-border" />
+            <div className="text-center">
+              <div className="text-3xl font-bold text-accent mb-1">50+</div>
+              <div className="text-sm text-muted-foreground">Clientes Felizes</div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonials;

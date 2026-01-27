@@ -9,6 +9,10 @@ import SEO from '@/components/SEO';
 
 import HeroSection from './home/sections/HeroSection';
 import ServicesPreview from './home/sections/ServicesPreview';
+import TechStack from './home/sections/TechStack';
+import Portfolio from './home/sections/Portfolio';
+import WorkProcess from './home/sections/WorkProcess';
+import Testimonials from './home/sections/Testimonials';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -41,9 +45,9 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="Desenvolvimento Web e Automação Inteligente"
-        description="Agência especialista em desenvolvimento web moderno e automação de processos para o Brasil."
-        keywords="desenvolvimento web, automação, react, javascript, nidus"
+        title="Desenvolvimento Web e Automação Inteligente | Nidus"
+        description="Transformamos ideias em soluções digitais inovadoras. Agência especialista em desenvolvimento web moderno, automação e tecnologia de ponta."
+        keywords="desenvolvimento web, automação, react, typescript, node.js, nidus, agência digital, software house"
       />
 
       <PromotionPopup isOpen={isPopupOpen} onOpenChange={setIsPopupOpen} />
@@ -58,6 +62,14 @@ const Home = () => {
         </motion.div>
 
         <ServicesPreview />
+
+        <TechStack />
+
+        <Portfolio />
+
+        <WorkProcess />
+
+        <Testimonials />
 
         <section className="border-t border-border">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">

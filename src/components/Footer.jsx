@@ -1,31 +1,40 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Instagram, Send, Loader2 } from 'lucide-react';
+import { Linkedin, Instagram, Send, Loader2, Mail, MapPin, Phone, Github } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
 const footerLinks = {
-  Navegação: [
+  Empresa: [
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Serviços', path: '/services' },
-    { name: 'Projetos', path: '/portfolio' },
+    { name: 'Carreiras', path: '/careers' },
     { name: 'Contato', path: '/contact' },
+  ],
+  Recursos: [
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Cases de Sucesso', path: '/cases' },
   ],
   Legal: [
     { name: 'Política de Privacidade', path: '/privacy-policy' },
     { name: 'Termos de Serviço', path: '/terms-of-service' },
     { name: 'Política de Cookies', path: '/cookies-policy' },
   ],
-  Recursos: [
-    { name: 'FAQ', path: '/faq' },
-  ],
 };
+
+const contactInfo = [
+  { icon: Mail, text: 'contato@nidus.dev', href: 'mailto:contato@nidus.dev' },
+  { icon: Phone, text: '+55 (11) 9 9999-9999', href: 'tel:+5511999999999' },
+  { icon: MapPin, text: 'São Paulo, Brasil' },
+];
 
 const socialLinks = [
   { icon: Linkedin, href: 'https://www.linkedin.com/company/nidus-solu%C3%A7%C3%B5es-digitais', label: 'LinkedIn' },
   { icon: Instagram, href: 'https://www.instagram.com/mynidus/', label: 'Instagram' },
+  { icon: Github, href: 'https://github.com/nidus', label: 'GitHub' },
 ];
 
 const isValidEmail = (email) =>
@@ -94,69 +103,68 @@ const Footer = () => {
   };
 
   return (
-    <footer className="nidus-blue text-nidus-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="relative bg-gradient-to-b from-background to-muted/50 border-t border-border">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-
-          <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-md border-2 border-nidus-purple flex items-center justify-center">
-                <span className="text-xl font-bold text-nidus-purple">N</span>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
+          {/* Brand Section */}
+          <div className="lg:col-span-4">
+            <Link to="/" className="flex items-center gap-2 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <span className="text-xl font-bold text-white">N</span>
               </div>
-              <span className="text-xl font-semibold">Nidus</span>
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                Nidus
+              </span>
             </Link>
 
-            <p className="text-gray-300 text-sm max-w-xs mb-6">
-              Construindo o futuro digital com desenvolvimento web moderno e automação inteligente.
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Transformamos ideias em soluções digitais inovadoras.
+              Desenvolvimento web moderno e automação inteligente para impulsionar seu negócio.
             </p>
 
-            <p id="newsletter-heading" className="font-semibold mb-3">
-              Inscreva-se na nossa newsletter
-            </p>
+            {/* Contact Info */}
+            <div className="space-y-3">
+              {contactInfo.map((item) => {
+                const Icon = item.icon;
+                const content = (
+                  <>
+                    <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">{item.text}</span>
+                  </>
+                );
 
-            <form
-              onSubmit={handleNewsletterSubmit}
-              className="flex gap-2 max-w-sm"
-              aria-labelledby="newsletter-heading"
-            >
-              <Input
-                type="email"
-                placeholder="Seu melhor email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-                aria-label="Email para newsletter"
-                className="bg-nidus-dark border-nidus-blue-light text-black h-11"
-              />
-
-              <Button
-                type="submit"
-                size="icon"
-                disabled={loading}
-                aria-label="Inscrever-se"
-                className="bg-nidus-purple h-11 w-11"
-              >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                return item.href ? (
+                  <a
+                    key={item.text}
+                    href={item.href}
+                    className="flex items-center gap-3 hover:text-primary transition-colors"
+                  >
+                    {content}
+                  </a>
                 ) : (
-                  <Send className="w-5 h-5" />
-                )}
-              </Button>
-            </form>
+                  <div key={item.text} className="flex items-center gap-3">
+                    {content}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:col-span-3">
+          {/* Links Sections */}
+          <div className="lg:col-span-5 grid grid-cols-3 gap-8">
             {Object.entries(footerLinks).map(([category, links]) => (
               <nav key={category}>
-                <p className="font-semibold mb-4">{category}</p>
+                <p className="font-semibold mb-4 text-foreground">{category}</p>
                 <ul className="space-y-3">
                   {links.map(({ name, path }) => (
                     <li key={name}>
                       <Link
                         to={path}
-                        className="text-gray-300 hover:text-nidus-white text-sm transition"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
                       >
                         {name}
                       </Link>
@@ -166,27 +174,74 @@ const Footer = () => {
               </nav>
             ))}
           </div>
+
+          {/* Newsletter Section */}
+          <div className="lg:col-span-3">
+            <p className="font-semibold mb-2 text-foreground">Newsletter</p>
+            <p className="text-sm text-muted-foreground mb-4">
+              Receba insights e novidades sobre tecnologia
+            </p>
+
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="space-y-3"
+              aria-labelledby="newsletter-heading"
+            >
+              <Input
+                type="email"
+                placeholder="Seu melhor email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                aria-label="Email para newsletter"
+                className="h-11"
+              />
+
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full group"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                    Inscrever-se
+                  </>
+                )}
+              </Button>
+            </form>
+          </div>
         </div>
 
-        {/* Bottom */}
-        <div className="pt-8 border-t border-nidus-blue-light flex flex-col-reverse sm:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-gray-400">
-            &copy; {currentYear} Nidus. Todos os direitos reservados.
-          </p>
+        {/* Bottom Section */}
+        <div className="pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Copyright */}
+            <p className="text-sm text-muted-foreground">
+              &copy; {currentYear} Nidus. Todos os direitos reservados.
+            </p>
 
-          <div className="flex gap-4">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-nidus-blue-light bg-nidus-blue-dark/50 hover:bg-nidus-blue-light/80 transition"
-              >
-                <Icon className="w-4 h-4 text-gray-300" />
-              </a>
-            ))}
+            {/* Social Links */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-muted-foreground mr-2">Siga-nos:</span>
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
