@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
+import { useSplashScreen } from '@/hooks/useSplashScreen';
+import { getSplashComponent, SPLASH_CONFIG } from '@/components/SplashConfig';
 
 // Eager loading - Components críticos carregados imediatamente
 import PublicLayout from '@/components/PublicLayout';
@@ -29,9 +31,25 @@ const PageLoader = () => (
 
 const App = () => {
   const location = useLocation();
+  const { showSplash, handleSplashComplete } = useSplashScreen(
+    SPLASH_CONFIG.minDisplayTime,
+    SPLASH_CONFIG.persistPreference
+  );
 
+  // Mostra splash screen
+  if (showSplash) {
+    const SplashComponent = getSplashComponent();
+    return (
+      <SplashComponent 
+        onComplete={handleSplashComplete}
+        showSkipButton={SPLASH_CONFIG.showSkipButton}
+      />
+    );
+  }
+
+  // Renderiza o app principal com fade in suave
   return (
-    <>
+    <div className="animate-fade-in">
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
@@ -60,7 +78,7 @@ const App = () => {
         </Routes>
       </AnimatePresence>
       <Toaster />
-    </>
+    </div>
   );
 };
 
