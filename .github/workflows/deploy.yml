@@ -32,3 +32,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           target: ${{ secrets.SSH_PATH }}
           source: 'dist/*'
+          strip_components: 1
+          rm: true
