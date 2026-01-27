@@ -103,25 +103,25 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-20 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div
           ref={headerRef}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             O Que Nossos Clientes Dizem
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
             Confiança construída através de resultados reais
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.name}
@@ -130,10 +130,10 @@ const Testimonials = () => {
               onMouseLeave={(e) => handleTestimonialHover(e, false)}
               className="relative group"
             >
-              <div className="relative h-full p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
+              <div className="relative h-full p-6 sm:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
                 {/* Quote Icon */}
-                <div className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 opacity-50 group-hover:opacity-100 transition-opacity">
-                  <Quote className="w-6 h-6 text-primary" />
+                <div className="absolute top-4 sm:top-6 right-4 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-primary/10 opacity-50 group-hover:opacity-100 transition-opacity">
+                  <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
 
                 {/* Rating */}
@@ -144,7 +144,7 @@ const Testimonials = () => {
                 </div>
 
                 {/* Testimonial Text */}
-                <p className="text-muted-foreground mb-6 leading-relaxed italic">
+                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed italic">
                   "{testimonial.text}"
                 </p>
 

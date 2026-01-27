@@ -124,18 +124,18 @@ const WorkProcess = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-muted/30 to-background relative">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background relative">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div
           ref={headerRef}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Nossa Metodologia
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
             Um processo transparente e colaborativo do início ao fim
           </p>
         </div>
@@ -145,7 +145,7 @@ const WorkProcess = () => {
           {/* Vertical Line - Desktop */}
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-secondary to-accent" />
 
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-12 sm:space-y-16 md:space-y-24">
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               const isEven = index % 2 === 0;
@@ -163,21 +163,21 @@ const WorkProcess = () => {
                     <div
                       onMouseEnter={(e) => handleStepHover(e, true)}
                       onMouseLeave={(e) => handleStepHover(e, false)}
-                      className="inline-block p-8 bg-card border rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full"
+                      className="inline-block p-6 sm:p-8 bg-card border rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full"
                     >
-                      <div className={`flex items-center gap-4 mb-4 ${isEven ? '' : 'md:flex-row-reverse'}`}>
-                        <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20">
-                          <Icon className="w-7 h-7 text-primary" />
+                      <div className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 ${isEven ? '' : 'md:flex-row-reverse'}`}>
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20">
+                          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-primary mb-1">
+                          <div className="text-xs sm:text-sm font-medium text-primary mb-1">
                             Etapa {index + 1}
                           </div>
-                          <h3 className="text-2xl font-bold">{step.title}</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold">{step.title}</h3>
                         </div>
                       </div>
 
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                      <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">
                         {step.description}
                       </p>
 
@@ -211,10 +211,10 @@ const WorkProcess = () => {
         {/* CTA */}
         <div
           ref={ctaRef}
-          className="mt-20 text-center p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl border"
+          className="mt-12 sm:mt-16 lg:mt-20 text-center p-6 sm:p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl border"
         >
-          <h3 className="text-2xl font-bold mb-3">Pronto para começar?</h3>
-          <p className="text-muted-foreground mb-4">
+          <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Pronto para começar?</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 px-4 sm:px-0">
             Vamos transformar sua ideia em realidade com um processo comprovado
           </p>
         </div>

@@ -100,7 +100,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-2 border-primary-200 text-foreground max-w-lg p-0 overflow-hidden rounded-3xl shadow-2xl shadow-primary-500/10">
+      <DialogContent className="bg-white border-2 border-primary-200 text-foreground max-w-[95vw] sm:max-w-lg p-0 overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl shadow-primary-500/10 max-h-[90vh] overflow-y-auto">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
@@ -142,10 +142,10 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
         >
           {/* Header */}
           <div className="relative border-b border-primary-200/60 bg-gradient-to-br from-primary-50/80 via-white/50 to-accent-50/60">
-            <DialogHeader className="p-8 text-center items-center">
+            <DialogHeader className="p-4 sm:p-6 md:p-8 text-center items-center">
               {/* Icon with Animation */}
               <motion.div 
-                className="relative w-20 h-20 mb-6"
+                className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ 
@@ -156,7 +156,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 rounded-2xl opacity-15 blur-xl animate-pulse" />
                 <div className="relative w-full h-full bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl flex items-center justify-center border-2 border-primary-300 backdrop-blur-sm">
-                  <Gift className="w-10 h-10 text-primary-600" />
+                  <Gift className="w-8 h-8 sm:w-10 sm:h-10 text-primary-600" />
                   <motion.div
                     className="absolute -top-1 -right-1"
                     animate={{ 
@@ -169,7 +169,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                       ease: "easeInOut"
                     }}
                   >
-                    <Sparkles className="w-5 h-5 text-accent-500" />
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
                   </motion.div>
                 </div>
               </motion.div>
@@ -180,7 +180,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <DialogTitle className="text-3xl font-bold tracking-tight text-gray-900 mb-3">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 mb-2 sm:mb-3">
                   Ganhe{' '}
                   <span className="bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-500 text-transparent bg-clip-text animate-gradient-x">
                     40% OFF
@@ -196,7 +196,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <DialogDescription className="text-muted-foreground text-base leading-relaxed max-w-md">
+                <DialogDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-md px-2 sm:px-0">
                   Participe da nossa newsletter e receba um desconto exclusivo,
                   além de conteúdos sobre tecnologia, automação e produtividade.
                 </DialogDescription>
@@ -225,7 +225,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <div className="px-8 py-6 space-y-5">
+            <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 space-y-4 sm:space-y-5">
               {/* Email Input */}
               <div className="space-y-2">
                 <label
@@ -240,7 +240,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                     id="promo-email"
                     type="email"
                     placeholder="seu.email@exemplo.com"
-                    className="bg-white border-gray-300 text-gray-900 h-12 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:border-primary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-primary-400"
+                    className="bg-white border-gray-300 text-gray-900 h-11 sm:h-12 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:border-primary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-primary-400"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -278,7 +278,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
                     id="promo-phone"
                     type="tel"
                     placeholder="(00) 90000-0000"
-                    className="bg-white border-gray-300 text-gray-900 h-12 focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:border-secondary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-secondary-400"
+                    className="bg-white border-gray-300 text-gray-900 h-11 sm:h-12 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:border-secondary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-secondary-400"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     disabled={loading}
@@ -299,7 +299,7 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
             </div>
 
             {/* Footer */}
-            <DialogFooter className="px-8 pb-8 pt-2 flex flex-col sm:flex-row sm:justify-between gap-3 bg-gradient-to-t from-gray-50/80 to-transparent">
+            <DialogFooter className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 pt-2 flex flex-col sm:flex-row sm:justify-between gap-3 bg-gradient-to-t from-gray-50/80 to-transparent">
               <Button
                 type="button"
                 variant="ghost"

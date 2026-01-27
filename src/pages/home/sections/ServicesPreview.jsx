@@ -143,25 +143,25 @@ const ServicesPreview = () => {
         <section
             ref={sectionRef}
             id="services-preview"
-            className="py-24 bg-gradient-to-b from-muted/30 to-background relative"
+            className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background relative"
         >
             {/* Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <div
                     ref={headerRef}
-                    className="text-center mb-16"
+                    className="text-center mb-12 sm:mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
                         Soluções Completas para seu Negócio
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
                         Do conceito ao deploy, cuidamos de cada detalhe do seu projeto digital
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto mb-8 sm:mb-12">
                     {services.map(({ icon: Icon, title, description, gradient, iconColor }, index) => (
                         <div
                             key={title}
@@ -171,22 +171,22 @@ const ServicesPreview = () => {
                             className="group relative"
                         >
                             {/* Card */}
-                            <div className="relative h-full p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                            <div className="relative h-full p-6 sm:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 overflow-hidden">
                                 {/* Gradient Background */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                                 
                                 {/* Content */}
                                 <div className="relative z-10">
                                     <div
-                                        className={`icon-wrapper w-14 h-14 mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
+                                        className={`icon-wrapper w-12 h-12 sm:w-14 sm:h-14 mb-4 sm:mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
                                     >
-                                        <Icon className={`${iconColor} w-7 h-7`} />
+                                        <Icon className={`${iconColor} w-6 h-6 sm:w-7 sm:h-7`} />
                                     </div>
                                     
-                                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">
                                         {title}
                                     </h3>
-                                    <p className="text-muted-foreground leading-relaxed">
+                                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                                         {description}
                                     </p>
                                 </div>

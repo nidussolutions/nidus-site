@@ -99,21 +99,21 @@ const TechStack = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/30">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div
           ref={headerRef}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Tecnologias de Ponta
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
             Utilizamos as ferramentas mais modernas e confiáveis do mercado para garantir a melhor qualidade
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
           {technologies.map((tech, index) => {
             const Icon = tech.icon;
             return (
@@ -122,14 +122,14 @@ const TechStack = () => {
                 ref={(el) => (techRefs.current[index] = el)}
                 onMouseEnter={(e) => handleTechHover(e, true)}
                 onMouseLeave={(e) => handleTechHover(e, false)}
-                className="group relative bg-card border rounded-xl p-6 text-center hover:border-primary/50 hover:shadow-xl transition-all duration-300"
+                className="group relative bg-card border rounded-xl p-4 sm:p-6 text-center hover:border-primary/50 hover:shadow-xl transition-all duration-300"
               >
                 {/* Gradient Background on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="relative z-10">
                   <div
-                    className="tech-icon w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                    className="tech-icon w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 flex items-center justify-center"
                   >
                     <Icon
                       className="w-full h-full"
@@ -137,8 +137,8 @@ const TechStack = () => {
                     />
                   </div>
                   
-                  <h3 className="font-bold text-lg mb-1">{tech.name}</h3>
-                  <p className="text-sm text-muted-foreground">{tech.description}</p>
+                  <h3 className="font-bold text-base sm:text-lg mb-1">{tech.name}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{tech.description}</p>
                 </div>
 
                 {/* Glow Effect */}

@@ -73,24 +73,24 @@ const About = () => {
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
         <section 
           ref={heroRef}
-          className="py-16 sm:py-20 px-6 text-center"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0">
             Nós somos a <span className="text-primary">Nidus</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0">
             Uma agência de desenvolvimento e automação dedicada a construir o futuro digital do seu negócio.
           </p>
         </section>
 
-        <section className="py-20 bg-background/50 border-y border-border">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <section className="py-12 sm:py-16 lg:py-20 bg-background/50 border-y border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
               <div ref={missionRef}>
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter mb-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-4 sm:mb-6">
                   Nossa Missão: <span className="text-primary">Inovar e Otimizar</span>
                 </h2>
-                <div className="space-y-4 text-muted-foreground">
+                <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-muted-foreground">
                   <p>
                     A Nidus nasceu da convicção de que a tecnologia deve ser uma aliada estratégica. Nosso objetivo é libertar empresas de tarefas manuais e repetitivas, permitindo que elas se concentrem em inovação e crescimento.
                   </p>
@@ -103,7 +103,7 @@ const About = () => {
                 ref={imageRef}
                 className="flex justify-center"
               >
-                <div className="relative w-full max-w-md h-96 rounded-lg overflow-hidden border border-border shadow-lg">
+                <div className="relative w-full max-w-md h-64 sm:h-80 lg:h-96 rounded-lg overflow-hidden border border-border shadow-lg">
                   <img className="w-full h-full object-cover" alt="Equipe de desenvolvimento colaborando em um escritório moderno, com gráficos digitais sobrepostos." src="/about.jpg" />
                 </div>
               </div>
@@ -112,33 +112,33 @@ const About = () => {
         </section>
 
         {/* Values Section */}
-        <section className="py-20 sm:py-24">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <section className="py-12 sm:py-16 lg:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
               ref={valuesHeaderRef}
-              className="text-center mb-16"
+              className="text-center mb-10 sm:mb-12 lg:mb-16"
             >
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-foreground mb-3 sm:mb-4 px-4 sm:px-0">
                 Nossos Valores
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
                 Os princípios que guiam cada linha de código e cada projeto que entregamos.
               </p>
             </div>
 
             <div
               ref={valuesGridRef}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
             >
               {values.map((value) => (
                 <div
                   key={value.title}
-                  className="p-6 bg-card rounded-lg border border-border text-center shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
+                  className="p-5 sm:p-6 bg-card rounded-lg border border-border text-center shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
                 >
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-4">
-                    <value.icon className="w-6 h-6 text-primary" />
+                  <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 mx-auto mb-3 sm:mb-4">
+                    <value.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-card-foreground mb-2">{value.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">{value.title}</h3>
                   <p className="text-muted-foreground text-sm">{value.description}</p>
                 </div>
               ))}

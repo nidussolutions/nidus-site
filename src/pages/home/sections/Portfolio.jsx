@@ -112,39 +112,39 @@ const Portfolio = () => {
   };
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div
           ref={headerRef}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Projetos que Impactam
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
             Conheça alguns dos projetos que desenvolvemos e os resultados alcançados
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
           {projects.map((project, index) => (
             <div
               key={project.title}
               ref={(el) => (projectsRef.current[index] = el)}
               className="group relative"
             >
-              <div className="relative h-full p-8 bg-card border rounded-2xl hover:border-primary/30 hover:shadow-2xl transition-all duration-300 overflow-hidden">
+              <div className="relative h-full p-6 sm:p-8 bg-card border rounded-2xl hover:border-primary/30 hover:shadow-2xl transition-all duration-300 overflow-hidden">
                 {/* Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                 
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Category Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                  <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 mb-3 sm:mb-4 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium">
                     {project.category}
                   </div>
 

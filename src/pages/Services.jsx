@@ -59,31 +59,31 @@ const Services = () => {
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
         <section 
           ref={heroRef}
-          className="py-16 sm:py-20 px-6 text-center"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0">
             Nossos <span className="text-primary">Serviços</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0">
             Soluções completas para transformar sua presença digital e otimizar suas operações.
           </p>
         </section>
 
-        <section className="py-20 bg-background/50 border-y border-border">
+        <section className="py-12 sm:py-16 lg:py-20 bg-background/50 border-y border-border">
           <div 
             ref={servicesGridRef}
-            className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
             {services.map((service) => (
               <div
                 key={service.title}
-                className="p-8 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors flex flex-col shadow-sm hover:shadow-lg"
+                className="p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors flex flex-col shadow-sm hover:shadow-lg"
               >
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
                   <service.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h2 className="text-xl font-bold text-card-foreground mb-3">{service.title}</h2>
-                <p className="text-muted-foreground mb-6 flex-grow">{service.description}</p>
+                <h2 className="text-lg sm:text-xl font-bold text-card-foreground mb-3">{service.title}</h2>
+                <p className="text-sm sm:text-base text-muted-foreground mb-6 flex-grow">{service.description}</p>
                 <ul className="space-y-2 text-sm">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center text-foreground">
@@ -97,15 +97,15 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-20 sm:py-24 bg-background">
+        <section className="py-12 sm:py-16 lg:py-20 bg-background">
           <div
             ref={ctaRef}
-            className="max-w-4xl mx-auto px-6 text-center"
+            className="max-w-4xl mx-auto px-4 sm:px-6 text-center"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-foreground mb-4 sm:mb-6 px-4 sm:px-0">
               Vamos construir algo incrível juntos?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 px-4 sm:px-0">
               Pronto para levar seu negócio para o próximo nível com tecnologia e automação?
             </p>
             <Button

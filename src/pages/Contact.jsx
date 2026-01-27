@@ -70,27 +70,27 @@ const Contact = () => {
         {/* Hero Section */}
         <section 
           ref={heroRef}
-          className="py-16 sm:py-20 px-6 text-center"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0">
             Vamos Conversar?
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0">
             Estamos ansiosos para ouvir sobre seu projeto e como podemos ajudar.
           </p>
         </section>
 
         {/* Contact Section */}
-        <section className="pb-20">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
+        <section className="pb-12 sm:pb-16 lg:pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-16">
               {/* Contact Form (Left Column) */}
               <div
                 ref={formRef}
                 className="lg:col-span-3"
               >
-                <div className="bg-card rounded-lg border border-border p-6 sm:p-8 h-full shadow-sm">
-                  <h2 className="text-2xl font-bold text-card-foreground mb-6">Envie uma mensagem</h2>
+                <div className="bg-card rounded-lg border border-border p-5 sm:p-6 md:p-8 h-full shadow-sm">
+                  <h2 className="text-xl sm:text-2xl font-bold text-card-foreground mb-4 sm:mb-6">Envie uma mensagem</h2>
                   <ContactForm />
                 </div>
               </div>
@@ -98,7 +98,7 @@ const Contact = () => {
               {/* Contact Info (Right Column) */}
               <div 
                 ref={contactInfoRef}
-                className="lg:col-span-2 flex flex-col gap-6"
+                className="lg:col-span-2 flex flex-col gap-4 sm:gap-6"
               >
                 {contactInfo.map((info) => (
                   <a
@@ -106,14 +106,14 @@ const Contact = () => {
                     href={info.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors shadow-sm"
+                    className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors shadow-sm"
                   >
-                    <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
-                      <info.icon className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10">
+                      <info.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-card-foreground">{info.title}</h3>
-                      <p className="text-muted-foreground">{info.content}</p>
+                      <h3 className="text-base sm:text-lg font-bold text-card-foreground">{info.title}</h3>
+                      <p className="text-sm sm:text-base text-muted-foreground">{info.content}</p>
                     </div>
                   </a>
                 ))}

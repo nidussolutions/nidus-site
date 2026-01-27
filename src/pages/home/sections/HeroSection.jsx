@@ -53,7 +53,7 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       });
 
       // Buttons animation
-      gsap.fromTo(buttonsRef.current.children, 
+      gsap.fromTo(buttonsRef.current.children,
         {
           opacity: 0,
           y: 20,
@@ -103,10 +103,10 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
   }, []);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-0 relative overflow-hidden">
       {/* Grid Background Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
-      
+
       {/* Gradient Orbs */}
       <div className="absolute top-20 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 -right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
@@ -116,17 +116,17 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
       <div className="relative z-10">
         <div
           ref={badgeRef}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-primary/10 border border-primary/20"
+          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6 rounded-full bg-primary/10 border border-primary/20"
         >
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium text-primary">
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+          <span className="text-xs sm:text-sm font-medium text-primary">
             Desenvolvimento Sob Medida
           </span>
         </div>
 
-        <h1 
+        <h1
           ref={titleRef}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-muted-foreground"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-muted-foreground"
         >
           <span className="block">
             {text1.split('').map((char, i) => (
@@ -147,7 +147,7 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
 
         <p
           ref={descRef}
-          className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed"
+          className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-10 leading-relaxed px-2 sm:px-0"
         >
           Somos especialistas em desenvolvimento web moderno e automação inteligente.
           <br className="hidden md:block" />
@@ -156,15 +156,15 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
 
         <div
           ref={buttonsRef}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 w-full sm:w-auto px-4 sm:px-0"
           style={{ opacity: 1 }}
         >
-          <Button size="lg" onClick={onContact} className="group">
+          <Button size="lg" onClick={onContact} className="group w-full sm:w-auto">
             Agende uma Reunião
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
 
-          <Button size="lg" variant="outline" onClick={onServices} className="group">
+          <Button size="lg" variant="outline" onClick={onServices} className="group w-full sm:w-auto">
             <Code2 className="mr-2 w-5 h-5" />
             Nossos Serviços
           </Button>
@@ -173,14 +173,18 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            gap: '1.5rem',
+          }}
         >
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-1">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </div>

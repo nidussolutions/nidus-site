@@ -108,8 +108,8 @@ const Footer = () => {
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-2 mb-6">
@@ -157,11 +157,11 @@ const Footer = () => {
           </div>
 
           {/* Links Sections */}
-          <div className="lg:col-span-5 grid grid-cols-3 gap-8">
+          <div className="lg:col-span-5 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {Object.entries(footerLinks).map(([category, links]) => (
               <nav key={category}>
-                <p className="font-semibold mb-4 text-foreground">{category}</p>
-                <ul className="space-y-3">
+                <p className="font-semibold mb-3 sm:mb-4 text-foreground">{category}</p>
+                <ul className="space-y-2 sm:space-y-3">
                   {links.map(({ name, path }) => (
                     <li key={name}>
                       <Link
@@ -221,16 +221,16 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-6 sm:pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
             {/* Copyright */}
             <p className="text-sm text-muted-foreground">
               &copy; {currentYear} Nidus. Todos os direitos reservados.
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-muted-foreground mr-2">Siga-nos:</span>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-xs sm:text-sm text-muted-foreground mr-1 sm:mr-2">Siga-nos:</span>
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -238,7 +238,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+                  className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
