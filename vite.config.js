@@ -52,7 +52,7 @@ export default defineConfig({
   build: {
     target: "es2020",
     cssCodeSplit: true,
-    sourcemap: false, // Muda para true temporariamente para debug
+    sourcemap: true,
     minify: "terser",
     terserOptions: {
       compress: {
