@@ -5,36 +5,74 @@
 
 @layer base {
   :root {
-    /* Dark Theme Colors */
-    --background: 222 47% 11%;    /* Slate 900 */
-    --foreground: 210 40% 98%;    /* Slate 50 */
+    /* Design System - Dark Theme */
+    /* Background Colors */
+    --background: 0 0% 4%;           /* neutral-950 #0a0a0a */
+    --foreground: 0 0% 98%;          /* neutral-50 #fafafa */
 
-    --card: 217 33% 17%;          /* Slate 800 */
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 9%;                 /* neutral-900 #171717 */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 263 70% 65%;       /* Nidus Purple Lighter */
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Purple */
+    --primary: 258 90% 66%;          /* primary-500 #8b5cf6 */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 215 25% 27%;     /* Slate 700 */
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary - Slate/Dark */
+    --secondary: 0 0% 15%;           /* neutral-800 #262626 */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 215 25% 27%;
-    --muted-foreground: 215 20% 65%; /* Slate 400 */
+    /* Muted */
+    --muted: 0 0% 15%;              /* neutral-800 */
+    --muted-foreground: 0 0% 64%;   /* neutral-400 */
 
-    --accent: 215 25% 27%;
-    --accent-foreground: 210 40% 98%;
+    /* Accent - Purple variant */
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive - Error red */
+    --destructive: 0 84% 60%;       /* error light */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 215 25% 27%;
-    --input: 215 25% 27%;
-    --ring: 263 70% 65%;
+    /* Border & Input */
+    --border: 0 0% 15%;             /* neutral-800 */
+    --input: 0 0% 15%;
+    --ring: 258 90% 66%;            /* primary-500 */
 
     --radius: 0.5rem;
+  }
+
+  /* Light mode (opcional para futuro) */
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 258 90% 66%;
   }
 }
 
@@ -42,30 +80,131 @@
   * {
     @apply border-border;
   }
+  
   html {
     @apply scroll-smooth;
   }
+  
   body {
     @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Custom Scrollbar for Dark Mode */
+  /* Custom Scrollbar - Design System */
   ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
   }
+  
   ::-webkit-scrollbar-track {
-    @apply bg-background;
+    @apply bg-neutral-950;
   }
+  
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted rounded-full hover:bg-muted-foreground/50 transition-colors;
+    @apply bg-neutral-700 rounded-full transition-colors;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-600;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.neutral.700') theme('colors.neutral.950');
   }
 }
 
-.bg-grid-pattern {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+/* Utilities */
+@layer utilities {
+  /* Grid Pattern Background */
+  .bg-grid-pattern {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.03)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  }
+
+  /* Dot Pattern Background */
+  .bg-dot-pattern {
+    background-image: radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Text Balance */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Glass Effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      to right,
+      theme('colors.primary.400'),
+      theme('colors.secondary.400')
+    );
+  }
+
+  .gradient-text-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      theme('colors.primary.400'),
+      theme('colors.accent.400')
+    );
+  }
+
+  /* Glow Effect */
+  .glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .glow-hover {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary-500/30 text-primary-100;
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-background;
+  }
 }
 
-/* Utilities for text readability */
-.text-balance {
-  text-wrap: balance;
+/* Custom animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
 }
