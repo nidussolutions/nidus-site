@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import { Button } from '@/components/ui/button';
 import { Send, Loader2 } from 'lucide-react';
@@ -6,6 +5,10 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 
 const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID;
+
+if (!formspreeId) {
+  console.warn('Formspree ID is not set. Please configure VITE_FORMSPREE_FORM_ID in your .env file.');
+}
 
 const ContactForm = () => {
   const [state, handleSubmit] = useForm(formspreeId);

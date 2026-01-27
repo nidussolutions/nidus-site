@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Mail, Calendar, MessageCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -45,29 +45,29 @@ const Contact = () => {
     const ctx = gsap.context(() => {
       // Hero section animations
       const heroTl = gsap.timeline();
-      
+
       heroTl.fromTo(
         heroTitleRef.current,
         { opacity: 0, y: 50, scale: 0.95 },
-        { 
-          opacity: 1, 
-          y: 0, 
+        {
+          opacity: 1,
+          y: 0,
           scale: 1,
           duration: 1,
           ease: 'power3.out'
         }
       )
-      .fromTo(
-        heroSubtitleRef.current,
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out'
-        },
-        '-=0.5'
-      );
+        .fromTo(
+          heroSubtitleRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          },
+          '-=0.5'
+        );
 
       // Form section animations
       gsap.fromTo(
@@ -123,7 +123,7 @@ const Contact = () => {
       // Contact info cards animations
       if (contactInfoRef.current) {
         const cards = contactInfoRef.current.children;
-        
+
         gsap.fromTo(
           cards,
           { opacity: 0, x: 50, scale: 0.95 },
@@ -145,7 +145,7 @@ const Contact = () => {
         // Hover animations para cada card
         Array.from(cards).forEach((card) => {
           const icon = card.querySelector('.contact-icon');
-          
+
           card.addEventListener('mouseenter', () => {
             gsap.to(card, {
               y: -6,
@@ -155,7 +155,7 @@ const Contact = () => {
               duration: 0.3,
               ease: 'power2.out',
             });
-            
+
             if (icon) {
               gsap.to(icon, {
                 scale: 1.2,
@@ -175,7 +175,7 @@ const Contact = () => {
               duration: 0.3,
               ease: 'power2.out',
             });
-            
+
             if (icon) {
               gsap.to(icon, {
                 scale: 1,
@@ -201,17 +201,17 @@ const Contact = () => {
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
         {/* Hero Section */}
-        <section 
+        <section
           ref={heroRef}
           className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 
+          <h1
             ref={heroTitleRef}
             className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0"
           >
             Vamos Conversar?
           </h1>
-          <p 
+          <p
             ref={heroSubtitleRef}
             className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0"
           >
@@ -229,7 +229,7 @@ const Contact = () => {
                 className="lg:col-span-3"
               >
                 <div className="bg-card rounded-lg border border-border p-5 sm:p-6 md:p-8 h-full shadow-sm">
-                  <h2 
+                  <h2
                     ref={formTitleRef}
                     className="text-xl sm:text-2xl font-bold text-card-foreground mb-4 sm:mb-6"
                   >
@@ -242,7 +242,7 @@ const Contact = () => {
               </div>
 
               {/* Contact Info (Right Column) */}
-              <div 
+              <div
                 ref={contactInfoRef}
                 className="lg:col-span-2 flex flex-col gap-4 sm:gap-6"
               >
