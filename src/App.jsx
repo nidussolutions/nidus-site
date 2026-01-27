@@ -1,8 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
-import { useSplashScreen } from '@/hooks/useSplashScreen';
 import { getSplashComponent, SPLASH_CONFIG } from '@/components/SplashConfig';
 
 // Eager loading - Components críticos carregados imediatamente
@@ -31,13 +30,19 @@ const PageLoader = () => (
 
 const App = () => {
   const location = useLocation();
-  const { showSplash, handleSplashComplete } = useSplashScreen(
-    SPLASH_CONFIG.minDisplayTime,
-    SPLASH_CONFIG.persistPreference
-  );
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashComplete, setSplashComplete] = useState(false);
 
-  // Mostra splash screen
-  if (showSplash) {
+  const handleSplashComplete = () => {
+    // Aguarda tempo mínimo antes de esconder
+    setTimeout(() => {
+      setShowSplash(false);
+      setSplashComplete(true);
+    }, SPLASH_CONFIG.minDisplayTime);
+  };
+
+  // Mostra splash screen apenas no carregamento inicial
+  if (showSplash && !splashComplete) {
     const SplashComponent = getSplashComponent();
     return (
       <SplashComponent 

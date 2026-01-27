@@ -20,11 +20,11 @@ export const SPLASH_CONFIG = {
   // Tempo mínimo de exibição (ms)
   minDisplayTime: 2000,
   
-  // Salvar preferência no localStorage (mostra apenas na primeira visita)
-  persistPreference: true,
-  
   // Mostrar botão de pular
   showSkipButton: false,
+  
+  // Mostrar apenas no carregamento inicial do site
+  showOnlyOnLoad: true,
 };
 
 // Mapa de variantes

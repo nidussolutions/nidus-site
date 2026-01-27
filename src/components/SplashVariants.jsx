@@ -49,11 +49,21 @@ export const MinimalSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{
+        background: 'linear-gradient(135deg, #e0f2fe 0%, #ccfbf1 100%)',
+      }}
     >
+      <div className="absolute inset-0 bg-dot-pattern opacity-20" />
       <h1
         ref={logoRef}
-        className="text-7xl md:text-9xl font-black gradient-text-purple"
+        className="text-7xl md:text-9xl font-black z-10"
+        style={{
+          background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 50%, #a855f7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
       >
         NIDUS
       </h1>
@@ -110,7 +120,7 @@ export const GlitchSplash = ({ onComplete }) => {
     })
       .add(glitchTl, '-=0.4')
       .to(text, {
-        textShadow: '0 0 30px rgba(139, 92, 246, 1)',
+        textShadow: '0 0 15px rgba(14, 165, 233, 0.4), 0 0 30px rgba(14, 165, 233, 0.2)',
         duration: 0.5,
       });
 
@@ -123,15 +133,22 @@ export const GlitchSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{
+        background: 'linear-gradient(135deg, #bae6fd 0%, #99f6e4 100%)',
+      }}
     >
-      <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-20" />
       <h1
         ref={textRef}
-        className="text-8xl md:text-9xl font-black text-primary-500 relative"
+        className="text-8xl md:text-9xl font-black relative z-10"
         style={{
           fontFamily: 'monospace',
           letterSpacing: '0.1em',
+          background: 'linear-gradient(135deg, #0ea5e9 0%, #a855f7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
         }}
       >
         NIDUS
@@ -180,7 +197,7 @@ export const CinematicSplash = ({ onComplete }) => {
       }, '-=0.6')
       // Glow
       .to(logoRef.current, {
-        textShadow: '0 0 50px rgba(139, 92, 246, 0.8)',
+        textShadow: '0 0 25px rgba(14, 165, 233, 0.3), 0 0 50px rgba(14, 165, 233, 0.15)',
         duration: 0.6,
       }, '-=0.4');
 
@@ -190,22 +207,37 @@ export const CinematicSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 overflow-hidden"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdfa 100%)',
+      }}
     >
       {/* Barras cinematográficas */}
       <div
         ref={topBarRef}
-        className="absolute top-0 left-0 right-0 h-1/2 bg-black origin-top"
+        className="absolute top-0 left-0 right-0 h-1/2 origin-top"
+        style={{
+          background: 'linear-gradient(180deg, #0ea5e9 0%, #14b8a6 100%)',
+        }}
       />
       <div
         ref={bottomBarRef}
-        className="absolute bottom-0 left-0 right-0 h-1/2 bg-black origin-bottom"
+        className="absolute bottom-0 left-0 right-0 h-1/2 origin-bottom"
+        style={{
+          background: 'linear-gradient(0deg, #14b8a6 0%, #a855f7 100%)',
+        }}
       />
 
       {/* Logo */}
       <h1
         ref={logoRef}
-        className="text-8xl md:text-9xl font-black gradient-text-purple z-10"
+        className="text-8xl md:text-9xl font-black z-10"
+        style={{
+          background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 50%, #a855f7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
       >
         NIDUS
       </h1>
@@ -259,7 +291,7 @@ export const ParticlesSplash = ({ onComplete }) => {
       ease: 'power2.out',
     })
       .to(logoRef.current, {
-        textShadow: '0 0 40px rgba(139, 92, 246, 0.8)',
+        textShadow: '0 0 20px rgba(14, 165, 233, 0.3), 0 0 40px rgba(14, 165, 233, 0.15)',
         duration: 0.6,
       }, '-=0.5');
 
@@ -269,7 +301,10 @@ export const ParticlesSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 overflow-hidden"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #f0fdfa 50%, #faf5ff 100%)',
+      }}
     >
       {/* Partículas de fundo */}
       <div className="absolute inset-0">
@@ -277,11 +312,13 @@ export const ParticlesSplash = ({ onComplete }) => {
           <div
             key={i}
             ref={(el) => (particlesRef.current[i] = el)}
-            className="absolute w-1 h-1 bg-primary-500 rounded-full"
+            className="absolute w-2 h-2 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               opacity: 0,
+              background: i % 3 === 0 ? '#0ea5e9' : i % 3 === 1 ? '#14b8a6' : '#a855f7',
+              boxShadow: `0 0 5px ${i % 3 === 0 ? 'rgba(14, 165, 233, 0.3)' : i % 3 === 1 ? 'rgba(20, 184, 166, 0.3)' : 'rgba(168, 85, 247, 0.3)'}`,
             }}
           />
         ))}
@@ -290,7 +327,13 @@ export const ParticlesSplash = ({ onComplete }) => {
       {/* Logo */}
       <h1
         ref={logoRef}
-        className="text-8xl md:text-9xl font-black gradient-text-purple z-10"
+        className="text-8xl md:text-9xl font-black z-10"
+        style={{
+          background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 50%, #a855f7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
       >
         NIDUS
       </h1>

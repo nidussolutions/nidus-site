@@ -29,18 +29,15 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
     // Timeline principal
     const tl = gsap.timeline({
       onComplete: () => {
-        // Aguarda um pouco antes de iniciar a transição final
-        setTimeout(() => {
-          // Fade out do splash completo
-          gsap.to(container, {
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.inOut',
-            onComplete: () => {
-              if (onComplete) onComplete();
-            },
-          });
-        }, 800);
+        // Fade out do splash completo
+        gsap.to(container, {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            if (onComplete) onComplete();
+          },
+        });
       },
     });
 
@@ -53,12 +50,6 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
       duration: 0.8,
       ease: 'back.out(1.7)',
     })
-      // Glow effect
-      .to(text, {
-        textShadow: '0 0 40px rgba(139, 92, 246, 0.8), 0 0 80px rgba(139, 92, 246, 0.4)',
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.4')
       // Pulse suave
       .to(letters, {
         scale: 1.05,
@@ -86,19 +77,19 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950"
+      className="fixed inset-0 z-50 flex items-center justify-center"
       style={{
-        background: 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdfa 50%, #f3e8ff 100%)',
       }}
     >
       {/* Efeito de partículas/grid de fundo */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-      
+      <div className="absolute inset-0 bg-dot-pattern opacity-30" />
+
       {/* Círculo de glow atrás do texto */}
       <div
-        className="absolute w-96 h-96 rounded-full blur-3xl opacity-20"
+        className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
         style={{
-          background: `radial-gradient(circle, ${colors.brand.primary[500]} 0%, transparent 70%)`,
+          background: `radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(20, 184, 166, 0.1) 50%, transparent 70%)`,
         }}
       />
 
@@ -111,7 +102,7 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
               ref={(el) => (lettersRef.current[index] = el)}
               className="inline-block"
               style={{
-                background: `linear-gradient(135deg, ${colors.brand.primary[400]}, ${colors.brand.secondary[400]})`,
+                background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 50%, #a855f7 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -121,18 +112,18 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
             </span>
           ))}
         </h1>
-        
+
         {/* Linha decorativa */}
-        <div className="mt-4 h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent rounded-full" />
+        <div className="mt-6 h-1.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent rounded-full opacity-60" />
       </div>
 
       {/* Loading indicator sutil */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-        <div className="flex gap-1.5">
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
+        <div className="flex gap-2">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"
+              className="w-2.5 h-2.5 rounded-full bg-primary-500 animate-pulse"
               style={{
                 animationDelay: `${i * 0.2}s`,
               }}
@@ -145,7 +136,7 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
       {showSkipButton && (
         <button
           onClick={handleSkip}
-          className="absolute bottom-8 right-8 text-neutral-400 hover:text-neutral-200 text-sm transition-colors"
+          className="absolute bottom-8 right-8 px-4 py-2 text-neutral-600 hover:text-primary-600 text-sm font-medium transition-colors rounded-lg hover:bg-white/50"
         >
           Pular →
         </button>

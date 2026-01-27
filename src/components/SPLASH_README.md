@@ -1,10 +1,20 @@
 # 🌟 Splash Screen - Nidus
 
-Sistema de Splash Screen com múltiplas variantes e animações GSAP suaves.
+Sistema de Splash Screen com múltiplas variantes e animações GSAP suaves. Atualizado com a **nova identidade visual pastel moderna**.
+
+## 🎨 Nova Paleta Visual
+
+Todas as variantes agora usam:
+- **Gradientes pastel**: Azul tecnológico (#0ea5e9) + Verde menta (#14b8a6) + Lilás (#a855f7)
+- **Fundos claros**: Transições suaves de cores pastel
+- **Glow suave**: Efeitos de brilho reduzidos e mais elegantes
+- **Partículas coloridas**: Três cores alternadas para visual mais dinâmico
+
+---
 
 ## 📋 Variantes Disponíveis
 
-### 1. **Default** - Splash completo com letras animadas
+### 1. **Default** - Splash completo com letras animadas ⭐
 Localização: `src/components/SplashScreen.jsx`
 
 ```jsx
@@ -17,15 +27,19 @@ import SplashScreen from '@/components/SplashScreen';
 ```
 
 **Características:**
-- Animação 3D nas letras
-- Efeito glow progressivo
-- Pulse suave
-- Grid pattern de fundo
-- Loading indicator
+- ✨ Animação 3D nas letras com gradient tricolor
+- 💎 Efeito glow azul tecnológico suave
+- 🎯 Pulse suave com stagger
+- 🌐 Dot pattern de fundo com opacidade aumentada
+- ⏳ Loading indicator com sombra colorida
+- 🎨 Background: Gradiente pastel (azul → menta → lilás)
+- ⏱️ Duração: ~3.5s
+
+**Visual:** Gradiente horizontal pastel com letras em gradient tricolor e círculo de glow atrás
 
 ---
 
-### 2. **Minimal** - Simples e elegante
+### 2. **Minimal** - Simples e elegante 🎯
 ```jsx
 import { MinimalSplash } from '@/components/SplashVariants';
 
@@ -33,14 +47,18 @@ import { MinimalSplash } from '@/components/SplashVariants';
 ```
 
 **Características:**
-- Simples fade in com scale
-- Gradient text
-- Minimalista
-- Rápida (1.5s total)
+- 💫 Simples fade in com scale e back ease
+- 🌈 Gradient text tricolor
+- ✨ Minimalista e direto ao ponto
+- ⚡ Rápida (1.5s total)
+- 🎨 Background: Gradiente azul → verde menta
+- 🔲 Dot pattern de fundo sutil
+
+**Visual:** Fundo gradiente azul claro para verde menta com dot pattern
 
 ---
 
-### 3. **Glitch** - Efeito tech moderno
+### 3. **Glitch** - Efeito tech moderno 🔮
 ```jsx
 import { GlitchSplash } from '@/components/SplashVariants';
 
@@ -48,14 +66,19 @@ import { GlitchSplash } from '@/components/SplashVariants';
 ```
 
 **Características:**
-- Efeito glitch
-- Typography monospace
-- Scale out dramático
-- Visual tech/futurista
+- ⚡ Efeito glitch tech com movimento lateral
+- 🔤 Typography monospace
+- 💥 Scale out dramático ao final
+- 🌟 Glow azul tecnológico duplo
+- 🎨 Background: Gradiente azul médio → verde água
+- 🔲 Grid pattern de fundo
+- 🎨 Texto: Gradiente azul → lilás
+
+**Visual:** Fundo gradiente vibrante com grid pattern e texto em monospace
 
 ---
 
-### 4. **Cinematic** - Reveal cinematográfico
+### 4. **Cinematic** - Reveal cinematográfico 🎬
 ```jsx
 import { CinematicSplash } from '@/components/SplashVariants';
 
@@ -63,14 +86,20 @@ import { CinematicSplash } from '@/components/SplashVariants';
 ```
 
 **Características:**
-- Barras cinematográficas
-- Reveal dramático
-- Efeito de cortinas
-- Visual premium
+- 🎭 Barras cinematográficas coloridas com gradiente
+- 🎪 Reveal dramático tipo cortinas
+- ✨ Logo aparece com back ease
+- 💎 Glow azul suave ao revelar
+- 🎨 Barras superiores: Azul → Verde menta
+- 🎨 Barras inferiores: Verde menta → Lilás  
+- 🎨 Background: Gradiente azul claro → verde claro
+- ⏱️ Duração: ~3s
+
+**Visual:** Barras coloridas se abrem revelando o logo com gradient tricolor
 
 ---
 
-### 5. **Particles** - Com partículas animadas
+### 5. **Particles** - Com partículas animadas 🌠
 ```jsx
 import { ParticlesSplash } from '@/components/SplashVariants';
 
@@ -78,26 +107,15 @@ import { ParticlesSplash } from '@/components/SplashVariants';
 ```
 
 **Características:**
-- 50 partículas animadas
-- Movimento orgânico
-- Visual moderno
-- Altamente dinâmico
+- ✨ 50 partículas animadas em 3 cores
+- 🎨 Partículas: Azul (#0ea5e9), Verde menta (#14b8a6), Lilás (#a855f7)
+- 🌊 Movimento orgânico com yoyo
+- 💫 Cada partícula com box-shadow colorido
+- 🌈 Background: Gradiente triplo suave (azul → menta → lilás)
+- 🎯 Partículas maiores (2px) para melhor visibilidade
+- ⏱️ Duração: ~2.5s
 
----
-
-## 🎯 Hook useSplashScreen
-
-Hook para gerenciar estado e preferências do splash:
-
-```jsx
-import { useSplashScreen } from '@/hooks/useSplashScreen';
-
-const { 
-  showSplash, 
-  handleSplashComplete,
-  skipSplash,
-  resetSplashPreference 
-} = useSplashScreen(2000, true);
+**Visual:** Fundo gradiente triplo pastel com partículas coloridas flutuantes
 
 // showSplash: boolean - Se deve mostrar splash
 // handleSplashComplete: function - Callback quando splash termina
@@ -112,19 +130,73 @@ const {
 
 ---
 
-## 💡 Uso no App.jsx
+## 💡 Comportamento Atual
+
+O Splash Screen está configurado para **aparecer apenas no carregamento inicial do site**.
+
+### Como Funciona
 
 ```jsx
-import { useSplashScreen } from '@/hooks/useSplashScreen';
-import SplashScreen from '@/components/SplashScreen';
-// ou
-import { MinimalSplash, GlitchSplash } from '@/components/SplashVariants';
+// App.jsx - Mostra apenas uma vez ao carregar
+const [showSplash, setShowSplash] = useState(true);
+const [splashComplete, setSplashComplete] = useState(false);
+
+// Não monitora mudanças de rota
+// Splash aparece apenas quando o site carrega
+```
+
+**Fluxo de Carregamento:**
+- 🌐 Usuário entra no site → ✅ Mostra Splash
+- 🏠 Home carrega após splash
+- 📄 Navega para About → ❌ Sem splash
+- 🏠 Volta para Home → ❌ Sem splash
+- 💼 Navega para Services → ❌ Sem splash
+- 🔄 Apenas ao recarregar a página (F5) → ✅ Mostra Splash
+
+### Configuração Global
+
+Edite `src/components/SplashConfig.js`:
+
+```javascript
+export const SPLASH_CONFIG = {
+  variant: 'default',           // 'default' | 'minimal' | 'glitch' | 'cinematic' | 'particles'
+  minDisplayTime: 2000,         // Tempo mínimo em ms
+  showSkipButton: false,        // Mostrar botão "Pular"
+  showOnlyOnLoad: true,         // Apenas no carregamento inicial
+};
+```
+
+### Efeitos Visuais Suaves
+
+Todos os brilhos (glow effects) foram reduzidos para um visual mais profissional:
+- ✨ Glow text: `0 0 20px` (antes: 40px)
+- 💫 Círculo de fundo: opacidade 20% (antes: 40%)
+- 🔵 Partículas: box-shadow 5px (antes: 10px)
+- 💎 Cores com alpha reduzido: 0.3 (antes: 0.6)
+
+---
+
+## 💡 Uso no App.jsx (Implementação Atual)
+
+```jsx
+import { useState } from 'react';
+import { getSplashComponent, SPLASH_CONFIG } from '@/components/SplashConfig';
 
 function App() {
-  const { showSplash, handleSplashComplete } = useSplashScreen(2000, true);
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashComplete, setSplashComplete] = useState(false);
 
-  if (showSplash) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
+  const handleSplashComplete = () => {
+    setTimeout(() => {
+      setShowSplash(false);
+      setSplashComplete(true);
+    }, SPLASH_CONFIG.minDisplayTime);
+  };
+
+  // Mostra apenas no carregamento inicial
+  if (showSplash && !splashComplete) {
+    const SplashComponent = getSplashComponent();
+    return <SplashComponent onComplete={handleSplashComplete} />;
   }
 
   return (

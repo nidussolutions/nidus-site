@@ -6,121 +6,121 @@
  */
 
 export const colors = {
-  // Brand Colors - Paleta principal do Nidus
+  // Brand Colors - Paleta pastel moderna e tecnológica
   brand: {
     primary: {
-      50: '#f5f3ff',
-      100: '#ede9fe',
-      200: '#ddd6fe',
-      300: '#c4b5fd',
-      400: '#a78bfa',
-      500: '#8b5cf6',  // Primary
-      600: '#7c3aed',
-      700: '#6d28d9',
-      800: '#5b21b6',
-      900: '#4c1d95',
-      950: '#2e1065',
+      50: '#f0f9ff',
+      100: '#e0f2fe',
+      200: '#bae6fd',
+      300: '#7dd3fc',
+      400: '#38bdf8',
+      500: '#0ea5e9',  // Primary - Azul tecnológico suave
+      600: '#0284c7',
+      700: '#0369a1',
+      800: '#075985',
+      900: '#0c4a6e',
+      950: '#082f49',
     },
     secondary: {
-      50: '#eff6ff',
-      100: '#dbeafe',
-      200: '#bfdbfe',
-      300: '#93c5fd',
-      400: '#60a5fa',
-      500: '#3b82f6',  // Secondary
-      600: '#2563eb',
-      700: '#1d4ed8',
-      800: '#1e40af',
-      900: '#1e3a8a',
-      950: '#172554',
+      50: '#f0fdfa',
+      100: '#ccfbf1',
+      200: '#99f6e4',
+      300: '#5eead4',
+      400: '#2dd4bf',
+      500: '#14b8a6',  // Secondary - Verde menta
+      600: '#0d9488',
+      700: '#0f766e',
+      800: '#115e59',
+      900: '#134e4a',
+      950: '#042f2e',
     },
     accent: {
-      50: '#fdf4ff',
-      100: '#fae8ff',
-      200: '#f5d0fe',
-      300: '#f0abfc',
-      400: '#e879f9',
-      500: '#d946ef',  // Accent
-      600: '#c026d3',
-      700: '#a21caf',
-      800: '#86198f',
-      900: '#701a75',
-      950: '#4a044e',
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',  // Accent - Lilás pastel
+      600: '#9333ea',
+      700: '#7e22ce',
+      800: '#6b21a8',
+      900: '#581c87',
+      950: '#3b0764',
     },
   },
 
-  // Neutral Colors - Tons de cinza para backgrounds e textos
+  // Neutral Colors - Tons suaves e claros
   neutral: {
-    50: '#fafafa',
-    100: '#f5f5f5',
-    200: '#e5e5e5',
-    300: '#d4d4d4',
-    400: '#a3a3a3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-    950: '#0a0a0a',
+    50: '#fafbfc',
+    100: '#f5f7fa',
+    200: '#e8ecf1',
+    300: '#d1dae6',
+    400: '#9fb3c8',
+    500: '#6b7f95',
+    600: '#4a5c70',
+    700: '#384959',
+    800: '#283642',
+    900: '#1a252f',
+    950: '#0f1720',
   },
 
-  // Semantic Colors - Cores para estados e feedbacks
+  // Semantic Colors - Cores pastel para estados e feedbacks
   semantic: {
     success: {
-      light: '#22c55e',
-      DEFAULT: '#16a34a',
-      dark: '#15803d',
+      light: '#6ee7b7',
+      DEFAULT: '#34d399',
+      dark: '#10b981',
     },
     warning: {
-      light: '#fbbf24',
-      DEFAULT: '#f59e0b',
-      dark: '#d97706',
+      light: '#fcd34d',
+      DEFAULT: '#fbbf24',
+      dark: '#f59e0b',
     },
     error: {
-      light: '#ef4444',
-      DEFAULT: '#dc2626',
-      dark: '#b91c1c',
+      light: '#fca5a5',
+      DEFAULT: '#f87171',
+      dark: '#ef4444',
     },
     info: {
-      light: '#3b82f6',
-      DEFAULT: '#2563eb',
-      dark: '#1d4ed8',
+      light: '#7dd3fc',
+      DEFAULT: '#38bdf8',
+      dark: '#0ea5e9',
     },
   },
 
-  // Background Colors - Para diferentes contextos
+  // Background Colors - Fundos claros e pastéis
   background: {
-    primary: '#0a0a0a',
-    secondary: '#171717',
-    tertiary: '#262626',
-    elevated: '#404040',
+    primary: '#fafbfc',
+    secondary: '#f5f7fa',
+    tertiary: '#e8ecf1',
+    elevated: '#ffffff',
   },
 
   // Text Colors
   text: {
-    primary: '#fafafa',
-    secondary: '#d4d4d4',
-    tertiary: '#a3a3a3',
-    inverse: '#0a0a0a',
-    disabled: '#525252',
+    primary: '#1a252f',
+    secondary: '#4a5c70',
+    tertiary: '#6b7f95',
+    inverse: '#fafbfc',
+    disabled: '#9fb3c8',
   },
 
   // Border & Divider Colors
   border: {
-    DEFAULT: '#262626',
-    subtle: '#171717',
-    strong: '#404040',
-    brand: '#8b5cf6',
+    DEFAULT: '#e8ecf1',
+    subtle: '#f5f7fa',
+    strong: '#d1dae6',
+    brand: '#0ea5e9',
   },
 
   // Overlay & Shadow
-  overlay: 'rgba(0, 0, 0, 0.5)',
+  overlay: 'rgba(0, 0, 0, 0.1)',
   
   // Glass Effect (para componentes modernos)
   glass: {
-    light: 'rgba(255, 255, 255, 0.05)',
-    medium: 'rgba(255, 255, 255, 0.1)',
-    dark: 'rgba(0, 0, 0, 0.3)',
+    light: 'rgba(255, 255, 255, 0.8)',
+    medium: 'rgba(255, 255, 255, 0.6)',
+    dark: 'rgba(232, 236, 241, 0.9)',
   },
 };
 
