@@ -26,15 +26,15 @@ const footerLinks = {
 };
 
 const contactInfo = [
-  { icon: Mail, text: 'contato@nidus.dev', href: 'mailto:contato@nidus.dev' },
-  { icon: Phone, text: '+55 (11) 9 9999-9999', href: 'tel:+5511999999999' },
-  { icon: MapPin, text: 'São Paulo, Brasil' },
+  { icon: Mail, text: 'ola@mynidus.dev', href: 'mailto:ola@mynidus.dev' },
+  { icon: Phone, text: '+55 (28) 9 9996-1665', href: 'https://wa.me/5528999618665' },
+  { icon: MapPin, text: 'Espírito Santo, Brasil' },
 ];
 
 const socialLinks = [
   { icon: Linkedin, href: 'https://www.linkedin.com/company/nidus-solu%C3%A7%C3%B5es-digitais', label: 'LinkedIn' },
   { icon: Instagram, href: 'https://www.instagram.com/mynidus/', label: 'Instagram' },
-  { icon: Github, href: 'https://github.com/nidus', label: 'GitHub' },
+  { icon: Github, href: 'https://github.com/nidussolutions/', label: 'GitHub' },
 ];
 
 const isValidEmail = (email) =>
@@ -141,6 +141,8 @@ const Footer = () => {
                   <a
                     key={item.text}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-3 hover:text-primary transition-colors"
                   >
                     {content}

@@ -15,14 +15,14 @@ import {
 // Configuração - Escolha sua variante preferida
 export const SPLASH_CONFIG = {
   // Opções: 'default', 'minimal', 'glitch', 'cinematic', 'particles'
-  variant: 'default',
-  
+  variant: "cinematic",
+
   // Tempo mínimo de exibição (ms)
   minDisplayTime: 2000,
-  
+
   // Mostrar botão de pular
-  showSkipButton: false,
-  
+  showSkipButton: true,
+
   // Mostrar apenas no carregamento inicial do site
   showOnlyOnLoad: true,
 };

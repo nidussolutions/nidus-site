@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Gift, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Gift, Loader2, Sparkles, ArrowRight, Mail, Phone } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -100,116 +100,251 @@ const PromotionPopup = ({ isOpen, onOpenChange }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black border border-nidus-blue text-nidus-text-dark max-w-md p-0 overflow-hidden rounded-2xl shadow-xl">
+      <DialogContent className="bg-white border-2 border-primary-200 text-foreground max-w-lg p-0 overflow-hidden rounded-3xl shadow-2xl shadow-primary-500/10">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-0 right-0 w-72 h-72 bg-primary/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-72 h-72 bg-accent/15 rounded-full blur-3xl"
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.4, 0.2, 0.4],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/10 rounded-full blur-3xl" />
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 10 }}
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
+          transition={{ 
+            duration: 0.4, 
+            ease: [0.34, 1.56, 0.64, 1]
+          }}
+          className="relative"
         >
           {/* Header */}
-          <div className="bg-nidus-blue/5 border-b border-nidus-blue/20">
-            <DialogHeader className="p-6 text-center items-center">
-              <div className="w-16 h-16 bg-nidus-blue/10 rounded-full flex items-center justify-center border-2 border-nidus-blue/30 mb-4">
-                <Gift className="w-8 h-8 text-nidus-blue" />
-              </div>
-              <DialogTitle className="text-2xl font-bold tracking-tighter text-nidus-text-dark">
-                Ganhe <span className="text-nidus-purple">40% OFF</span> no seu
-                primeiro projeto
-              </DialogTitle>
-              <DialogDescription className="text-nidus-text-light pt-2">
-                Participe da nossa newsletter e receba um desconto exclusivo,
-                além de conteúdos sobre tecnologia, automação e produtividade.
-              </DialogDescription>
+          <div className="relative border-b border-primary-200/60 bg-gradient-to-br from-primary-50/80 via-white/50 to-accent-50/60">
+            <DialogHeader className="p-8 text-center items-center">
+              {/* Icon with Animation */}
+              <motion.div 
+                className="relative w-20 h-20 mb-6"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 200,
+                  delay: 0.2 
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 rounded-2xl opacity-15 blur-xl animate-pulse" />
+                <div className="relative w-full h-full bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl flex items-center justify-center border-2 border-primary-300 backdrop-blur-sm">
+                  <Gift className="w-10 h-10 text-primary-600" />
+                  <motion.div
+                    className="absolute -top-1 -right-1"
+                    animate={{ 
+                      rotate: [0, 10, -10, 0],
+                      scale: [1, 1.2, 1.2, 1]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <Sparkles className="w-5 h-5 text-accent-500" />
+                  </motion.div>
+                </div>
+              </motion.div>
 
-              <div className="mt-4 flex flex-col gap-1 text-xs items-center">
-                <span className="inline-flex items-center justify-center rounded-full bg-nidus-blue px-3 py-1 border border-nidus-blue/20">
-                  Sem spam: apenas conteúdos relevantes e oportunidades.
+              {/* Title */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <DialogTitle className="text-3xl font-bold tracking-tight text-gray-900 mb-3">
+                  Ganhe{' '}
+                  <span className="bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-500 text-transparent bg-clip-text animate-gradient-x">
+                    40% OFF
+                  </span>
+                  <br />
+                  no seu primeiro projeto
+                </DialogTitle>
+              </motion.div>
+
+              {/* Description */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <DialogDescription className="text-muted-foreground text-base leading-relaxed max-w-md">
+                  Participe da nossa newsletter e receba um desconto exclusivo,
+                  além de conteúdos sobre tecnologia, automação e produtividade.
+                </DialogDescription>
+              </motion.div>
+
+              {/* Badge */}
+              <motion.div 
+                className="mt-5"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary-700 backdrop-blur-sm">
+                  <Sparkles className="w-4 h-4 text-primary-600" />
+                  Sem spam: apenas conteúdos relevantes
                 </span>
-              </div>
+              </motion.div>
             </DialogHeader>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="pt-2">
-            <div className="px-6 space-y-3">
-              <div className="space-y-1">
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="relative bg-white/80 backdrop-blur-sm"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <div className="px-8 py-6 space-y-5">
+              {/* Email Input */}
+              <div className="space-y-2">
                 <label
                   htmlFor="promo-email"
-                  className="text-sm font-medium text-nidus-text-dark"
+                  className="text-sm font-medium text-gray-700 flex items-center gap-2"
                 >
+                  <Mail className="w-4 h-4 text-primary-600" />
                   Email
                 </label>
-                <Input
-                  id="promo-email"
-                  type="email"
-                  placeholder="seu.email@exemplo.com"
-                  className="bg-white border-gray-300 text-black h-11 focus-visible:ring-nidus-purple placeholder:text-gray-400"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={loading}
-                  aria-invalid={!isEmailValid && email.length > 0}
-                />
-                {!isEmailValid && email.length > 0 && (
-                  <p className="text-xs text-red-500 mt-1">
-                    Digite um email válido para resgatar o desconto.
-                  </p>
-                )}
+                <div className="relative group">
+                  <Input
+                    id="promo-email"
+                    type="email"
+                    placeholder="seu.email@exemplo.com"
+                    className="bg-white border-gray-300 text-gray-900 h-12 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:border-primary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-primary-400"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={loading}
+                    aria-invalid={!isEmailValid && email.length > 0}
+                  />
+                  <AnimatePresence>
+                    {!isEmailValid && email.length > 0 && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="text-xs text-error-DEFAULT mt-2 flex items-center gap-1"
+                      >
+                        <span className="w-1 h-1 bg-error-DEFAULT rounded-full" />
+                        Digite um email válido para resgatar o desconto.
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
 
-              <div className="space-y-1">
+              {/* Phone Input */}
+              <div className="space-y-2">
                 <label
                   htmlFor="promo-phone"
-                  className="text-sm font-medium text-nidus-text-dark"
+                  className="text-sm font-medium text-gray-700 flex items-center gap-2"
                 >
-                  Telefone (opcional)
+                  <Phone className="w-4 h-4 text-secondary-600" />
+                  Telefone{' '}
+                  <span className="text-xs text-gray-500">(opcional)</span>
                 </label>
-                <Input
-                  id="promo-phone"
-                  type="tel"
-                  placeholder="(00) 90000-0000"
-                  className="bg-white border-gray-300 text-black h-11 focus-visible:ring-nidus-purple placeholder:text-gray-400"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  disabled={loading}
-                />
+                <div className="relative group">
+                  <Input
+                    id="promo-phone"
+                    type="tel"
+                    placeholder="(00) 90000-0000"
+                    className="bg-white border-gray-300 text-gray-900 h-12 focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:border-secondary-500 placeholder:text-gray-400 transition-all duration-300 group-hover:border-secondary-400"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    disabled={loading}
+                  />
+                </div>
               </div>
 
-              <p className="text-[11px] text-nidus-text-light/80 leading-snug pt-1">
-                Ao continuar, você concorda em receber comunicações da Nidus.
-                Seus dados são armazenados localmente e podem ser removidos a
-                qualquer momento.
-              </p>
+              {/* Privacy Note */}
+              <motion.p 
+                className="text-xs text-gray-600 leading-relaxed pt-2 border-t border-gray-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                🔒 Seus dados são armazenados localmente e protegidos. Ao continuar, 
+                você concorda em receber comunicações da Nidus.
+              </motion.p>
             </div>
 
-            <DialogFooter className="p-6 pt-4 flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-0">
+            {/* Footer */}
+            <DialogFooter className="px-8 pb-8 pt-2 flex flex-col sm:flex-row sm:justify-between gap-3 bg-gradient-to-t from-gray-50/80 to-transparent">
               <Button
                 type="button"
                 variant="ghost"
-                className="w-full sm:w-auto text-xs text-nidus-text-light hover:text-nidus-text-dark"
+                className="w-full sm:w-auto text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-300"
                 onClick={() => onOpenChange(false)}
                 disabled={loading}
               >
-                Não quero o desconto agora
+                Agora não
               </Button>
 
               <Button
                 type="submit"
                 size="lg"
-                className="bg-nidus-blue hover:bg-nidus-blue/90 text-nidus-white font-semibold w-full sm:w-auto"
+                className="relative w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold shadow-lg shadow-primary-500/30 transition-all duration-300 hover:shadow-primary-500/50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed group overflow-hidden"
                 disabled={loading || !isEmailValid}
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Enviando...
-                  </>
-                ) : (
-                  'Resgatar desconto'
-                )}
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{
+                    x: ['-200%', '200%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                
+                <span className="relative flex items-center gap-2">
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Resgatar desconto
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    </>
+                  )}
+                </span>
               </Button>
             </DialogFooter>
-          </form>
+          </motion.form>
         </motion.div>
       </DialogContent>
     </Dialog>

@@ -195,11 +195,6 @@ export const CinematicSplash = ({ onComplete }) => {
         duration: 0.8,
         ease: 'back.out(1.5)',
       }, '-=0.6')
-      // Glow
-      .to(logoRef.current, {
-        textShadow: '0 0 25px rgba(14, 165, 233, 0.3), 0 0 50px rgba(14, 165, 233, 0.15)',
-        duration: 0.6,
-      }, '-=0.4');
 
     return () => tl.kill();
   }, [onComplete]);
@@ -209,7 +204,7 @@ export const CinematicSplash = ({ onComplete }) => {
       ref={containerRef}
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdfa 100%)',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #f0fdfa 50%, #faf5ff 100%)',
       }}
     >
       {/* Barras cinematográficas */}
@@ -217,14 +212,14 @@ export const CinematicSplash = ({ onComplete }) => {
         ref={topBarRef}
         className="absolute top-0 left-0 right-0 h-1/2 origin-top"
         style={{
-          background: 'linear-gradient(180deg, #0ea5e9 0%, #14b8a6 100%)',
+          background: 'linear-gradient(180deg, #38bdf8 0%, #2dd4bf 60%, #22d3ee 100%)',
         }}
       />
       <div
         ref={bottomBarRef}
         className="absolute bottom-0 left-0 right-0 h-1/2 origin-bottom"
         style={{
-          background: 'linear-gradient(0deg, #14b8a6 0%, #a855f7 100%)',
+          background: 'linear-gradient(0deg, #38bdf8 0%, #2dd4bf 60%, #22d3ee 100%)',
         }}
       />
 
@@ -233,7 +228,7 @@ export const CinematicSplash = ({ onComplete }) => {
         ref={logoRef}
         className="text-8xl md:text-9xl font-black z-10"
         style={{
-          background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 50%, #a855f7 100%)',
+          background: 'linear-gradient(135deg, #38bdf8 0%, #2dd4bf 35%, #22d3ee 65%, #c084fc 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -244,7 +239,6 @@ export const CinematicSplash = ({ onComplete }) => {
     </div>
   );
 };
-
 /**
  * Variant 4: Particles - Com efeito de partículas
  */

@@ -197,6 +197,16 @@ export default {
           '0%': { backgroundPosition: '-1000px 0' },
           '100%': { backgroundPosition: '1000px 0' },
         },
+        "gradient-x": {
+          '0%, 100%': { 
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': { 
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -210,6 +220,7 @@ export default {
         "scale-in": "scale-in 0.5s ease-out",
         "scale-out": "scale-out 0.5s ease-out",
         "shimmer": "shimmer 2s linear infinite",
+        "gradient-x": "gradient-x 3s ease infinite",
       },
       
       // Transition durations
