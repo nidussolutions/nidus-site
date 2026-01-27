@@ -44,8 +44,8 @@ const About = () => {
   const valuesGridRef = useRef(null);
 
   useEffect(() => {
-    // Hero section animations
     const ctx = gsap.context(() => {
+      // Hero section animations
       const tl = gsap.timeline();
 
       // Título do hero com split de palavras
@@ -97,24 +97,26 @@ const About = () => {
       }
 
       // Parágrafos da missão com stagger
-      const paragraphs = missionTextRef.current?.querySelectorAll('p');
-      if (paragraphs) {
-        gsap.fromTo(
-          paragraphs,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: missionTextRef.current,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse',
+      if (missionTextRef.current) {
+        const paragraphs = missionTextRef.current.querySelectorAll('p');
+        if (paragraphs && paragraphs.length > 0) {
+          gsap.fromTo(
+            paragraphs,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.2,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: missionTextRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse',
+              }
             }
-          }
-        );
+          );
+        }
       }
 
       // Imagem com efeito parallax e scale
@@ -126,28 +128,29 @@ const About = () => {
             opacity: 1,
             scale: 1,
             rotationY: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
           }
-        }
-      );
+        );
 
-      // Parallax sutil na imagem durante scroll
-      if (missionSectionRef.current) {
-        gsap.to(imageRef.current, {
-          yPercent: -10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: missionSectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          }
-        });
+        // Parallax sutil na imagem durante scroll
+        if (missionSectionRef.current) {
+          gsap.to(imageRef.current, {
+            yPercent: -10,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: missionSectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1,
+            }
+          });
+        }
       }
 
       // Values header animation
@@ -168,12 +171,10 @@ const About = () => {
           }
         );
       }
-        }
-      );
 
       // Values cards com stagger e hover effects
       if (valuesGridRef.current && valuesGridRef.current.children) {
-        const cards = valuesGridRef.current.children;
+        const cards = Array.from(valuesGridRef.current.children);
 
         if (cards && cards.length > 0) {
           gsap.fromTo(
@@ -194,45 +195,48 @@ const About = () => {
             }
           );
 
-        // Hover animations para cada card
-        Array.from(cards).forEach((card) => {
-          const icon = card.querySelector('.value-icon');
+          // Hover animations para cada card
+          cards.forEach((card) => {
+            const icon = card.querySelector('.value-icon');
 
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, {
-              y: -10,
-              boxShadow: '0 20px 40px rgba(139, 92, 246, 0.2)',
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1.2,
-                rotation: 360,
-                duration: 0.5,
-                ease: 'back.out(2)',
-              });
-            }
-          });
-
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-              y: 0,
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1,
-                rotation: 0,
+            const handleMouseEnter = () => {
+              gsap.to(card, {
+                y: -10,
+                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.2)',
                 duration: 0.3,
                 ease: 'power2.out',
               });
-            }
-          });
+
+              if (icon) {
+                gsap.to(icon, {
+                  scale: 1.2,
+                  rotation: 360,
+                  duration: 0.5,
+                  ease: 'back.out(2)',
+                });
+              }
+            };
+
+            const handleMouseLeave = () => {
+              gsap.to(card, {
+                y: 0,
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                duration: 0.3,
+                ease: 'power2.out',
+              });
+
+              if (icon) {
+                gsap.to(icon, {
+                  scale: 1,
+                  rotation: 0,
+                  duration: 0.3,
+                  ease: 'power2.out',
+                });
+              }
+            };
+
+            card.addEventListener('mouseenter', handleMouseEnter);
+            card.addEventListener('mouseleave', handleMouseLeave);
           });
         }
       }
