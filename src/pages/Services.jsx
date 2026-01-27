@@ -67,8 +67,9 @@ const Services = () => {
       // Services grid animations
       if (servicesGridRef.current && servicesGridRef.current.children) {
         const cards = Array.from(servicesGridRef.current.children);
+        const triggerElement = servicesGridRef.current;
 
-        if (cards && cards.length > 0) {
+        if (cards && cards.length > 0 && triggerElement) {
           gsap.fromTo(
             cards,
             { opacity: 0, y: 60, scale: 0.95 },
@@ -80,7 +81,7 @@ const Services = () => {
               stagger: 0.12,
               ease: 'back.out(1.3)',
               scrollTrigger: {
-                trigger: servicesGridRef.current,
+                trigger: triggerElement,
                 start: 'top 75%',
                 toggleActions: 'play none none reverse',
               }
@@ -155,8 +156,10 @@ const Services = () => {
 
       // CTA section animations
       if (ctaTitleRef.current && ctaSectionRef.current) {
+        const titleElement = ctaTitleRef.current;
+        const sectionElement = ctaSectionRef.current;
         gsap.fromTo(
-          ctaTitleRef.current,
+          titleElement,
           { opacity: 0, y: 40 },
           {
             opacity: 1,
@@ -164,7 +167,7 @@ const Services = () => {
             duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: ctaSectionRef.current,
+              trigger: sectionElement,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
@@ -173,8 +176,10 @@ const Services = () => {
       }
 
       if (ctaTextRef.current && ctaSectionRef.current) {
+        const textElement = ctaTextRef.current;
+        const sectionElement = ctaSectionRef.current;
         gsap.fromTo(
-          ctaTextRef.current,
+          textElement,
           { opacity: 0, y: 20 },
           {
             opacity: 1,
@@ -182,7 +187,7 @@ const Services = () => {
             duration: 0.6,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: ctaSectionRef.current,
+              trigger: sectionElement,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
@@ -191,8 +196,10 @@ const Services = () => {
       }
 
       if (ctaButtonRef.current && ctaSectionRef.current) {
+        const buttonElement = ctaButtonRef.current;
+        const sectionElement = ctaSectionRef.current;
         gsap.fromTo(
-          ctaButtonRef.current,
+          buttonElement,
           { opacity: 0, scale: 0.9 },
           {
             opacity: 1,
@@ -200,7 +207,7 @@ const Services = () => {
             duration: 0.5,
             ease: 'back.out(1.5)',
             scrollTrigger: {
-              trigger: ctaSectionRef.current,
+              trigger: sectionElement,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }

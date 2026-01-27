@@ -79,8 +79,10 @@ const About = () => {
 
       // Mission section com ScrollTrigger
       if (missionTitleRef.current && missionSectionRef.current) {
+        const titleElement = missionTitleRef.current;
+        const sectionElement = missionSectionRef.current;
         gsap.fromTo(
-          missionTitleRef.current,
+          titleElement,
           { opacity: 0, x: -50 },
           {
             opacity: 1,
@@ -88,7 +90,7 @@ const About = () => {
             duration: 1,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: missionSectionRef.current,
+              trigger: sectionElement,
               start: 'top 70%',
               toggleActions: 'play none none reverse',
             }
@@ -98,7 +100,8 @@ const About = () => {
 
       // Parágrafos da missão com stagger
       if (missionTextRef.current) {
-        const paragraphs = missionTextRef.current.querySelectorAll('p');
+        const textElement = missionTextRef.current;
+        const paragraphs = textElement.querySelectorAll('p');
         if (paragraphs && paragraphs.length > 0) {
           gsap.fromTo(
             paragraphs,
@@ -110,7 +113,7 @@ const About = () => {
               stagger: 0.2,
               ease: 'power2.out',
               scrollTrigger: {
-                trigger: missionTextRef.current,
+                trigger: textElement,
                 start: 'top 75%',
                 toggleActions: 'play none none reverse',
               }
@@ -121,8 +124,9 @@ const About = () => {
 
       // Imagem com efeito parallax e scale
       if (imageRef.current) {
+        const imgElement = imageRef.current;
         gsap.fromTo(
-          imageRef.current,
+          imgElement,
           { opacity: 0, scale: 0.9, rotationY: -15 },
           {
             opacity: 1,
@@ -131,7 +135,7 @@ const About = () => {
             duration: 1.2,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: imageRef.current,
+              trigger: imgElement,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
@@ -140,11 +144,12 @@ const About = () => {
 
         // Parallax sutil na imagem durante scroll
         if (missionSectionRef.current) {
-          gsap.to(imageRef.current, {
+          const sectionElement = missionSectionRef.current;
+          gsap.to(imgElement, {
             yPercent: -10,
             ease: 'none',
             scrollTrigger: {
-              trigger: missionSectionRef.current,
+              trigger: sectionElement,
               start: 'top bottom',
               end: 'bottom top',
               scrub: 1,
@@ -155,8 +160,9 @@ const About = () => {
 
       // Values header animation
       if (valuesHeaderRef.current) {
+        const headerElement = valuesHeaderRef.current;
         gsap.fromTo(
-          valuesHeaderRef.current,
+          headerElement,
           { opacity: 0, y: 40 },
           {
             opacity: 1,
@@ -164,7 +170,7 @@ const About = () => {
             duration: 1,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: valuesHeaderRef.current,
+              trigger: headerElement,
               start: 'top 75%',
               toggleActions: 'play none none reverse',
             }
@@ -175,8 +181,9 @@ const About = () => {
       // Values cards com stagger e hover effects
       if (valuesGridRef.current && valuesGridRef.current.children) {
         const cards = Array.from(valuesGridRef.current.children);
+        const triggerElement = valuesGridRef.current;
 
-        if (cards && cards.length > 0) {
+        if (cards && cards.length > 0 && triggerElement) {
           gsap.fromTo(
             cards,
             { opacity: 0, y: 50, scale: 0.9 },
@@ -188,7 +195,7 @@ const About = () => {
               stagger: 0.15,
               ease: 'back.out(1.4)',
               scrollTrigger: {
-                trigger: valuesGridRef.current,
+                trigger: triggerElement,
                 start: 'top 80%',
                 toggleActions: 'play none none reverse',
               }
