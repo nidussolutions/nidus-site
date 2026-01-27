@@ -80,7 +80,7 @@ export const GlitchSplash = ({ onComplete }) => {
 
   useEffect(() => {
     const text = textRef.current;
-    
+
     // Glitch effect
     const glitchTl = gsap.timeline({ repeat: 2 });
     glitchTl
@@ -335,9 +335,136 @@ export const ParticlesSplash = ({ onComplete }) => {
   );
 };
 
+/**
+ * Variant 5: Welcome - Mensagem corporativa e profissional
+ */
+export const WelcomeSplash = ({ onComplete }) => {
+  const containerRef = useRef(null);
+  const welcomeRef = useRef(null);
+  const nidusRef = useRef(null);
+  const lineRef = useRef(null);
+  const phaseRef = useRef(null);
+
+  useEffect(() => {
+    // Timeline principal
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setTimeout(() => {
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power2.inOut',
+            onComplete,
+          });
+        }, 1000);
+      },
+    });
+
+    tl.from(welcomeRef.current, {
+      opacity: 0,
+      x: -50,
+      duration: 0.8,
+      ease: 'power3.out',
+    })
+      .from(lineRef.current, {
+        scaleX: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+      }, '-=0.3')
+      .from(nidusRef.current, {
+        opacity: 0,
+        x: 50,
+        duration: 0.8,
+        ease: 'power3.out',
+      }, '-=0.4')
+      .from(phaseRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power3.out',
+      }, '-=0.5');
+
+    return () => tl.kill();
+  }, [onComplete]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      style={{
+        background: '#ffffff',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        padding: '2rem',
+      }}
+    >
+      {/* Grid sutil de fundo */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      {/* Texto */}
+      <div className="relative z-10 flex items-center gap-6">
+        <h2
+          ref={welcomeRef}
+          className="text-2xl md:text-4xl font-light tracking-wide"
+          style={{
+            color: '#64748b',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+          }}
+        >
+          Welcome to
+        </h2>
+
+        {/* Linha divisória */}
+        <div
+          ref={lineRef}
+          className="w-16 h-0.5 origin-left"
+          style={{
+            background: 'linear-gradient(90deg, #0ea5e9, #14b8a6)',
+          }}
+        />
+
+        <h1
+          ref={nidusRef}
+          className="text-6xl md:text-8xl font-bold tracking-tight"
+          style={{
+            background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+          }}
+        >
+          NIDUS
+        </h1>
+
+      </div>
+
+      <div
+        ref={phaseRef}
+        className="relative z-10 text-center text-lg md:text-2xl font-medium text-gray-600"
+        style={{
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+        }}
+      >
+        <span>
+          Transformando ideias em realidade digital
+        </span>
+      </div>
+    </div>
+  );
+};
+
 export default {
   MinimalSplash,
   GlitchSplash,
   CinematicSplash,
   ParticlesSplash,
+  WelcomeSplash,
 };

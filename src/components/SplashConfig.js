@@ -9,13 +9,14 @@ import {
   MinimalSplash, 
   GlitchSplash, 
   CinematicSplash, 
-  ParticlesSplash 
+  ParticlesSplash,
+  WelcomeSplash
 } from './SplashVariants';
 
 // Configuração - Escolha sua variante preferida
 export const SPLASH_CONFIG = {
-  // Opções: 'default', 'minimal', 'glitch', 'cinematic', 'particles'
-  variant: "cinematic",
+  // Opções: 'default', 'minimal', 'glitch', 'cinematic', 'particles', 'welcome'
+  variant: "welcome",
 
   // Tempo mínimo de exibição (ms)
   minDisplayTime: 1500,
@@ -34,6 +35,7 @@ const SPLASH_VARIANTS = {
   glitch: GlitchSplash,
   cinematic: CinematicSplash,
   particles: ParticlesSplash,
+  welcome: WelcomeSplash,
 };
 
 /**
