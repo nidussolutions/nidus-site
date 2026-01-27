@@ -1,6 +1,10 @@
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -38,6 +42,75 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const headerRef = useRef(null);
+  const projectsRef = useRef([]);
+  const ctaRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+
+      // Projects stagger animation
+      projectsRef.current.forEach((project, index) => {
+        if (project) {
+          gsap.fromTo(project,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              delay: index * 0.1,
+              scrollTrigger: {
+                trigger: project,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
+        }
+      });
+
+      // CTA animation
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleHoverArrow = (e, isEntering) => {
+    gsap.to(e.currentTarget, {
+      scale: isEntering ? 1.1 : 1,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
+
   return (
     <section className="py-24 bg-background relative overflow-hidden">
       {/* Decorative Background */}
@@ -45,11 +118,8 @@ const Portfolio = () => {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={headerRef}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -58,16 +128,13 @@ const Portfolio = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Conheça alguns dos projetos que desenvolvemos e os resultados alcançados
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              ref={(el) => (projectsRef.current[index] = el)}
               className="group relative"
             >
               <div className="relative h-full p-8 bg-card border rounded-2xl hover:border-primary/30 hover:shadow-2xl transition-all duration-300 overflow-hidden">
@@ -113,23 +180,21 @@ const Portfolio = () => {
                 </div>
 
                 {/* Hover Arrow */}
-                <motion.div
+                <div
                   className="absolute top-8 right-8 w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  whileHover={{ scale: 1.1 }}
+                  onMouseEnter={(e) => handleHoverArrow(e, true)}
+                  onMouseLeave={(e) => handleHoverArrow(e, false)}
                 >
                   <ExternalLink className="w-5 h-5 text-primary" />
-                </motion.div>
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <div
+          ref={ctaRef}
           className="text-center"
         >
           <p className="text-muted-foreground mb-6">
@@ -139,7 +204,7 @@ const Portfolio = () => {
             Ver Mais Projetos
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

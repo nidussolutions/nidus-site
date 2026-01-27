@@ -1,7 +1,11 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, Zap, Database, Smartphone, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const services = [
     {
@@ -38,25 +42,115 @@ const services = [
 
 const ServicesPreview = () => {
     const navigate = useNavigate();
-    const { scrollYProgress } = useScroll();
-    const y = useTransform(scrollYProgress, [0, 0.3], ['30px', '0px']);
-    const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    const sectionRef = useRef(null);
+    const headerRef = useRef(null);
+    const cardsRef = useRef([]);
+    const ctaRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Section parallax effect
+            gsap.fromTo(sectionRef.current,
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top bottom',
+                        end: 'top center',
+                        scrub: 1,
+                    }
+                }
+            );
+
+            // Header animation
+            gsap.fromTo(headerRef.current,
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    scrollTrigger: {
+                        trigger: headerRef.current,
+                        start: 'top 80%',
+                        once: true,
+                    }
+                }
+            );
+
+            // Cards stagger animation
+            cardsRef.current.forEach((card, index) => {
+                if (card) {
+                    gsap.fromTo(card,
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.5,
+                            delay: index * 0.1,
+                            scrollTrigger: {
+                                trigger: card,
+                                start: 'top 80%',
+                                once: true,
+                            }
+                        }
+                    );
+                }
+            });
+
+            // CTA animation
+            gsap.fromTo(ctaRef.current,
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: 0.4,
+                    scrollTrigger: {
+                        trigger: ctaRef.current,
+                        start: 'top 80%',
+                        once: true,
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    const handleCardHover = (e, isEntering) => {
+        const card = e.currentTarget;
+        const icon = card.querySelector('.icon-wrapper');
+        
+        gsap.to(card, {
+            y: isEntering ? -8 : 0,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+        
+        if (icon) {
+            gsap.to(icon, {
+                scale: isEntering ? 1.1 : 1,
+                rotate: isEntering ? 5 : 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        }
+    };
 
     return (
-        <motion.section
+        <section
+            ref={sectionRef}
             id="services-preview"
-            style={{ y, opacity }}
             className="py-24 bg-gradient-to-b from-muted/30 to-background relative"
         >
             {/* Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             
             <div className="max-w-7xl mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
+                <div
+                    ref={headerRef}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -65,17 +159,15 @@ const ServicesPreview = () => {
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         Do conceito ao deploy, cuidamos de cada detalhe do seu projeto digital
                     </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-12">
                     {services.map(({ icon: Icon, title, description, gradient, iconColor }, index) => (
-                        <motion.div
+                        <div
                             key={title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            whileHover={{ y: -8 }}
+                            ref={(el) => (cardsRef.current[index] = el)}
+                            onMouseEnter={(e) => handleCardHover(e, true)}
+                            onMouseLeave={(e) => handleCardHover(e, false)}
                             className="group relative"
                         >
                             {/* Card */}
@@ -85,13 +177,11 @@ const ServicesPreview = () => {
                                 
                                 {/* Content */}
                                 <div className="relative z-10">
-                                    <motion.div
-                                        className={`w-14 h-14 mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
-                                        whileHover={{ scale: 1.1, rotate: 5 }}
-                                        transition={{ duration: 0.3 }}
+                                    <div
+                                        className={`icon-wrapper w-14 h-14 mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
                                     >
                                         <Icon className={`${iconColor} w-7 h-7`} />
-                                    </motion.div>
+                                    </div>
                                     
                                     <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                                         {title}
@@ -104,16 +194,13 @@ const ServicesPreview = () => {
                                 {/* Corner Accent */}
                                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 {/* CTA Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                <div
+                    ref={ctaRef}
                     className="text-center"
                 >
                     <Button
@@ -124,9 +211,9 @@ const ServicesPreview = () => {
                         Ver Todos os Serviços
                         <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                </motion.div>
+                </div>
             </div>
-        </motion.section>
+        </section>
     );
 };
 

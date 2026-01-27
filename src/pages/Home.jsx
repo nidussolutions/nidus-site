@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
@@ -17,14 +22,22 @@ import Testimonials from './home/sections/Testimonials';
 const Home = () => {
   const navigate = useNavigate();
   const targetRef = useRef(null);
+  const heroRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  useEffect(() => {
+    if (heroRef.current) {
+      gsap.to(heroRef.current, {
+        y: '50%',
+        scrollTrigger: {
+          trigger: targetRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!sessionStorage.getItem('nidus_promotion_seen')) {
@@ -53,13 +66,13 @@ const Home = () => {
       <PromotionPopup isOpen={isPopupOpen} onOpenChange={setIsPopupOpen} />
 
       <div ref={targetRef} className="bg-background">
-        <motion.div style={{ y: heroY }}>
+        <div ref={heroRef}>
           <HeroSection
             onContact={() => navigate('/contact')}
             onServices={() => navigate('/services')}
             onScrollDown={scrollToServices}
           />
-        </motion.div>
+        </div>
 
         <ServicesPreview />
 

@@ -1,11 +1,17 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
 import { Code, Zap, CheckCircle, Smartphone, Palette, Briefcase, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const services = [
   { icon: Code, title: 'Desenvolvimento Web Sob Medida', description: 'Criamos sites, landing pages e sistemas web com React e outras tecnologias de ponta, com foco em performance e SEO.', features: ['Sites Institucionais', 'Landing Pages de Conversão', 'Plataformas Web Complexas', 'Otimização de Performance (Core Web Vitals)'], },
@@ -16,26 +22,31 @@ const services = [
   { icon: Briefcase, title: 'Consultoria Estratégica', description: 'Analisamos seus desafios e oferecemos um roadmap tecnológico claro para alinhar suas ferramentas e processos aos seus objetivos de negócio.', features: ['Diagnóstico de Processos', 'Seleção de Ferramentas (Stack)', 'Planejamento de Arquitetura', 'Mentoria Técnica'], },
 ];
 
-const pageVariants = {
-  offscreen: { opacity: 0, y: 30 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  },
-};
-
-const itemVariants = {
-  offscreen: { opacity: 0, y: 30 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  },
-};
-
 const Services = () => {
   const navigate = useNavigate();
+  const heroRef = useScrollAnimation();
+  const servicesGridRef = useRef(null);
+  const ctaRef = useScrollAnimation();
+
+  useEffect(() => {
+    if (servicesGridRef.current) {
+      const children = servicesGridRef.current.children;
+      gsap.fromTo(children, 
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: servicesGridRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -46,11 +57,9 @@ const Services = () => {
       />
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
-        <motion.section 
+        <section 
+          ref={heroRef}
           className="py-16 sm:py-20 px-6 text-center"
-          initial="offscreen"
-          animate="onscreen"
-          variants={pageVariants}
         >
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
             Nossos <span className="text-primary">Serviços</span>
@@ -58,20 +67,16 @@ const Services = () => {
           <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
             Soluções completas para transformar sua presença digital e otimizar suas operações.
           </p>
-        </motion.section>
+        </section>
 
         <section className="py-20 bg-background/50 border-y border-border">
-          <motion.div 
+          <div 
+            ref={servicesGridRef}
             className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ staggerChildren: 0.1 }}
           >
             {services.map((service) => (
-              <motion.div
+              <div
                 key={service.title}
-                variants={itemVariants}
                 className="p-8 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors flex flex-col shadow-sm hover:shadow-lg"
               >
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
@@ -87,18 +92,15 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </section>
 
         <section className="py-20 sm:py-24 bg-background">
-          <motion.div
+          <div
+            ref={ctaRef}
             className="max-w-4xl mx-auto px-6 text-center"
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={pageVariants}
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-6">
               Vamos construir algo incrível juntos?
@@ -113,7 +115,7 @@ const Services = () => {
             >
               Entre em Contato
             </Button>
-          </motion.div>
+          </div>
         </section>
 
         <Footer />

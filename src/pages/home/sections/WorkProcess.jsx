@@ -1,5 +1,9 @@
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Lightbulb, FileCode, Rocket, LineChart, Check } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const processSteps = [
   {
@@ -29,16 +33,103 @@ const processSteps = [
 ];
 
 const WorkProcess = () => {
+  const headerRef = useRef(null);
+  const stepsRef = useRef([]);
+  const dotsRef = useRef([]);
+  const ctaRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+
+      // Steps animation
+      stepsRef.current.forEach((step, index) => {
+        if (step) {
+          const isEven = index % 2 === 0;
+          gsap.fromTo(step,
+            { opacity: 0, x: isEven ? -50 : 50 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.5,
+              delay: index * 0.1,
+              scrollTrigger: {
+                trigger: step,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
+        }
+      });
+
+      // Timeline dots animation
+      dotsRef.current.forEach((dot, index) => {
+        if (dot) {
+          gsap.fromTo(dot,
+            { scale: 0 },
+            {
+              scale: 1,
+              duration: 0.3,
+              delay: index * 0.1 + 0.2,
+              scrollTrigger: {
+                trigger: dot,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
+        }
+      });
+
+      // CTA animation
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleStepHover = (e, isEntering) => {
+    gsap.to(e.currentTarget, {
+      scale: isEntering ? 1.05 : 1,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
+
   return (
     <section className="py-24 bg-gradient-to-b from-muted/30 to-background relative">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={headerRef}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -47,7 +138,7 @@ const WorkProcess = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Um processo transparente e colaborativo do início ao fim
           </p>
-        </motion.div>
+        </div>
 
         {/* Timeline */}
         <div className="relative">
@@ -60,20 +151,18 @@ const WorkProcess = () => {
               const isEven = index % 2 === 0;
 
               return (
-                <motion.div
+                <div
                   key={step.title}
-                  initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  ref={(el) => (stepsRef.current[index] = el)}
                   className={`relative grid md:grid-cols-2 gap-8 items-center ${
                     isEven ? '' : 'md:text-right'
                   }`}
                 >
                   {/* Content */}
                   <div className={`${isEven ? 'md:pr-12' : 'md:pl-12 md:col-start-2'}`}>
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
+                    <div
+                      onMouseEnter={(e) => handleStepHover(e, true)}
+                      onMouseLeave={(e) => handleStepHover(e, false)}
                       className="inline-block p-8 bg-card border rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full"
                     >
                       <div className={`flex items-center gap-4 mb-4 ${isEven ? '' : 'md:flex-row-reverse'}`}>
@@ -103,38 +192,32 @@ const WorkProcess = () => {
                           </div>
                         ))}
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
 
                   {/* Timeline Dot - Desktop */}
                   <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                    <div
+                      ref={(el) => (dotsRef.current[index] = el)}
                       className="w-4 h-4 rounded-full bg-gradient-to-br from-primary to-secondary border-4 border-background shadow-lg"
                     />
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <div
+          ref={ctaRef}
           className="mt-20 text-center p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl border"
         >
           <h3 className="text-2xl font-bold mb-3">Pronto para começar?</h3>
           <p className="text-muted-foreground mb-4">
             Vamos transformar sua ideia em realidade com um processo comprovado
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,9 @@
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Star, Quote } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
@@ -29,6 +33,75 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const headerRef = useRef(null);
+  const testimonialsRef = useRef([]);
+  const trustRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+
+      // Testimonials stagger animation
+      testimonialsRef.current.forEach((testimonial, index) => {
+        if (testimonial) {
+          gsap.fromTo(testimonial,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              delay: index * 0.1,
+              scrollTrigger: {
+                trigger: testimonial,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
+        }
+      });
+
+      // Trust indicators animation
+      gsap.fromTo(trustRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: trustRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleTestimonialHover = (e, isEntering) => {
+    gsap.to(e.currentTarget, {
+      y: isEntering ? -8 : 0,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
+
   return (
     <section className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
       {/* Decorative Elements */}
@@ -36,11 +109,8 @@ const Testimonials = () => {
       <div className="absolute bottom-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={headerRef}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -49,17 +119,15 @@ const Testimonials = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Confiança construída através de resultados reais
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
+              ref={(el) => (testimonialsRef.current[index] = el)}
+              onMouseEnter={(e) => handleTestimonialHover(e, true)}
+              onMouseLeave={(e) => handleTestimonialHover(e, false)}
               className="relative group"
             >
               <div className="relative h-full p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
@@ -96,16 +164,13 @@ const Testimonials = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <div
+          ref={trustRef}
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-8 p-6 bg-card border rounded-2xl">
@@ -124,7 +189,7 @@ const Testimonials = () => {
               <div className="text-sm text-muted-foreground">Clientes Felizes</div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

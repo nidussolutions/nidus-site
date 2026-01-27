@@ -1,20 +1,15 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import { ArrowRight, ChevronDown, Code2, Sparkles, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const text1 = 'Transformando Ideias em';
 const text2 = 'Soluções Digitais';
-
-const container = {
-  visible: {
-    transition: { staggerChildren: 0.04 },
-  },
-};
-
-const letter = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 const stats = [
   { value: '50+', label: 'Projetos Entregues' },
@@ -23,10 +18,82 @@ const stats = [
 ];
 
 const HeroSection = ({ onContact, onServices, onScrollDown }) => {
-  const { scrollY } = useScroll();
+  const badgeRef = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const buttonsRef = useRef(null);
+  const statsRef = useRef(null);
+  const exploreRef = useRef(null);
 
-  const exploreOpacity = useTransform(scrollY, [0, 80], [1, 0]);
-  const exploreY = useTransform(scrollY, [0, 80], [0, 10]);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Badge animation
+      gsap.from(badgeRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+      });
+
+      // Title letters animation
+      const letters = titleRef.current.querySelectorAll('.letter');
+      gsap.from(letters, {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        stagger: 0.04,
+        delay: 0.2,
+      });
+
+      // Description animation
+      gsap.from(descRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        delay: 0.4,
+      });
+
+      // Buttons animation
+      gsap.from(buttonsRef.current.children, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        delay: 0.6,
+        stagger: 0.1,
+      });
+
+      // Stats animation
+      gsap.from(statsRef.current.children, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        delay: 0.8,
+        stagger: 0.1,
+      });
+
+      // Explore button scroll animation
+      gsap.to(exploreRef.current, {
+        opacity: 0,
+        y: 10,
+        scrollTrigger: {
+          trigger: exploreRef.current,
+          start: 'top top',
+          end: '+=80',
+          scrub: true,
+        },
+      });
+
+      // Chevron bounce animation
+      gsap.to(exploreRef.current.querySelector('.chevron'), {
+        y: 6,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
@@ -40,56 +107,48 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
 
       {/* Content */}
       <div className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={badgeRef}
           className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-primary/10 border border-primary/20"
         >
           <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-primary">
             Desenvolvimento Sob Medida
           </span>
-        </motion.div>
+        </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-muted-foreground">
-          <motion.span
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="block"
-          >
+        <h1 
+          ref={titleRef}
+          className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-muted-foreground"
+        >
+          <span className="block">
             {text1.split('').map((char, i) => (
-              <motion.span key={i} variants={letter} className="inline-block">
+              <span key={i} className="letter inline-block">
                 {char === ' ' ? '\u00A0' : char}
-              </motion.span>
+              </span>
             ))}
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent">
               {text2.split('').map((char, i) => (
-                <motion.span key={i} variants={letter} className="inline-block">
+                <span key={i} className="letter inline-block">
                   {char === ' ' ? '\u00A0' : char}
-                </motion.span>
+                </span>
               ))}
             </span>
-          </motion.span>
+          </span>
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <p
+          ref={descRef}
           className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed"
         >
           Somos especialistas em desenvolvimento web moderno e automação inteligente.
           <br className="hidden md:block" />
           Criamos experiências digitais que impulsionam seu negócio.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <div
+          ref={buttonsRef}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
           <Button size="lg" onClick={onContact} className="group">
@@ -101,13 +160,11 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
             <Code2 className="mr-2 w-5 h-5" />
             Nossos Serviços
           </Button>
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+        <div
+          ref={statsRef}
           className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
         >
           {stats.map((stat, index) => (
@@ -118,11 +175,11 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        style={{ opacity: exploreOpacity, y: exploreY }}
+      <div
+        ref={exploreRef}
         className="absolute bottom-10 z-10"
       >
         <Button
@@ -133,14 +190,11 @@ const HeroSection = ({ onContact, onServices, onScrollDown }) => {
           <span className="text-xs uppercase tracking-widest mb-1 text-muted-foreground">
             Explore
           </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          >
+          <div className="chevron">
             <ChevronDown className="text-muted-foreground" />
-          </motion.div>
+          </div>
         </Button>
-      </motion.div>
+      </div>
     </section>
   );
 };

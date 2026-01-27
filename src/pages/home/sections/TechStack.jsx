@@ -1,5 +1,9 @@
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SiReact, SiNodedotjs, SiTypescript, SiTailwindcss, SiSupabase, SiPython, SiDocker, SiFigma } from 'react-icons/si';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const technologies = [
   { name: 'React', icon: SiReact, color: '#61DAFB', description: 'Interfaces modernas' },
@@ -13,14 +17,92 @@ const technologies = [
 ];
 
 const TechStack = () => {
+  const headerRef = useRef(null);
+  const techRefs = useRef([]);
+  const infoRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+
+      // Tech items stagger animation
+      techRefs.current.forEach((tech, index) => {
+        if (tech) {
+          gsap.fromTo(tech,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              delay: index * 0.1,
+              scrollTrigger: {
+                trigger: tech,
+                start: 'top 80%',
+                once: true,
+              }
+            }
+          );
+        }
+      });
+
+      // Info animation
+      gsap.fromTo(infoRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.8,
+          scrollTrigger: {
+            trigger: infoRef.current,
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleTechHover = (e, isEntering) => {
+    const card = e.currentTarget;
+    const icon = card.querySelector('.tech-icon');
+    
+    gsap.to(card, {
+      y: isEntering ? -8 : 0,
+      scale: isEntering ? 1.05 : 1,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+    
+    if (icon) {
+      gsap.to(icon, {
+        rotate: isEntering ? 360 : 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      });
+    }
+  };
+
   return (
     <section className="py-24 bg-gradient-to-b from-background to-muted/30">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={headerRef}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -29,35 +111,31 @@ const TechStack = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Utilizamos as ferramentas mais modernas e confiáveis do mercado para garantir a melhor qualidade
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {technologies.map((tech, index) => {
             const Icon = tech.icon;
             return (
-              <motion.div
+              <div
                 key={tech.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.05 }}
+                ref={(el) => (techRefs.current[index] = el)}
+                onMouseEnter={(e) => handleTechHover(e, true)}
+                onMouseLeave={(e) => handleTechHover(e, false)}
                 className="group relative bg-card border rounded-xl p-6 text-center hover:border-primary/50 hover:shadow-xl transition-all duration-300"
               >
                 {/* Gradient Background on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="relative z-10">
-                  <motion.div
-                    className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
+                  <div
+                    className="tech-icon w-16 h-16 mx-auto mb-4 flex items-center justify-center"
                   >
                     <Icon
                       className="w-full h-full"
                       style={{ color: tech.color }}
                     />
-                  </motion.div>
+                  </div>
                   
                   <h3 className="font-bold text-lg mb-1">{tech.name}</h3>
                   <p className="text-sm text-muted-foreground">{tech.description}</p>
@@ -68,23 +146,20 @@ const TechStack = () => {
                   className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"
                   style={{ backgroundColor: tech.color }}
                 />
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
         {/* Additional Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+        <div
+          ref={infoRef}
           className="mt-16 text-center"
         >
           <p className="text-muted-foreground max-w-3xl mx-auto">
             E muito mais... Nossa stack é constantemente atualizada com as melhores práticas e ferramentas do mercado
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

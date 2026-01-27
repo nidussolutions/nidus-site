@@ -1,10 +1,16 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
 import { Mail, Calendar, MessageCircle } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
 import ContactForm from '@/components/ContactForm';
 import SEO from '@/components/SEO';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const contactInfo = [
   {
@@ -27,25 +33,31 @@ const contactInfo = [
   },
 ];
 
-const pageVariants = {
-  offscreen: { opacity: 0, y: 30 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  },
-};
-
-const itemVariants = {
-  offscreen: { opacity: 0, y: 20 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  },
-};
-
 const Contact = () => {
+  const heroRef = useScrollAnimation();
+  const formRef = useScrollAnimation();
+  const contactInfoRef = useRef(null);
+
+  useEffect(() => {
+    if (contactInfoRef.current) {
+      const children = contactInfoRef.current.children;
+      gsap.fromTo(children, 
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.2,
+          delay: 0.3,
+          scrollTrigger: {
+            trigger: contactInfoRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+    }
+  }, []);
   return (
     <>
       <SEO
@@ -56,11 +68,9 @@ const Contact = () => {
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
         {/* Hero Section */}
-        <motion.section 
+        <section 
+          ref={heroRef}
           className="py-16 sm:py-20 px-6 text-center"
-          initial="offscreen"
-          animate="onscreen"
-          variants={pageVariants}
         >
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
             Vamos Conversar?
@@ -68,41 +78,34 @@ const Contact = () => {
           <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
             Estamos ansiosos para ouvir sobre seu projeto e como podemos ajudar.
           </p>
-        </motion.section>
+        </section>
 
         {/* Contact Section */}
         <section className="pb-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
               {/* Contact Form (Left Column) */}
-              <motion.div
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={pageVariants}
+              <div
+                ref={formRef}
                 className="lg:col-span-3"
               >
                 <div className="bg-card rounded-lg border border-border p-6 sm:p-8 h-full shadow-sm">
                   <h2 className="text-2xl font-bold text-card-foreground mb-6">Envie uma mensagem</h2>
                   <ContactForm />
                 </div>
-              </motion.div>
+              </div>
 
               {/* Contact Info (Right Column) */}
-              <motion.div 
+              <div 
+                ref={contactInfoRef}
                 className="lg:col-span-2 flex flex-col gap-6"
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ staggerChildren: 0.2, delayChildren: 0.3 }}
               >
                 {contactInfo.map((info) => (
-                  <motion.a
+                  <a
                     key={info.title}
                     href={info.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    variants={itemVariants}
                     className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors shadow-sm"
                   >
                     <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
@@ -112,9 +115,9 @@ const Contact = () => {
                       <h3 className="text-lg font-bold text-card-foreground">{info.title}</h3>
                       <p className="text-muted-foreground">{info.content}</p>
                     </div>
-                  </motion.a>
+                  </a>
                 ))}
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>

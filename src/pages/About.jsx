@@ -1,7 +1,14 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
 import { Zap, Users, Award, Code } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useFadeIn } from '@/hooks/useGSAP';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
@@ -28,25 +35,33 @@ const values = [
   },
 ];
 
-const containerVariants = {
-  offscreen: { opacity: 0, y: 30 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  },
-};
-
-const itemVariants = {
-  offscreen: { opacity: 0, y: 30 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  },
-};
-
 const About = () => {
+  const heroRef = useScrollAnimation();
+  const missionRef = useScrollAnimation();
+  const imageRef = useScrollAnimation({ from: { opacity: 0, scale: 0.9 }, to: { opacity: 1, scale: 1, duration: 0.8 } });
+  const valuesHeaderRef = useScrollAnimation();
+  const valuesGridRef = useRef(null);
+
+  useEffect(() => {
+    if (valuesGridRef.current) {
+      const children = valuesGridRef.current.children;
+      gsap.fromTo(children, 
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: valuesGridRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+    }
+  }, []);
+
   return (
     <>
       <SEO
@@ -56,11 +71,9 @@ const About = () => {
       />
 
       <div className="pt-24 sm:pt-32 bg-background text-foreground">
-        <motion.section 
+        <section 
+          ref={heroRef}
           className="py-16 sm:py-20 px-6 text-center"
-          initial="offscreen"
-          animate="onscreen"
-          variants={containerVariants}
         >
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-6">
             Nós somos a <span className="text-primary">Nidus</span>
@@ -68,18 +81,12 @@ const About = () => {
           <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
             Uma agência de desenvolvimento e automação dedicada a construir o futuro digital do seu negócio.
           </p>
-        </motion.section>
+        </section>
 
         <section className="py-20 bg-background/50 border-y border-border">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <motion.div
-                initial="offscreen"
-                whileInView="onscreen"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={itemVariants}
-                transition={{ staggerChildren: 0.2 }}
-              >
+              <div ref={missionRef}>
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter mb-6">
                   Nossa Missão: <span className="text-primary">Inovar e Otimizar</span>
                 </h2>
@@ -91,18 +98,15 @@ const About = () => {
                     Com expertise em desenvolvimento web moderno e automação de processos, criamos ecossistemas digitais coesos e eficientes. Construímos desde sites institucionais e plataformas complexas até a integração de todos os seus sistemas para que funcionem em perfeita harmonia.
                   </p>
                 </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+              </div>
+              <div
+                ref={imageRef}
                 className="flex justify-center"
               >
                 <div className="relative w-full max-w-md h-96 rounded-lg overflow-hidden border border-border shadow-lg">
                   <img className="w-full h-full object-cover" alt="Equipe de desenvolvimento colaborando em um escritório moderno, com gráficos digitais sobrepostos." src="/about.jpg" />
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -110,12 +114,9 @@ const About = () => {
         {/* Values Section */}
         <section className="py-20 sm:py-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <motion.div
+            <div
+              ref={valuesHeaderRef}
               className="text-center mb-16"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.5 }}
-              variants={containerVariants}
             >
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-4">
                 Nossos Valores
@@ -123,19 +124,15 @@ const About = () => {
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Os princípios que guiam cada linha de código e cada projeto que entregamos.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
+            <div
+              ref={valuesGridRef}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ staggerChildren: 0.1 }}
             >
               {values.map((value) => (
-                <motion.div
+                <div
                   key={value.title}
-                  variants={itemVariants}
                   className="p-6 bg-card rounded-lg border border-border text-center shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
                 >
                   <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-4">
@@ -143,9 +140,9 @@ const About = () => {
                   </div>
                   <h3 className="text-xl font-bold text-card-foreground mb-2">{value.title}</h3>
                   <p className="text-muted-foreground text-sm">{value.description}</p>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
