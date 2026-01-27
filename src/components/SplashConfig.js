@@ -18,7 +18,7 @@ export const SPLASH_CONFIG = {
   variant: "cinematic",
 
   // Tempo mínimo de exibição (ms)
-  minDisplayTime: 2000,
+  minDisplayTime: 1500,
 
   // Mostrar botão de pular
   showSkipButton: true,

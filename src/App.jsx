@@ -34,11 +34,8 @@ const App = () => {
   const [splashComplete, setSplashComplete] = useState(false);
 
   const handleSplashComplete = () => {
-    // Aguarda tempo mínimo antes de esconder
-    setTimeout(() => {
-      setShowSplash(false);
-      setSplashComplete(true);
-    }, SPLASH_CONFIG.minDisplayTime);
+    setShowSplash(false);
+    setSplashComplete(true);
   };
 
   // Mostra splash screen apenas no carregamento inicial

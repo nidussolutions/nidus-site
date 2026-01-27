@@ -8,9 +8,9 @@ import { Textarea } from './ui/textarea';
 const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID;
 
 const ContactForm = () => {
-  const [state, handleSubmit] = useForm(formspreeId || 'YOUR_FORM_ID');
+  const [state, handleSubmit] = useForm(formspreeId);
 
-  if (!formspreeId || formspreeId === 'YOUR_FORM_ID') {
+  if (!formspreeId) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-red-900/20 rounded-lg">
         <h3 className="text-xl font-semibold text-white mb-2">Configuration Required</h3>

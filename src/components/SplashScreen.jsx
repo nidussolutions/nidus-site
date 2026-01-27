@@ -32,7 +32,7 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
         // Fade out do splash completo
         gsap.to(container, {
           opacity: 0,
-          duration: 0.8,
+          duration: 0.4,
           ease: 'power2.inOut',
           onComplete: () => {
             if (onComplete) onComplete();
@@ -46,27 +46,27 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
       opacity: 0,
       y: 100,
       rotationX: -90,
-      stagger: 0.08,
-      duration: 0.8,
+      stagger: 0.06,
+      duration: 0.6,
       ease: 'back.out(1.7)',
     })
       // Pulse suave
       .to(letters, {
         scale: 1.05,
-        duration: 0.4,
+        duration: 0.3,
         yoyo: true,
         repeat: 1,
-        stagger: 0.05,
+        stagger: 0.04,
         ease: 'power1.inOut',
       }, '-=0.2')
       // Prepara para sair
       .to(letters, {
         y: -20,
         opacity: 0.8,
-        duration: 0.5,
-        stagger: 0.05,
+        duration: 0.3,
+        stagger: 0.04,
         ease: 'power2.in',
-      }, '+=0.3');
+      }, '+=0.2');
 
     // Cleanup
     return () => {
