@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from 'react';
 import { Code, Zap, CheckCircle, Smartphone, Palette, Briefcase, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
@@ -24,28 +23,198 @@ const services = [
 
 const Services = () => {
   const navigate = useNavigate();
-  const heroRef = useScrollAnimation();
+  const heroRef = useRef(null);
+  const heroTitleRef = useRef(null);
+  const heroSubtitleRef = useRef(null);
   const servicesGridRef = useRef(null);
-  const ctaRef = useScrollAnimation();
+  const ctaSectionRef = useRef(null);
+  const ctaTitleRef = useRef(null);
+  const ctaTextRef = useRef(null);
+  const ctaButtonRef = useRef(null);
 
   useEffect(() => {
-    if (servicesGridRef.current) {
-      const children = servicesGridRef.current.children;
-      gsap.fromTo(children, 
+    const ctx = gsap.context(() => {
+      // Hero section animations
+      const heroTl = gsap.timeline();
+      
+      heroTl.fromTo(
+        heroTitleRef.current,
+        { opacity: 0, y: 50, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 1,
+          ease: 'power3.out'
+        }
+      )
+      .fromTo(
+        heroSubtitleRef.current,
         { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out'
+        },
+        '-=0.5'
+      );
+
+      // Services grid animations
+      if (servicesGridRef.current) {
+        const cards = servicesGridRef.current.children;
+        
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 60, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: 'back.out(1.3)',
+            scrollTrigger: {
+              trigger: servicesGridRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            }
+          }
+        );
+
+        // Hover animations para cada card
+        Array.from(cards).forEach((card) => {
+          const icon = card.querySelector('.service-icon');
+          const features = card.querySelectorAll('.service-feature');
+          
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+              y: -8,
+              boxShadow: '0 20px 40px rgba(139, 92, 246, 0.15)',
+              borderColor: 'rgba(139, 92, 246, 0.5)',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+            
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1.15,
+                rotation: 5,
+                duration: 0.4,
+                ease: 'back.out(2)',
+              });
+            }
+
+            if (features.length) {
+              gsap.to(features, {
+                x: 5,
+                duration: 0.3,
+                stagger: 0.05,
+                ease: 'power2.out',
+              });
+            }
+          });
+
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+              y: 0,
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+              borderColor: 'hsl(var(--border))',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+            
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.3,
+                ease: 'power2.out',
+              });
+            }
+
+            if (features.length) {
+              gsap.to(features, {
+                x: 0,
+                duration: 0.3,
+                ease: 'power2.out',
+              });
+            }
+          });
+        });
+      }
+
+      // CTA section animations
+      gsap.fromTo(
+        ctaTitleRef.current,
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          stagger: 0.1,
+          duration: 0.8,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: servicesGridRef.current,
-            start: 'top 80%',
+            trigger: ctaSectionRef.current,
+            start: 'top 75%',
             toggleActions: 'play none none reverse',
           }
         }
       );
-    }
+
+      gsap.fromTo(
+        ctaTextRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: ctaSectionRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+
+      gsap.fromTo(
+        ctaButtonRef.current,
+        { opacity: 0, scale: 0.9 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: ctaSectionRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+
+      // CTA button hover
+      const button = ctaButtonRef.current;
+      if (button) {
+        button.addEventListener('mouseenter', () => {
+          gsap.to(button, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+
+        button.addEventListener('mouseleave', () => {
+          gsap.to(button, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+      }
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -61,10 +230,16 @@ const Services = () => {
           ref={heroRef}
           className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 text-center"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0">
+          <h1 
+            ref={heroTitleRef}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter mb-4 sm:mb-6 px-4 sm:px-0"
+          >
             Nossos <span className="text-primary">Serviços</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0">
+          <p 
+            ref={heroSubtitleRef}
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-0"
+          >
             Soluções completas para transformar sua presença digital e otimizar suas operações.
           </p>
         </section>
@@ -77,16 +252,16 @@ const Services = () => {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors flex flex-col shadow-sm hover:shadow-lg"
+                className="p-6 sm:p-8 bg-card rounded-lg border border-border flex flex-col shadow-sm cursor-pointer"
               >
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
+                <div className="service-icon flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
                   <service.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h2 className="text-lg sm:text-xl font-bold text-card-foreground mb-3">{service.title}</h2>
                 <p className="text-sm sm:text-base text-muted-foreground mb-6 flex-grow">{service.description}</p>
                 <ul className="space-y-2 text-sm">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center text-foreground">
+                    <li key={feature} className="service-feature flex items-center text-foreground">
                       <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
                       {feature}
                     </li>
@@ -97,21 +272,28 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-12 sm:py-16 lg:py-20 bg-background">
-          <div
-            ref={ctaRef}
-            className="max-w-4xl mx-auto px-4 sm:px-6 text-center"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-foreground mb-4 sm:mb-6 px-4 sm:px-0">
+        <section 
+          ref={ctaSectionRef}
+          className="py-12 sm:py-16 lg:py-20 bg-background"
+        >
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h2 
+              ref={ctaTitleRef}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-foreground mb-4 sm:mb-6 px-4 sm:px-0"
+            >
               Vamos construir algo incrível juntos?
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 px-4 sm:px-0">
+            <p 
+              ref={ctaTextRef}
+              className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 px-4 sm:px-0"
+            >
               Pronto para levar seu negócio para o próximo nível com tecnologia e automação?
             </p>
             <Button
+              ref={ctaButtonRef}
               onClick={() => navigate('/contact')}
               size="lg"
-              className="bg-primary hover:bg-opacity-90 text-primary-foreground font-semibold"
+              className="bg-primary text-primary-foreground font-semibold"
             >
               Entre em Contato
             </Button>

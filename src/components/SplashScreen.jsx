@@ -87,15 +87,15 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
 
       {/* Círculo de glow atrás do texto */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+        className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] rounded-full blur-3xl opacity-20"
         style={{
           background: `radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(20, 184, 166, 0.1) 50%, transparent 70%)`,
         }}
       />
 
       {/* Texto NIDUS */}
-      <div ref={textRef} className="relative">
-        <h1 className="text-8xl md:text-9xl font-black tracking-wider flex">
+      <div ref={textRef} className="relative px-4">
+        <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider flex justify-center">
           {['N', 'I', 'D', 'U', 'S'].map((letter, index) => (
             <span
               key={index}
@@ -114,16 +114,16 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
         </h1>
 
         {/* Linha decorativa */}
-        <div className="mt-6 h-1.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent rounded-full opacity-60" />
+        <div className="mt-4 sm:mt-6 h-1 sm:h-1.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent rounded-full opacity-60" />
       </div>
 
       {/* Loading indicator sutil */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
-        <div className="flex gap-2">
+      <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2">
+        <div className="flex gap-1.5 sm:gap-2">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="w-2.5 h-2.5 rounded-full bg-primary-500 animate-pulse"
+              className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-primary-500 animate-pulse"
               style={{
                 animationDelay: `${i * 0.2}s`,
               }}
@@ -136,7 +136,7 @@ const SplashScreen = ({ onComplete, showSkipButton = false }) => {
       {showSkipButton && (
         <button
           onClick={handleSkip}
-          className="absolute bottom-8 right-8 px-4 py-2 text-neutral-600 hover:text-primary-600 text-sm font-medium transition-colors rounded-lg hover:bg-white/50"
+          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 px-3 py-1.5 sm:px-4 sm:py-2 text-neutral-600 hover:text-primary-600 text-xs sm:text-sm font-medium transition-colors rounded-lg hover:bg-white/50"
         >
           Pular →
         </button>

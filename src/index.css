@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,7 +41,7 @@
     --ring: 199 89% 48%;             /* primary-500 */
 
     --radius: 0.75rem;
-  },
+  }
 
   /* Dark mode (opcional para futuro) */
   .dark {
@@ -83,6 +82,7 @@
   
   html {
     @apply scroll-smooth;
+    overflow-x: hidden;
   }
   
   body {
@@ -91,6 +91,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
   
   /* Custom Scrollbar - Design System */
@@ -129,7 +130,7 @@
   .bg-dot-pattern {
     background-image: radial-gradient(rgb(14 165 233 / 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
-  },
+  }
 
   /* Text Balance */
   .text-balance {
@@ -149,7 +150,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(14, 165, 233, 0.2);
-  },
+  }
 
   /* Gradient Text */
   .gradient-text {
@@ -181,12 +182,12 @@
 
   .glow-hover:hover {
     box-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
-  },
+  }
 
   /* Selection */
   ::selection {
     @apply bg-primary-200 text-primary-900;
-  },
+  }
 
   /* Focus visible */
   :focus-visible {
