@@ -60,14 +60,14 @@ const Navigation = () => {
       variants={headerVariants}
       animate={!mobileMenuOpen && isHidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-3 bg-nidus-bg-light/80 backdrop-blur-lg border-b border-gray-200/80"
+      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 py-2.5 sm:py-3 bg-nidus-bg-light/80 backdrop-blur-lg border-b border-gray-200/80"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-md border-2 border-nidus-purple flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-            <span className="text-xl font-bold text-nidus-purple">N</span>
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-nidus-purple flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+            <span className="text-lg sm:text-xl font-bold text-nidus-purple">N</span>
           </div>
-          <span className="text-xl font-semibold group-hover:text-nidus-text-dark transition-colors text-nidus-text-dark">Nidus</span>
+          <span className="text-lg sm:text-xl font-semibold group-hover:text-nidus-text-dark transition-colors text-nidus-text-dark">Nidus</span>
         </Link>
 
         {/* Desktop Navigation */}

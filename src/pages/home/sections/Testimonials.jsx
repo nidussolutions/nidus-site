@@ -38,14 +38,17 @@ const Testimonials = () => {
   const trustRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const animDuration = isMobile ? 0.25 : 0.5;
+    
     const ctx = gsap.context(() => {
       // Header animation
       gsap.fromTo(headerRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
+          duration: animDuration,
           scrollTrigger: {
             trigger: headerRef.current,
             start: 'top 80%',
@@ -58,12 +61,12 @@ const Testimonials = () => {
       testimonialsRef.current.forEach((testimonial, index) => {
         if (testimonial) {
           gsap.fromTo(testimonial,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: isMobile ? 15 : 30 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.5,
-              delay: index * 0.1,
+              duration: animDuration,
+              delay: isMobile ? index * 0.05 : index * 0.1,
               scrollTrigger: {
                 trigger: testimonial,
                 start: 'top 80%',
@@ -76,12 +79,12 @@ const Testimonials = () => {
 
       // Trust indicators animation
       gsap.fromTo(trustRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          delay: 0.4,
+          duration: animDuration,
+          delay: isMobile ? 0.2 : 0.4,
           scrollTrigger: {
             trigger: trustRef.current,
             start: 'top 80%',
@@ -108,15 +111,15 @@ const Testimonials = () => {
       <div className="absolute top-20 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 relative z-10">
         <div
           ref={headerRef}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             O Que Nossos Clientes Dizem
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
             Confiança construída através de resultados reais
           </p>
         </div>
@@ -175,17 +178,17 @@ const Testimonials = () => {
         >
           <div className="inline-flex items-center gap-8 p-6 bg-card border rounded-2xl">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-1">4.9/5</div>
+              <div className="text-3xl font-bold text-primary mb-1">4.8/5</div>
               <div className="text-sm text-muted-foreground">Avaliação Média</div>
             </div>
             <div className="h-12 w-px bg-border" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-secondary mb-1">100%</div>
+              <div className="text-3xl font-bold text-secondary mb-1">98%</div>
               <div className="text-sm text-muted-foreground">Satisfação</div>
             </div>
             <div className="h-12 w-px bg-border" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">50+</div>
+              <div className="text-3xl font-bold text-accent mb-1">200+</div>
               <div className="text-sm text-muted-foreground">Clientes Felizes</div>
             </div>
           </div>

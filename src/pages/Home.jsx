@@ -15,7 +15,6 @@ import SEO from '@/components/SEO';
 import HeroSection from './home/sections/HeroSection';
 import ServicesPreview from './home/sections/ServicesPreview';
 import TechStack from './home/sections/TechStack';
-import Portfolio from './home/sections/Portfolio';
 import WorkProcess from './home/sections/WorkProcess';
 import Testimonials from './home/sections/Testimonials';
 
@@ -26,17 +25,29 @@ const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    if (heroRef.current) {
-      gsap.to(heroRef.current, {
-        y: '50%',
-        scrollTrigger: {
-          trigger: targetRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
+    let scrollTriggerInstance;
+
+    if (heroRef.current && targetRef.current) {
+      scrollTriggerInstance = ScrollTrigger.create({
+        trigger: targetRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        onUpdate: (self) => {
+          gsap.to(heroRef.current, {
+            y: `${self.progress * 20}%`,
+            duration: 0,
+          });
         },
       });
     }
+
+    return () => {
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   useEffect(() => {
@@ -78,18 +89,12 @@ const Home = () => {
 
         <TechStack />
 
-        <Portfolio />
-
         <WorkProcess />
 
         <Testimonials />
 
-        <section className="border-t border-border">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <CallToAction />
-          </div>
-        </section>
-
+        <CallToAction />
+        
         <Footer />
       </div>
     </>

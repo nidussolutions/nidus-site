@@ -10,13 +10,10 @@ const footerLinks = {
   Empresa: [
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Serviços', path: '/services' },
-    { name: 'Carreiras', path: '/careers' },
     { name: 'Contato', path: '/contact' },
   ],
   Recursos: [
     { name: 'FAQ', path: '/faq' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Cases de Sucesso', path: '/cases' },
   ],
   Legal: [
     { name: 'Política de Privacidade', path: '/privacy-policy' },

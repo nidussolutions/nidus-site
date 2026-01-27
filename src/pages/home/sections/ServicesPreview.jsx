@@ -48,29 +48,34 @@ const ServicesPreview = () => {
     const ctaRef = useRef(null);
 
     useEffect(() => {
+        const isMobile = window.innerWidth < 768;
+        const animDuration = isMobile ? 0.25 : 0.5;
+        
         const ctx = gsap.context(() => {
-            // Section parallax effect
-            gsap.fromTo(sectionRef.current,
-                { y: 30, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top bottom',
-                        end: 'top center',
-                        scrub: 1,
+            // Section parallax effect - desabilitado em mobile
+            if (!isMobile) {
+                gsap.fromTo(sectionRef.current,
+                    { y: 30, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: 'top bottom',
+                            end: 'top center',
+                            scrub: 1,
+                        }
                     }
-                }
-            );
+                );
+            }
 
             // Header animation
             gsap.fromTo(headerRef.current,
-                { opacity: 0, y: 20 },
+                { opacity: 0, y: isMobile ? 10 : 20 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.5,
+                    duration: animDuration,
                     scrollTrigger: {
                         trigger: headerRef.current,
                         start: 'top 80%',
@@ -83,12 +88,12 @@ const ServicesPreview = () => {
             cardsRef.current.forEach((card, index) => {
                 if (card) {
                     gsap.fromTo(card,
-                        { opacity: 0, y: 30 },
+                        { opacity: 0, y: isMobile ? 15 : 30 },
                         {
                             opacity: 1,
                             y: 0,
-                            duration: 0.5,
-                            delay: index * 0.1,
+                            duration: animDuration,
+                            delay: isMobile ? index * 0.05 : index * 0.1,
                             scrollTrigger: {
                                 trigger: card,
                                 start: 'top 80%',
@@ -101,12 +106,12 @@ const ServicesPreview = () => {
 
             // CTA animation
             gsap.fromTo(ctaRef.current,
-                { opacity: 0, y: 20 },
+                { opacity: 0, y: isMobile ? 10 : 20 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.5,
-                    delay: 0.4,
+                    duration: animDuration,
+                    delay: isMobile ? 0.2 : 0.4,
                     scrollTrigger: {
                         trigger: ctaRef.current,
                         start: 'top 80%',
@@ -148,15 +153,15 @@ const ServicesPreview = () => {
             {/* Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto px-3 sm:px-6">
                 <div
                     ref={headerRef}
-                    className="text-center mb-12 sm:mb-16"
+                    className="text-center mb-10 sm:mb-16"
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
                         Soluções Completas para seu Negócio
                     </h2>
-                    <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
                         Do conceito ao deploy, cuidamos de cada detalhe do seu projeto digital
                     </p>
                 </div>
@@ -171,7 +176,7 @@ const ServicesPreview = () => {
                             className="group relative"
                         >
                             {/* Card */}
-                            <div className="relative h-full p-6 sm:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                            <div className="relative h-full p-5 sm:p-6 md:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 overflow-hidden">
                                 {/* Gradient Background */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                                 

@@ -22,14 +22,17 @@ const TechStack = () => {
   const infoRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const animDuration = isMobile ? 0.25 : 0.5;
+    
     const ctx = gsap.context(() => {
       // Header animation
       gsap.fromTo(headerRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
+          duration: animDuration,
           scrollTrigger: {
             trigger: headerRef.current,
             start: 'top 80%',
@@ -42,12 +45,12 @@ const TechStack = () => {
       techRefs.current.forEach((tech, index) => {
         if (tech) {
           gsap.fromTo(tech,
-            { opacity: 0, y: 20 },
+            { opacity: 0, y: isMobile ? 10 : 20 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.5,
-              delay: index * 0.1,
+              duration: animDuration,
+              delay: isMobile ? index * 0.04 : index * 0.1,
               scrollTrigger: {
                 trigger: tech,
                 start: 'top 80%',
@@ -60,12 +63,12 @@ const TechStack = () => {
 
       // Info animation
       gsap.fromTo(infoRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          delay: 0.8,
+          duration: animDuration,
+          delay: isMobile ? 0.4 : 0.8,
           scrollTrigger: {
             trigger: infoRef.current,
             start: 'top 80%',
@@ -100,15 +103,15 @@ const TechStack = () => {
 
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6">
         <div
           ref={headerRef}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             Tecnologias de Ponta
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
             Utilizamos as ferramentas mais modernas e confiáveis do mercado para garantir a melhor qualidade
           </p>
         </div>

@@ -39,14 +39,17 @@ const WorkProcess = () => {
   const ctaRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const animDuration = isMobile ? 0.25 : 0.5;
+    
     const ctx = gsap.context(() => {
       // Header animation
       gsap.fromTo(headerRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
+          duration: animDuration,
           scrollTrigger: {
             trigger: headerRef.current,
             start: 'top 80%',
@@ -60,12 +63,13 @@ const WorkProcess = () => {
         if (step) {
           const isEven = index % 2 === 0;
           gsap.fromTo(step,
-            { opacity: 0, x: isEven ? -50 : 50 },
+            { opacity: 0, x: isMobile ? 0 : (isEven ? -50 : 50), y: isMobile ? 15 : 0 },
             {
               opacity: 1,
               x: 0,
-              duration: 0.5,
-              delay: index * 0.1,
+              y: 0,
+              duration: animDuration,
+              delay: isMobile ? index * 0.05 : index * 0.1,
               scrollTrigger: {
                 trigger: step,
                 start: 'top 80%',
@@ -83,8 +87,8 @@ const WorkProcess = () => {
             { scale: 0 },
             {
               scale: 1,
-              duration: 0.3,
-              delay: index * 0.1 + 0.2,
+              duration: isMobile ? 0.15 : 0.3,
+              delay: isMobile ? index * 0.05 + 0.1 : index * 0.1 + 0.2,
               scrollTrigger: {
                 trigger: dot,
                 start: 'top 80%',
@@ -97,12 +101,12 @@ const WorkProcess = () => {
 
       // CTA animation
       gsap.fromTo(ctaRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: isMobile ? 10 : 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          delay: 0.4,
+          duration: animDuration,
+          delay: isMobile ? 0.2 : 0.4,
           scrollTrigger: {
             trigger: ctaRef.current,
             start: 'top 80%',
@@ -127,15 +131,15 @@ const WorkProcess = () => {
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background relative">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div
           ref={headerRef}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             Nossa Metodologia
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
             Um processo transparente e colaborativo do início ao fim
           </p>
         </div>
@@ -163,7 +167,7 @@ const WorkProcess = () => {
                     <div
                       onMouseEnter={(e) => handleStepHover(e, true)}
                       onMouseLeave={(e) => handleStepHover(e, false)}
-                      className="inline-block p-6 sm:p-8 bg-card border rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full"
+                      className="inline-block p-5 sm:p-6 md:p-8 bg-card border rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full"
                     >
                       <div className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 ${isEven ? '' : 'md:flex-row-reverse'}`}>
                         <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20">
