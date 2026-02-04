@@ -1,7 +1,9 @@
 import { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Lightbulb, FileCode, Rocket, LineChart, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const processSteps = [
   {
@@ -31,6 +33,7 @@ const processSteps = [
 ];
 
 const WorkProcess = () => {
+  const navigate = useNavigate();
   const headerRef = useRef(null);
   const stepsRef = useRef([]);
   const dotsRef = useRef([]);
@@ -216,9 +219,12 @@ const WorkProcess = () => {
           className="mt-12 sm:mt-16 lg:mt-20 text-center p-6 sm:p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl border"
         >
           <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Pronto para começar?</h3>
-          <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 px-4 sm:px-0">
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 px-4 sm:px-0">
             Vamos transformar sua ideia em realidade com um processo comprovado
           </p>
+          <Button size="lg" onClick={() => navigate('/contact')}>
+            Agendar uma Conversa
+          </Button>
         </div>
       </div>
     </section>

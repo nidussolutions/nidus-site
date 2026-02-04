@@ -1,70 +1,94 @@
-
-import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
-const FAQAccordion = ({ category, categoryIndex, openIndex, onToggle }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-    className="mb-16"
-  >
-    <h2 className="text-3xl font-bold tracking-tighter text-foreground mb-8">{category.category}</h2>
-    <div className="space-y-4">
-      {category.questions.map((faq, questionIndex) => {
-        const index = `${categoryIndex}-${questionIndex}`;
-        const isOpen = openIndex === index;
+const FAQAccordion = ({ category, categoryIndex, openIndex, onToggle }) => {
+  const ref = useRef(null);
 
-        return (
-          <div key={questionIndex} className="bg-card rounded-xl border border-border overflow-hidden">
-            <button
-              onClick={() => onToggle(index)}
-              className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-accent hover:text-accent-foreground transition-colors"
-              aria-expanded={isOpen}
-              aria-controls={`faq-answer-${index}`}
-            >
-              <span className="text-lg font-medium text-card-foreground pr-8">{faq.question}</span>
-              <ChevronDown
-                className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-                aria-hidden="true"
-              />
-            </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.section
-                  id={`faq-answer-${index}`}
-                  initial="collapsed"
-                  animate="open"
-                  exit="collapsed"
-                  variants={{
-                    open: { opacity: 1, height: "auto" },
-                    collapsed: { opacity: 0, height: 0 },
-                  }}
-                  transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-5 pt-2 text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </div>
-                </motion.section>
-              )}
-            </AnimatePresence>
-          </div>
-        );
-      })}
+  useEffect(() => {
+    if (ref.current) {
+      gsap.fromTo(ref.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.6, delay: categoryIndex * 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        }
+      );
+    }
+  }, [categoryIndex]);
+
+  return (
+    <div ref={ref} className="mb-16">
+      <h2 className="text-3xl font-bold tracking-tighter text-foreground mb-8">{category.category}</h2>
+      <div className="space-y-4">
+        {category.questions.map((faq, questionIndex) => {
+          const index = `${categoryIndex}-${questionIndex}`;
+          const isOpen = openIndex === index;
+
+          return (
+            <div key={questionIndex} className="bg-card rounded-xl border border-border overflow-hidden">
+              <button
+                onClick={() => onToggle(index)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-accent hover:text-accent-foreground transition-colors"
+                aria-expanded={isOpen}
+                aria-controls={`faq-answer-${index}`}
+              >
+                <span className="text-lg font-medium text-card-foreground pr-8">{faq.question}</span>
+                <ChevronDown
+                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
+              <div
+                id={`faq-answer-${index}`}
+                className={`overflow-hidden transition-all ease-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+                style={{ transitionDuration: '400ms' }}
+              >
+                <div className="px-6 pb-5 pt-2 text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </motion.div>
-);
+  );
+};
 
 const FAQ = () => {
   const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState(null);
+  const heroRef = useRef(null);
+  const ctaRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (heroRef.current) {
+        gsap.fromTo(heroRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+        );
+      }
+
+      if (ctaRef.current) {
+        gsap.fromTo(ctaRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+            scrollTrigger: { trigger: ctaRef.current, start: 'top 80%', once: true },
+          }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   const toggleQuestion = useCallback((index) => {
     setOpenIndex(prevIndex => (prevIndex === index ? null : index));
@@ -87,24 +111,20 @@ const FAQ = () => {
 
       <div className="pt-20 bg-background text-foreground">
         <section className="py-20 sm:py-24 px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div ref={heroRef}>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-6">
               Perguntas <span className="text-primary">Frequentes</span>
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
               Encontre respostas para perguntas comuns sobre nossos serviços e processo.
             </p>
-          </motion.div>
+          </div>
         </section>
 
         <section className="py-20 sm:py-24 bg-background/50 border-y border-border">
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
             {faqs.map((category, categoryIndex) => (
-              <FAQAccordion 
+              <FAQAccordion
                 key={category.category}
                 category={category}
                 categoryIndex={categoryIndex}
@@ -116,13 +136,7 @@ const FAQ = () => {
         </section>
 
         <section className="py-20 sm:py-24 bg-background">
-          <motion.div
-            className="max-w-4xl mx-auto px-6 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div ref={ctaRef} className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-6">
               Ainda tem Dúvidas?
             </h2>
@@ -132,11 +146,11 @@ const FAQ = () => {
             <Button
               onClick={() => navigate('/contact')}
               size="lg"
-              className="bg-primary hover:bg-opacity-90 text-primary-foreground font-semibold"
+              className="bg-primary hover:bg-primary/90 text-white font-semibold"
             >
               Fale Conosco
             </Button>
-          </motion.div>
+          </div>
         </section>
 
         <Footer />

@@ -198,55 +198,33 @@ const About = () => {
             }
           );
 
-          // Hover animations para cada card
-          cards.forEach((card) => {
-            const icon = card.querySelector('.value-icon');
-
-            const handleMouseEnter = () => {
-              gsap.to(card, {
-                y: -10,
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.2)',
-                duration: 0.3,
-                ease: 'power2.out',
-              });
-
-              if (icon) {
-                gsap.to(icon, {
-                  scale: 1.2,
-                  rotation: 360,
-                  duration: 0.5,
-                  ease: 'back.out(2)',
-                });
-              }
-            };
-
-            const handleMouseLeave = () => {
-              gsap.to(card, {
-                y: 0,
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-                duration: 0.3,
-                ease: 'power2.out',
-              });
-
-              if (icon) {
-                gsap.to(icon, {
-                  scale: 1,
-                  rotation: 0,
-                  duration: 0.3,
-                  ease: 'power2.out',
-                });
-              }
-            };
-
-            card.addEventListener('mouseenter', handleMouseEnter);
-            card.addEventListener('mouseleave', handleMouseLeave);
-          });
         }
       }
     });
 
     return () => ctx.revert();
   }, []);
+
+  const handleValueHover = (e, isEntering) => {
+    const card = e.currentTarget;
+    const icon = card.querySelector('.value-icon');
+
+    gsap.to(card, {
+      y: isEntering ? -10 : 0,
+      boxShadow: isEntering ? '0 20px 40px rgba(139, 92, 246, 0.2)' : '0 1px 3px rgba(0, 0, 0, 0.1)',
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+
+    if (icon) {
+      gsap.to(icon, {
+        scale: isEntering ? 1.2 : 1,
+        rotation: isEntering ? 360 : 0,
+        duration: isEntering ? 0.5 : 0.3,
+        ease: isEntering ? 'back.out(2)' : 'power2.out',
+      });
+    }
+  };
 
   return (
     <>
@@ -312,6 +290,9 @@ const About = () => {
                     className="w-full h-full object-cover"
                     alt="Equipe de desenvolvimento colaborando em um escritório moderno, com gráficos digitais sobrepostos."
                     src="/about.jpg"
+                    loading="lazy"
+                    width="448"
+                    height="384"
                   />
                 </div>
               </div>
@@ -341,6 +322,8 @@ const About = () => {
               {values.map((value) => (
                 <div
                   key={value.title}
+                  onMouseEnter={(e) => handleValueHover(e, true)}
+                  onMouseLeave={(e) => handleValueHover(e, false)}
                   className="p-5 sm:p-6 bg-card rounded-lg border border-border text-center shadow-sm cursor-pointer"
                 >
                   <div className="value-icon flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 mx-auto mb-3 sm:mb-4">

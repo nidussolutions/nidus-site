@@ -27,8 +27,8 @@ const ContactForm = () => {
   if (state.succeeded) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center">
-        <h3 className="text-2xl font-bold text-nidus-text-dark mb-4">Obrigado pelo contato!</h3>
-        <p className="text-nidus-text-light">Sua mensagem foi enviada com sucesso. Retornaremos em breve.</p>
+        <h3 className="text-2xl font-bold text-foreground mb-4">Obrigado pelo contato!</h3>
+        <p className="text-muted-foreground">Sua mensagem foi enviada com sucesso. Retornaremos em breve.</p>
       </div>
     );
   }
@@ -42,12 +42,12 @@ const ContactForm = () => {
           type="text"
           name="name"
           required
-          className="text-nidus-text-dark placeholder:text-nidus-text-light"
+          className="text-foreground placeholder:text-muted-foreground"
           placeholder="Seu nome"
           aria-label="Seu nome"
         />
         <ValidationError
-          prefix="Name"
+          prefix="Nome"
           field="name"
           errors={state.errors}
           className="text-red-500 text-sm mt-1"
@@ -60,7 +60,7 @@ const ContactForm = () => {
           type="email"
           name="email"
           required
-          className="text-nidus-text-dark placeholder:text-nidus-text-light"
+          className="text-foreground placeholder:text-muted-foreground"
           placeholder="seu@email.com"
           aria-label="Seu email"
         />
@@ -77,7 +77,7 @@ const ContactForm = () => {
           id="company"
           type="text"
           name="company"
-          className="text-nidus-text-dark placeholder:text-nidus-text-light"
+          className="text-foreground placeholder:text-muted-foreground"
           placeholder="Nome da sua empresa"
           aria-label="Nome da sua empresa"
         />
@@ -89,12 +89,12 @@ const ContactForm = () => {
           name="message"
           required
           rows={6}
-          className="text-nidus-text-dark placeholder:text-nidus-text-light resize-none"
+          className="text-foreground placeholder:text-muted-foreground resize-none"
           placeholder="Conte-nos sobre seu projeto..."
           aria-label="Sua mensagem"
         />
         <ValidationError
-          prefix="Message"
+          prefix="Mensagem"
           field="message"
           errors={state.errors}
           className="text-red-500 text-sm mt-1"
@@ -110,7 +110,7 @@ const ContactForm = () => {
       <Button
         type="submit"
         size="lg"
-        className="w-full bg-nidus-purple hover:bg-opacity-90 text-nidus-white font-semibold"
+        className="w-full bg-primary hover:bg-primary/90 text-white font-semibold"
         disabled={state.submitting}
       >
         {state.submitting ? (

@@ -84,69 +84,6 @@ const Services = () => {
             }
           );
 
-          // Hover animations para cada card
-          cards.forEach((card) => {
-            const icon = card.querySelector('.service-icon');
-            const features = card.querySelectorAll('.service-feature');
-
-            const handleMouseEnter = () => {
-              gsap.to(card, {
-                y: -8,
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.15)',
-                borderColor: 'rgba(139, 92, 246, 0.5)',
-                duration: 0.3,
-                ease: 'power2.out',
-              });
-
-              if (icon) {
-                gsap.to(icon, {
-                  scale: 1.15,
-                  rotation: 5,
-                  duration: 0.4,
-                  ease: 'back.out(2)',
-                });
-              }
-
-              if (features.length > 0) {
-                gsap.to(features, {
-                  x: 5,
-                  duration: 0.3,
-                  stagger: 0.05,
-                  ease: 'power2.out',
-                });
-              }
-            };
-
-            const handleMouseLeave = () => {
-              gsap.to(card, {
-                y: 0,
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-                borderColor: 'hsl(var(--border))',
-                duration: 0.3,
-                ease: 'power2.out',
-              });
-
-              if (icon) {
-                gsap.to(icon, {
-                  scale: 1,
-                  rotation: 0,
-                  duration: 0.3,
-                  ease: 'power2.out',
-                });
-              }
-
-              if (features.length > 0) {
-                gsap.to(features, {
-                  x: 0,
-                  duration: 0.3,
-                  ease: 'power2.out',
-                });
-              }
-            };
-
-            card.addEventListener('mouseenter', handleMouseEnter);
-            card.addEventListener('mouseleave', handleMouseLeave);
-          });
         }
       }
 
@@ -211,32 +148,42 @@ const Services = () => {
         );
       }
 
-      // CTA button hover
-      const button = ctaButtonRef.current;
-      if (button) {
-        const handleButtonEnter = () => {
-          gsap.to(button, {
-            scale: 1.05,
-            duration: 0.3,
-            ease: 'power2.out',
-          });
-        };
-
-        const handleButtonLeave = () => {
-          gsap.to(button, {
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out',
-          });
-        };
-
-        button.addEventListener('mouseenter', handleButtonEnter);
-        button.addEventListener('mouseleave', handleButtonLeave);
-      }
     });
 
     return () => ctx.revert();
   }, []);
+
+  const handleServiceHover = (e, isEntering) => {
+    const card = e.currentTarget;
+    const icon = card.querySelector('.service-icon');
+    const features = card.querySelectorAll('.service-feature');
+
+    gsap.to(card, {
+      y: isEntering ? -8 : 0,
+      boxShadow: isEntering ? '0 20px 40px rgba(139, 92, 246, 0.15)' : '0 1px 3px rgba(0, 0, 0, 0.1)',
+      borderColor: isEntering ? 'rgba(139, 92, 246, 0.5)' : 'hsl(var(--border))',
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+
+    if (icon) {
+      gsap.to(icon, {
+        scale: isEntering ? 1.15 : 1,
+        rotation: isEntering ? 5 : 0,
+        duration: isEntering ? 0.4 : 0.3,
+        ease: isEntering ? 'back.out(2)' : 'power2.out',
+      });
+    }
+
+    if (features.length > 0) {
+      gsap.to(features, {
+        x: isEntering ? 5 : 0,
+        duration: 0.3,
+        stagger: isEntering ? 0.05 : 0,
+        ease: 'power2.out',
+      });
+    }
+  };
 
   return (
     <>
@@ -273,6 +220,8 @@ const Services = () => {
             {services.map((service) => (
               <div
                 key={service.title}
+                onMouseEnter={(e) => handleServiceHover(e, true)}
+                onMouseLeave={(e) => handleServiceHover(e, false)}
                 className="p-6 sm:p-8 bg-card rounded-lg border border-border flex flex-col shadow-sm cursor-pointer"
               >
                 <div className="service-icon flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">

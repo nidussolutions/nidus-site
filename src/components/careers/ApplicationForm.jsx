@@ -30,7 +30,7 @@ const ApplicationForm = ({ job, onFormSubmit, isLoading, onBack }) => {
             </DialogTitle>
         </div>
         <DialogDescription className="text-muted-foreground pl-11">
-          Para a vaga de <span className="font-semibold text-nidus-purple">{job?.title}</span>
+          Para a vaga de <span className="font-semibold text-primary">{job?.title}</span>
         </DialogDescription>
       </DialogHeader>
 
@@ -40,7 +40,7 @@ const ApplicationForm = ({ job, onFormSubmit, isLoading, onBack }) => {
               <Label htmlFor="name">Nome Completo</Label>
               <div className="relative mt-2">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"/>
-                <Input id="name" {...register("name", { required: "Seu nome é obrigatório" })} placeholder="Seu nome" className="pl-10 focus:border-nidus-purple" />
+                <Input id="name" {...register("name", { required: "Seu nome é obrigatório" })} placeholder="Seu nome" className="pl-10 focus:border-primary" />
               </div>
               {errors.name && <p className="text-red-500 text-sm mt-1.5">{errors.name.message}</p>}
             </div>
@@ -48,7 +48,7 @@ const ApplicationForm = ({ job, onFormSubmit, isLoading, onBack }) => {
               <Label htmlFor="email">Email</Label>
                <div className="relative mt-2">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"/>
-                <Input id="email" type="email" {...register("email", { required: "Seu email é obrigatório", pattern: { value: /^\S+@\S+$/i, message: "Email inválido" } })} placeholder="seu.email@exemplo.com" className="pl-10 focus:border-nidus-purple"/>
+                <Input id="email" type="email" {...register("email", { required: "Seu email é obrigatório", pattern: { value: /^\S+@\S+$/i, message: "Email inválido" } })} placeholder="seu.email@exemplo.com" className="pl-10 focus:border-primary"/>
               </div>
               {errors.email && <p className="text-red-500 text-sm mt-1.5">{errors.email.message}</p>}
             </div>
@@ -59,7 +59,7 @@ const ApplicationForm = ({ job, onFormSubmit, isLoading, onBack }) => {
                       <div className="flex flex-col items-center justify-center text-center px-4">
                           {resumeFileName ? (
                               <>
-                                  <FileText className="w-8 h-8 mb-3 text-nidus-purple" />
+                                  <FileText className="w-8 h-8 mb-3 text-primary" />
                                   <p className="mb-1 text-sm text-foreground font-semibold truncate max-w-full">{resumeFileName}</p>
                                   <p className="text-xs text-muted-foreground">Arquivo selecionado. Clique para trocar.</p>
                               </>
@@ -88,7 +88,7 @@ const ApplicationForm = ({ job, onFormSubmit, isLoading, onBack }) => {
 
         <DialogFooter className="p-6 bg-muted/50 border-t">
             <Button variant="outline" onClick={onBack}>Voltar</Button>
-            <Button type="submit" disabled={isLoading} className="bg-nidus-purple hover:bg-nidus-purple/90 text-white">
+            <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90 text-white">
                 {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Confirmar Candidatura'}
             </Button>
         </DialogFooter>

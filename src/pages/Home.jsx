@@ -13,6 +13,7 @@ import ServicesPreview from './home/sections/ServicesPreview';
 import TechStack from './home/sections/TechStack';
 import WorkProcess from './home/sections/WorkProcess';
 import Testimonials from './home/sections/Testimonials';
+import Portfolio from './home/sections/Portfolio';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -42,7 +43,6 @@ const Home = () => {
       if (scrollTriggerInstance) {
         scrollTriggerInstance.kill();
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
@@ -88,6 +88,8 @@ const Home = () => {
         <WorkProcess />
 
         <Testimonials />
+
+        <Portfolio />
 
         <CallToAction />
         

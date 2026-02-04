@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, ArrowRight } from 'lucide-react';
@@ -40,6 +41,7 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const navigate = useNavigate();
   const headerRef = useRef(null);
   const projectsRef = useRef([]);
   const ctaRef = useRef(null);
@@ -201,7 +203,7 @@ const Portfolio = () => {
           <p className="text-muted-foreground mb-6">
             Estes são apenas alguns exemplos. Cada projeto é único e personalizado.
           </p>
-          <Button variant="outline" size="lg" className="group">
+          <Button variant="outline" size="lg" onClick={() => navigate('/services')} className="group">
             Ver Mais Projetos
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>

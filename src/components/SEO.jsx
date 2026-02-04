@@ -24,7 +24,7 @@ const SEO = ({
     : defaultKeywords;
   const metaOgTitle = ogTitle || fullTitle;
   const metaOgDescription = ogDescription || metaDescription;
-  const metaOgImage = ogImage || 'https://www.mynidus.dev/og-image.png'; // A default OG image
+  const metaOgImage = ogImage || 'https://www.mynidus.dev/nidus-logo.svg';
   const metaOgUrl = ogUrl || window.location.href;
 
   const organizationSchema = {
@@ -32,7 +32,7 @@ const SEO = ({
     '@type': 'LocalBusiness',
     name: 'Nidus',
     url: 'https://www.mynidus.dev',
-    logo: 'https://www.mynidus.dev/nidus-logo.png',
+    logo: 'https://www.mynidus.dev/nidus-logo.svg',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'BR',

@@ -28,11 +28,11 @@ const JobDetails = ({ job, onApply }) => {
         </div>
 
         <div>
-          <h3 className="font-semibold text-lg mb-3 text-foreground flex items-center"><ListChecks className="w-5 h-5 mr-2 text-nidus-purple"/> Responsabilidades</h3>
+          <h3 className="font-semibold text-lg mb-3 text-foreground flex items-center"><ListChecks className="w-5 h-5 mr-2 text-primary"/> Responsabilidades</h3>
           <ul className="space-y-2">
             {job.responsibilities.map((item, index) => (
               <li key={index} className="flex items-start">
-                <CheckCircle className="w-4 h-4 mt-1 mr-2 text-nidus-purple flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 mt-1 mr-2 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">{item}</span>
               </li>
             ))}
@@ -40,11 +40,11 @@ const JobDetails = ({ job, onApply }) => {
         </div>
 
         <div>
-          <h3 className="font-semibold text-lg mb-3 text-foreground flex items-center"><CheckCircle className="w-5 h-5 mr-2 text-nidus-purple"/> Requisitos</h3>
+          <h3 className="font-semibold text-lg mb-3 text-foreground flex items-center"><CheckCircle className="w-5 h-5 mr-2 text-primary"/> Requisitos</h3>
           <ul className="space-y-2">
             {job.requirements.map((item, index) => (
               <li key={index} className="flex items-start">
-                <CheckCircle className="w-4 h-4 mt-1 mr-2 text-nidus-purple flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 mt-1 mr-2 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">{item}</span>
               </li>
             ))}
@@ -53,7 +53,7 @@ const JobDetails = ({ job, onApply }) => {
       </div>
 
       <DialogFooter className="p-6 bg-muted/50 border-t">
-        <Button onClick={onApply} className="bg-nidus-purple hover:bg-nidus-purple/90 text-white">
+        <Button onClick={onApply} className="bg-primary hover:bg-primary/90 text-white">
           Candidatar-se Agora
         </Button>
       </DialogFooter>

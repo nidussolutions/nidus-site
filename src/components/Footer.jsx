@@ -44,7 +44,7 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -58,45 +58,49 @@ const Footer = () => {
       return;
     }
 
+    const stored = localStorage.getItem('nidus_newsletter');
+    const subscribers = stored ? JSON.parse(stored) : [];
+
+    if (subscribers.some((sub) => sub.email === normalizedEmail)) {
+      toast({
+        title: 'Você já está inscrito',
+        description: 'Este email já está cadastrado na newsletter.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setLoading(true);
 
-    setTimeout(() => {
-      const stored = localStorage.getItem('nidus_newsletter');
-      const subscribers = stored ? JSON.parse(stored) : [];
+    const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID;
 
-      const alreadySubscribed = subscribers.some(
-        (sub) => sub.email === normalizedEmail
-      );
-
-      if (alreadySubscribed) {
-        toast({
-          title: 'Você já está inscrito',
-          description: 'Este email já está cadastrado na newsletter.',
-          variant: 'destructive',
+    try {
+      if (formspreeId) {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email: normalizedEmail, _type: 'newsletter' }),
         });
-        setLoading(false);
-        return;
+        if (!res.ok) throw new Error('Erro no envio');
       }
 
-      subscribers.push({
-        id: Date.now(),
-        email: normalizedEmail,
-        created_at: new Date().toISOString(),
-      });
-
-      localStorage.setItem(
-        'nidus_newsletter',
-        JSON.stringify(subscribers)
-      );
+      subscribers.push({ id: Date.now(), email: normalizedEmail, created_at: new Date().toISOString() });
+      localStorage.setItem('nidus_newsletter', JSON.stringify(subscribers));
 
       toast({
         title: 'Inscrição confirmada!',
         description: 'Obrigado por se inscrever em nossa newsletter.',
       });
-
       setEmail('');
+    } catch {
+      toast({
+        title: 'Erro na inscrição',
+        description: 'Não foi possível processar sua inscrição. Tente novamente.',
+        variant: 'destructive',
+      });
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
@@ -110,8 +114,8 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <span className="text-xl font-bold text-white">N</span>
+              <div className="w-10 h-10 rounded-md border-2 border-primary flex items-center justify-center">
+                <span className="text-xl font-bold text-primary">N</span>
               </div>
               <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                 Nidus

@@ -174,20 +174,18 @@ const Testimonials = () => {
           ref={trustRef}
           className="mt-16 text-center"
         >
-          <div className="inline-flex items-center gap-8 p-6 bg-card border rounded-2xl">
+          <div className="inline-grid grid-cols-3 gap-4 sm:gap-8 p-6 bg-card border rounded-2xl">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-1">4.8/5</div>
-              <div className="text-sm text-muted-foreground">Avaliação Média</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">4.8/5</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Avaliação Média</div>
             </div>
-            <div className="h-12 w-px bg-border" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-secondary mb-1">98%</div>
-              <div className="text-sm text-muted-foreground">Satisfação</div>
+              <div className="text-2xl sm:text-3xl font-bold text-secondary mb-1">98%</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Satisfação</div>
             </div>
-            <div className="h-12 w-px bg-border" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">200+</div>
-              <div className="text-sm text-muted-foreground">Clientes Felizes</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">200+</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Clientes Felizes</div>
             </div>
           </div>
         </div>
