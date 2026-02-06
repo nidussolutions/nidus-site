@@ -1,19 +1,8 @@
-
 import React from 'react';
-import { motion } from 'framer-motion';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
 const TermsOfService = () => {
-  const pageVariants = {
-    offscreen: { opacity: 0, y: 30 },
-    onscreen: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    },
-  };
-  
   return (
     <>
       <SEO
@@ -23,28 +12,17 @@ const TermsOfService = () => {
       />
 
       <div className="pt-20 bg-background text-foreground">
-        <motion.section 
-          className="py-20 sm:py-24 px-6 text-center"
-          initial="offscreen"
-          animate="onscreen"
-          variants={pageVariants}
-        >
+        <section className="py-20 sm:py-24 px-6 text-center animate-fade-in">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-6">
             Termos de <span className="text-primary">Serviço</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
             Ao utilizar nossos serviços, você concorda com os seguintes termos e condições.
           </p>
-        </motion.section>
+        </section>
 
         <section className="py-20 bg-background/50 border-t border-border">
-          <motion.div
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={pageVariants}
-            className="prose prose-lg lg:prose-xl max-w-4xl mx-auto px-6 lg:px-8 text-muted-foreground prose-headings:text-foreground prose-strong:text-foreground"
-          >
+          <div className="animate-fade-in prose prose-lg lg:prose-xl max-w-4xl mx-auto px-6 lg:px-8 text-muted-foreground prose-headings:text-foreground prose-strong:text-foreground">
             <h2>1. Introdução</h2>
             <p>Bem-vindo aos Termos de Serviço da Nidus ("Termos"). Estes Termos regem seu acesso e uso dos serviços, softwares e site ("Serviços") fornecidos pela Nidus. Ao acessar ou usar qualquer parte dos Serviços, você concorda em se vincular a estes Termos.</p>
             <div className="not-prose mt-4 text-sm bg-card p-4 rounded-lg border border-border">
@@ -79,7 +57,7 @@ const TermsOfService = () => {
             <div className="not-prose pt-4 text-center text-sm text-muted-foreground">
               <p>Estes termos foram atualizados pela última vez em 27 de Novembro de 2025.</p>
             </div>
-          </motion.div>
+          </div>
         </section>
 
         <Footer />

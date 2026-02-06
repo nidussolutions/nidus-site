@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Navigation from '@/components/Navigation';
+import CookiesBanner from '@/components/CookiesBanner';
 
 const PublicLayout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const PublicLayout = ({ children }) => {
       <main className="flex-grow overflow-x-hidden">
         {children}
       </main>
+      <CookiesBanner />
     </div>
   );
 };

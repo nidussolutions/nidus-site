@@ -1,19 +1,9 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 
 const CookiesPolicy = () => {
-  const pageVariants = {
-    offscreen: { opacity: 0, y: 30 },
-    onscreen: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    },
-  };
-  
   return (
     <>
       <SEO
@@ -23,26 +13,17 @@ const CookiesPolicy = () => {
       />
 
       <div className="pt-20 bg-background text-foreground">
-        <motion.section 
-          className="py-20 sm:py-24 px-6 text-center"
-          initial="offscreen"
-          animate="onscreen"
-          variants={pageVariants}
-        >
+        <section className="py-20 sm:py-24 px-6 text-center animate-fade-in">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-6">
             Política de <span className="text-primary">Cookies</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto">
             Esta política explica o que são cookies e como os utilizamos.
           </p>
-        </motion.section>
+        </section>
 
         <section className="py-20 bg-background/50 border-t border-border">
-          <motion.div
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={pageVariants}
+          <div className="animate-fade-in"
             className="prose prose-lg lg:prose-xl max-w-4xl mx-auto px-6 lg:px-8 text-muted-foreground prose-headings:text-foreground prose-strong:text-foreground"
           >
             <h2>1. O Que São Cookies?</h2>
@@ -76,7 +57,7 @@ const CookiesPolicy = () => {
             <div className="not-prose pt-4 text-center text-sm text-muted-foreground">
               <p>Esta política foi atualizada pela última vez em 27 de Novembro de 2025.</p>
             </div>
-          </motion.div>
+          </div>
         </section>
 
         <Footer />
