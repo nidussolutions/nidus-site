@@ -19,7 +19,6 @@ gsap.config({
 // Configurações otimizadas do ScrollTrigger
 ScrollTrigger.config({
   limitCallbacks: true, // Limita callbacks para melhor performance
-  syncInterval: 24, // ~40fps, melhor performance que 60fps em alguns casos
   autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load,resize', // Eventos mínimos necessários
 });
 
