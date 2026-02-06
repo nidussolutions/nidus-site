@@ -21,28 +21,29 @@ const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    let scrollTriggerInstance;
+    let animation;
 
     if (heroRef.current && targetRef.current) {
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: targetRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.to(heroRef.current, {
-            y: `${self.progress * 20}%`,
-            duration: 0,
-          });
+      // Parallax direto com scrub responsivo
+      animation = gsap.to(heroRef.current, {
+        yPercent: 20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: targetRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.3, // Responsivo mas suave
         },
       });
     }
 
     return () => {
-      if (scrollTriggerInstance) {
-        scrollTriggerInstance.kill();
+      if (animation?.scrollTrigger) {
+        animation.scrollTrigger.kill();
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (animation) {
+        animation.kill();
+      }
     };
   }, []);
 
