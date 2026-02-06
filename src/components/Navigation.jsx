@@ -1,33 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Briefcase } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/SupabaseAuthContext';
 
 const navItems = [
-  { name: 'Início', path: '/' },
-  { name: 'Sobre', path: '/about' },
-  { name: 'Serviços', path: '/services' },
-  { name: 'Contato', path: '/contact' },
+  { name: 'Início', href: '#hero' },
+  { name: 'Serviços', href: '#services' },
+  { name: 'Contato', href: '#contact' },
 ];
 
 const Navigation = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const { user } = useAuth();
 
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
-      const isScrolledDown = latest > scrollY.getPrevious();
-      if (isScrolledDown && latest > 150) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
+      setScrolled(latest > 50);
     });
     return () => unsubscribe();
   }, [scrollY]);
@@ -43,82 +34,73 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const headerVariants = {
-    visible: { y: 0, opacity: 1 },
-    hidden: { y: "-100%", opacity: 0 },
+  const handleNavClick = (href) => {
+    setMobileMenuOpen(false);
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const menuButtonVariants = {
-    initial: { rotate: 90, opacity: 0 },
-    animate: { rotate: 0, opacity: 1 },
-    exit: { rotate: -90, opacity: 0 },
-    transition: { duration: 0.2 },
-  };
+  const isHomePage = location.pathname === '/';
 
   return (
     <motion.header
-      variants={headerVariants}
-      animate={!mobileMenuOpen && isHidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 py-2.5 sm:py-3 bg-nidus-bg-light/80 backdrop-blur-lg border-b border-gray-200/80"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 transition-all duration-300 ${
+        scrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border'
+          : 'bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-nidus-purple flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-            <span className="text-lg sm:text-xl font-bold text-nidus-purple">N</span>
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center">
+            <span className="text-lg font-bold text-white">N</span>
           </div>
-          <span className="text-lg sm:text-xl font-semibold group-hover:text-nidus-text-dark transition-colors text-nidus-text-dark">Nidus</span>
+          <span className="text-xl font-display font-semibold text-foreground">
+            Nidus
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`relative text-sm font-medium transition-colors duration-200 ${
-                location.pathname === item.path
-                  ? 'text-nidus-text-dark'
-                  : 'text-nidus-text-light hover:text-nidus-text-dark'
-              }`}
-            >
-              {item.name}
-              {location.pathname === item.path && (
-                 <motion.div
-                  className="absolute -bottom-2 left-0 right-0 h-0.5 bg-nidus-purple"
-                  layoutId="underline"
-                  />
-              )}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden md:flex items-center gap-4">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-             <Button
-                onClick={() => navigate(user ? '/admin' : '/contact')}
-                className="bg-nidus-purple hover:bg-opacity-90 text-nidus-white font-semibold"
+        {isHomePage && (
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.href)}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                {user ? (
-                    <>
-                        <Briefcase className="mr-2 h-4 w-4" /> Admin
-                    </>
-                ) : 'Começar Projeto'}
-            </Button>
-          </motion.div>
+                {item.name}
+              </button>
+            ))}
+          </nav>
+        )}
+
+        {/* CTA Button */}
+        <div className="hidden md:block">
+          <Button
+            onClick={() => handleNavClick('#contact')}
+            className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-500 hover:to-secondary-500 text-white font-medium"
+          >
+            Fale Conosco
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-nidus-text-dark z-50 p-2 -mr-2"
+          className="md:hidden text-foreground p-2"
           aria-label="Toggle menu"
         >
-          <AnimatePresence initial={false} mode="wait">
-            <motion.div key={mobileMenuOpen ? 'x' : 'menu'} {...menuButtonVariants}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.div>
-          </AnimatePresence>
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
@@ -126,59 +108,29 @@ const Navigation = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-nidus-bg-light/95 backdrop-blur-lg md:hidden pt-24"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 top-16 bg-background/95 backdrop-blur-xl md:hidden"
           >
-            <motion.div 
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, type: 'spring' }}
-              className="flex flex-col items-center justify-center h-full pb-20"
-            >
-              <nav className="flex flex-col gap-8 text-center">
-                {navItems.map((item, index) => (
-                   <motion.div
-                    key={item.name}
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                   >
-                    <Link
-                      to={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`text-3xl font-semibold transition-colors duration-200 ${
-                        location.pathname === item.path
-                          ? 'text-nidus-text-dark'
-                          : 'text-nidus-text-light hover:text-nidus-text-dark'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                   </motion.div>
-                ))}
-              </nav>
-              <div className='absolute bottom-10 w-[90%] max-w-xs'>
-                 <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.8 }}
-                  >
-                    <Button
-                      onClick={() => {
-                        navigate(user ? '/admin' : '/contact');
-                        setMobileMenuOpen(false);
-                      }}
-                      size="lg"
-                      className="bg-nidus-purple text-nidus-white hover:bg-opacity-90 w-full font-semibold"
-                    >
-                       {user ? 'Painel Admin' : 'Começar Projeto'}
-                    </Button>
-                  </motion.div>
-              </div>
-            </motion.div>
+            <nav className="flex flex-col items-center justify-center h-full gap-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-2xl font-display font-semibold text-foreground hover:text-primary-400 transition-colors"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <Button
+                onClick={() => handleNavClick('#contact')}
+                size="lg"
+                className="mt-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white"
+              >
+                Fale Conosco
+              </Button>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
