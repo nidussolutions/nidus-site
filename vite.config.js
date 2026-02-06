@@ -21,11 +21,6 @@ export default defineConfig({
   plugins: [
     react({
       fastRefresh: true,
-      babel: {
-        plugins: [
-          ["@babel/plugin-transform-react-jsx", { runtime: "automatic" }],
-        ],
-      },
     }),
   ],
   server: {
