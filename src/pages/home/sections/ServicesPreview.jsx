@@ -58,18 +58,19 @@ const ServicesPreview = () => {
         const animDuration = isMobile ? 0.25 : 0.5;
         
         const ctx = gsap.context(() => {
-            // Section parallax effect - desabilitado em mobile
+            // Section reveal animation - sem parallax para scroll mais fluido
             if (!isMobile) {
                 gsap.fromTo(sectionRef.current,
                     { y: 30, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out',
                         scrollTrigger: {
                             trigger: sectionRef.current,
-                            start: 'top bottom',
-                            end: 'top center',
-                            scrub: 1,
+                            start: 'top 85%',
+                            once: true,
                         }
                     }
                 );
