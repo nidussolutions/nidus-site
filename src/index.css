@@ -84,7 +84,6 @@
   }
   
   html {
-    @apply scroll-smooth;
     overflow-x: hidden;
     width: 100%;
   }
