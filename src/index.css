@@ -1,4 +1,4 @@
-/* Neo-Retro Fonts - Space Grotesk (display) + Inter (body) */
+/* Modern Tech Fonts - Space Grotesk (display) + Inter (body) */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -7,74 +7,43 @@
 
 @layer base {
   :root {
-    /* Design System - Neo-Retro Theme */
-    /* Background Colors - Vintage Paper tones */
-    --background: 39 48% 95%;        /* Cream #FFF8E7 */
-    --foreground: 194 25% 18%;       /* Navy #264653 */
+    /* Design System - Dark Mode Tech Theme */
+    /* Background Colors - Deep Dark */
+    --background: 222 47% 5%;          /* Deep navy #0a0b14 */
+    --foreground: 220 20% 95%;         /* Off-white #f0f1f5 */
 
-    --card: 37 50% 97%;              /* Lighter cream */
-    --card-foreground: 194 25% 18%;
+    --card: 222 47% 8%;                /* Slightly lighter dark #0f1219 */
+    --card-foreground: 220 20% 95%;
 
-    --popover: 37 50% 97%;
-    --popover-foreground: 194 25% 18%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 220 20% 95%;
 
-    /* Primary - Rust (Laranja queimado FORTE) */
-    --primary: 18 89% 41%;           /* Rust #C1440E */
-    --primary-foreground: 39 48% 95%;
+    /* Primary - Vibrant Purple */
+    --primary: 262 83% 58%;            /* Electric purple #8b5cf6 */
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Teal (Verde-água FORTE) */
-    --secondary: 172 43% 39%;        /* Teal #2A9D8F */
-    --secondary-foreground: 39 48% 95%;
+    /* Secondary - Deep Blue */
+    --secondary: 217 91% 60%;          /* Bright blue #3b82f6 */
+    --secondary-foreground: 0 0% 100%;
 
     /* Muted */
-    --muted: 37 31% 90%;             /* Beige #F5E6D3 */
-    --muted-foreground: 222 13% 26%; /* Slate #1E293B */
+    --muted: 222 47% 12%;              /* Dark gray #141924 */
+    --muted-foreground: 220 15% 55%;   /* Medium gray #7d8590 */
 
-    /* Accent - Mustard FORTE */
-    --accent: 42 77% 66%;            /* Mustard #E9C46A */
-    --accent-foreground: 194 25% 18%;
+    /* Accent - Cyan/Teal */
+    --accent: 192 91% 50%;             /* Cyan #06b6d4 */
+    --accent-foreground: 222 47% 5%;
 
     /* Destructive */
     --destructive: 0 72% 51%;
-    --destructive-foreground: 39 48% 95%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Border & Input */
-    --border: 37 31% 85%;            /* Light beige */
-    --input: 37 31% 85%;
-    --ring: 18 89% 41%;              /* rust ring */
+    --border: 222 30% 18%;             /* Subtle dark border */
+    --input: 222 30% 18%;
+    --ring: 262 83% 58%;               /* Purple ring */
 
-    --radius: 0.5rem;
-  }
-
-  /* Dark mode (opcional para futuro) */
-  .dark {
-    --background: 210 24% 10%;       /* neutral-950 */
-    --foreground: 210 20% 98%;
-
-    --card: 210 24% 12%;             /* neutral-900 */
-    --card-foreground: 210 20% 98%;
-
-    --popover: 210 24% 12%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 24% 15%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 210 24% 15%;
-    --muted-foreground: 210 15% 60%;
-
-    --accent: 210 24% 15%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 210 24% 15%;
-    --input: 210 24% 15%;
-    --ring: 199 89% 48%;
+    --radius: 0.75rem;
   }
 }
 
@@ -82,12 +51,12 @@
   * {
     @apply border-border;
   }
-  
+
   html {
     overflow-x: hidden;
     width: 100%;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -98,79 +67,89 @@
     overflow-x: hidden;
     width: 100%;
   }
-  
+
   #root {
     overflow-x: hidden;
     width: 100%;
   }
-  
-  /* Custom Scrollbar - Design System */
+
+  /* Custom Scrollbar - Dark Mode */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-neutral-100;
+    @apply bg-neutral-900;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-300 rounded-full transition-colors;
+    @apply bg-neutral-700 rounded-full transition-colors;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-neutral-400;
+    @apply bg-neutral-600;
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: theme('colors.neutral.300') theme('colors.neutral.100');
+    scrollbar-color: #334155 #0f172a;
   }
 }
 
 /* Utilities */
 @layer utilities {
-  /* Vintage Grain Texture - Sutil e sofisticado */
-  .grain {
-    position: relative;
-  }
-  
-  .grain::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.25'/%3E%3C/svg%3E");
-    opacity: 0.12; /* Muito mais sutil */
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .grain-heavy::before {
-    opacity: 0.22; /* Reduzido de 0.4 */
-  }
-  
-  .grain-light::before {
-    opacity: 0.06; /* Bem leve */
+  /* Modern Gradient Backgrounds */
+  .gradient-dark {
+    background: linear-gradient(135deg, #0a0b14 0%, #1a1f2e 50%, #0f1219 100%);
   }
 
-  /* Retro Halftone Pattern */
-  .halftone {
-    background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
-    background-size: 8px 8px;
-    opacity: 0.08;
-  }
-  
-  /* Grid Pattern Background - Neo-Retro sutil */
-  .bg-grid-pattern {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(193 68 14 / 0.04)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  .gradient-purple-blue {
+    background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
   }
 
-  /* Dot Pattern Background - Tons quentes sutis */
-  .bg-dot-pattern {
-    background-image: radial-gradient(rgb(193 68 14 / 0.06) 1.5px, transparent 1.5px);
-    background-size: 20px 20px;
+  .gradient-glow {
+    background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  }
+
+  .gradient-glow-bottom {
+    background: radial-gradient(ellipse at bottom, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
+  }
+
+  .gradient-text-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+  }
+
+  /* Glow Effects */
+  .glow-purple {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.3);
+  }
+
+  /* Subtle Grid Pattern - Dark */
+  .bg-grid-dark {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(139 92 246 / 0.03)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  }
+
+  /* Dot Pattern - Dark */
+  .bg-dot-dark {
+    background-image: radial-gradient(rgb(139 92 246 / 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   /* Text Balance */
@@ -178,114 +157,30 @@
     text-wrap: balance;
   }
 
-  /* Vintage Paper Effect - Tom sépia */
-  .paper-texture {
-    background: linear-gradient(to bottom, rgba(245, 230, 211, 0.3), rgba(245, 230, 211, 0.1));
-  }
-  
-  /* Glass Effect - Tons vintage */
+  /* Glass Effect - Dark Mode */
   .glass {
-    background: rgba(255, 248, 231, 0.7);
+    background: rgba(15, 18, 25, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(193, 68, 14, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.1);
   }
 
   .glass-strong {
-    background: rgba(255, 248, 231, 0.85);
+    background: rgba(15, 18, 25, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(193, 68, 14, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.15);
   }
 
-  /* Neo-Retro Gradient Text */
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      to right,
-      #C1440E,
-      #2A9D8F
-    );
-  }
-
-  .gradient-text-warm {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      #C1440E,
-      #E9C46A,
-      #F4A261
-    );
-  }
-  
-  /* Subtle Outlined Text */
-  .text-outlined {
-    -webkit-text-stroke: 1.5px currentColor;
-    -webkit-text-fill-color: transparent;
-    paint-order: stroke fill;
-  }
-  
-  .text-outlined-thick {
-    -webkit-text-stroke: 2px currentColor;
-    -webkit-text-fill-color: transparent;
-    paint-order: stroke fill;
-  }
-
-  /* Neo-Retro Soft Shadows - Mais sutis */
-  .shadow-retro {
-    box-shadow: 4px 4px 0px rgba(38, 38, 53, 0.08);
-  }
-  
-  .shadow-retro-lg {
-    box-shadow: 6px 6px 0px rgba(38, 38, 53, 0.12);
-  }
-  
-  .shadow-retro-color {
-    box-shadow: 3px 3px 0px rgba(193, 68, 14, 0.2);
-  }
-  
-  .shadow-retro-color-offset {
-    box-shadow: 4px 4px 0px #E9C46A, 6px 6px 0px rgba(38, 38, 53, 0.08);
-  }
-  
-  /* Warm Glow Effect */
-  .glow {
-    box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
-  }
-
-  .glow-hover {
-    transition: box-shadow 0.3s ease;
-  }
-
-  .glow-hover:hover {
-    box-shadow: 0 0 40px rgba(249, 115, 22, 0.5);
-  }
-
-  /* Selection - Retro colors */
+  /* Selection - Dark Mode */
   ::selection {
-    background: #fed7aa;
-    color: #261f1a;
-  }
-  
-  /* Retro Badge/Label Styles */
-  .badge-retro {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold;
-    background: linear-gradient(135deg, #f97316, #f59e0b);
-    box-shadow: 4px 4px 0px rgba(38, 31, 26, 0.15);
-    border: 3px solid #261f1a;
-  }
-  
-  .label-retro {
-    @apply inline-block px-3 py-1 font-bold uppercase text-sm tracking-wider;
-    background: #f59e0b;
-    color: #261f1a;
-    border: 2px solid #261f1a;
-    box-shadow: 3px 3px 0px rgba(38, 31, 26, 0.2);
+    background: rgba(139, 92, 246, 0.3);
+    color: #f0f1f5;
   }
 
   /* Focus visible */
   :focus-visible {
-    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 }
 
@@ -302,4 +197,30 @@
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
 }

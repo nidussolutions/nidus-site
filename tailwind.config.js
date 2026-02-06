@@ -24,69 +24,69 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
       },
       colors: {
-        // Brand Primary (Rust - Laranja queimado profissional)
+        // Brand Primary (Purple)
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: '#fef6ee',
-          100: '#fdebd8',
-          200: '#fad3b0',
-          300: '#f7b37d',
-          400: '#ef6820',
-          500: '#C1440E', // Rust principal - FORTE
-          600: '#a33a0c',
-          700: '#8a310a',
-          800: '#712808',
-          900: '#5a2007',
-          950: '#3d1504',
+          50: '#faf5ff',
+          100: '#f3e8ff',
+          200: '#e9d5ff',
+          300: '#d8b4fe',
+          400: '#c084fc',
+          500: '#a855f7',
+          600: '#9333ea',
+          700: '#7c3aed',
+          800: '#6b21a8',
+          900: '#581c87',
+          950: '#3b0764',
         },
-        // Brand Secondary (Teal - Verde-água profissional)
+        // Brand Secondary (Blue)
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#14b8a6',
-          500: '#2A9D8F', // Teal principal - FORTE
-          600: '#0f766e',
-          700: '#115e59',
-          800: '#134e4a',
-          900: '#042f2e',
-          950: '#031f1c',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+          950: '#172554',
         },
-        // Brand Accent (Mustard/Coral - Tons quentes profissionais)
+        // Brand Accent (Cyan)
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
-          50: '#fefce8',
-          100: '#fef9c3',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#E9C46A', // Mustard principal - FORTE
-          600: '#F4A261', // Coral - FORTE
-          700: '#d97706',
-          800: '#a16207',
-          900: '#854d0e',
-          950: '#713f12',
+          50: '#ecfeff',
+          100: '#cffafe',
+          200: '#a5f3fc',
+          300: '#67e8f9',
+          400: '#22d3ee',
+          500: '#06b6d4',
+          600: '#0891b2',
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
+          950: '#083344',
         },
-        // Neutral (Vintage Paper & Modern Slate)
+        // Neutral (Dark mode grays)
         neutral: {
-          50: '#F8FAFC',   // Ghost - branco moderno
-          100: '#FFF8E7',  // Cream
-          200: '#F5E6D3',  // Beige papel vintage
-          300: '#d1d5db',
-          400: '#9ca3af',
-          500: '#6b7280',
-          600: '#4b5563',
-          700: '#374151',
-          800: '#264653',  // Navy - FORTE
-          900: '#1E293B',  // Slate - FORTE
-          950: '#0f172a',
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b',
+          600: '#475569',
+          700: '#334155',
+          800: '#1e293b',
+          900: '#0f172a',
+          950: '#0a0b14',
         },
-        // Semantic colors - Retro warm tones
+        // Semantic colors
         success: {
           light: '#86efac',
           DEFAULT: '#22c55e',
@@ -103,15 +103,10 @@ export default {
           dark: '#b91c1c',
         },
         info: {
-          light: '#fed7aa',
-          DEFAULT: '#f97316',
-          dark: '#ea580c',
+          light: '#93c5fd',
+          DEFAULT: '#3b82f6',
+          dark: '#1d4ed8',
         },
-        // Legacy support - Updated to retro colors
-        'nidus-orange': '#f97316',
-        'nidus-mustard': '#f59e0b',
-        'nidus-brown': '#9c6644',
-        'nidus-cream': '#f9f6f0',
         // CSS Variables for shadcn/ui
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -135,26 +130,19 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      
-      // Shadows - Retro heavy offset style
+
+      // Shadows - Modern glow style
       boxShadow: {
-        'glow': '0 0 30px rgba(249, 115, 22, 0.3)',
-        'glow-sm': '0 0 15px rgba(249, 115, 22, 0.2)',
-        'glow-lg': '0 0 40px rgba(249, 115, 22, 0.4)',
-        'glow-xl': '0 0 50px rgba(249, 115, 22, 0.5)',
-        'retro': '8px 8px 0px rgba(38, 31, 26, 0.15)',
-        'retro-sm': '4px 4px 0px rgba(38, 31, 26, 0.12)',
-        'retro-lg': '12px 12px 0px rgba(38, 31, 26, 0.2)',
-        'retro-xl': '16px 16px 0px rgba(38, 31, 26, 0.25)',
-        'retro-color': '6px 6px 0px rgba(249, 115, 22, 0.4)',
-        'retro-color-double': '8px 8px 0px #f59e0b, 12px 12px 0px rgba(38, 31, 26, 0.15)',
-        'colored-primary': '0 10px 25px -5px rgba(249, 115, 22, 0.3), 0 8px 10px -6px rgba(249, 115, 22, 0.2)',
-        'colored-secondary': '0 10px 25px -5px rgba(245, 158, 11, 0.3), 0 8px 10px -6px rgba(245, 158, 11, 0.2)',
-        'colored-accent': '0 10px 25px -5px rgba(156, 102, 68, 0.3), 0 8px 10px -6px rgba(156, 102, 68, 0.2)',
-        'glass': '0 8px 32px 0 rgba(38, 31, 26, 0.1)',
+        'glow-purple': '0 0 40px rgba(139, 92, 246, 0.3)',
+        'glow-purple-sm': '0 0 20px rgba(139, 92, 246, 0.2)',
+        'glow-purple-lg': '0 0 60px rgba(139, 92, 246, 0.4)',
+        'glow-blue': '0 0 40px rgba(59, 130, 246, 0.3)',
+        'glow-cyan': '0 0 40px rgba(6, 182, 212, 0.3)',
+        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)',
+        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)',
       },
-      
-      // Border Radius - More rounded retro style
+
+      // Border Radius
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 4px)",
@@ -163,18 +151,7 @@ export default {
         '2xl': "calc(var(--radius) + 8px)",
         '3xl': "calc(var(--radius) + 12px)",
       },
-      
-      // Border Width - Thicker borders for retro look
-      borderWidth: {
-        DEFAULT: '1px',
-        '0': '0',
-        '2': '2px',
-        '3': '3px',
-        '4': '4px',
-        '6': '6px',
-        '8': '8px',
-      },
-      
+
       // Animations
       keyframes: {
         "accordion-down": {
@@ -201,35 +178,9 @@ export default {
           from: { transform: 'translateY(-20px)', opacity: '0' },
           to: { transform: 'translateY(0)', opacity: '1' },
         },
-        "slide-in-left": {
-          from: { transform: 'translateX(-20px)', opacity: '0' },
-          to: { transform: 'translateX(0)', opacity: '1' },
-        },
-        "slide-in-right": {
-          from: { transform: 'translateX(20px)', opacity: '0' },
-          to: { transform: 'translateX(0)', opacity: '1' },
-        },
         "scale-in": {
           from: { transform: 'scale(0.95)', opacity: '0' },
           to: { transform: 'scale(1)', opacity: '1' },
-        },
-        "scale-out": {
-          from: { transform: 'scale(1)', opacity: '1' },
-          to: { transform: 'scale(0.95)', opacity: '0' },
-        },
-        "shimmer": {
-          '0%': { backgroundPosition: '-1000px 0' },
-          '100%': { backgroundPosition: '1000px 0' },
-        },
-        "gradient-x": {
-          '0%, 100%': { 
-            'background-size': '200% 200%',
-            'background-position': 'left center'
-          },
-          '50%': { 
-            'background-size': '200% 200%',
-            'background-position': 'right center'
-          },
         },
       },
       animation: {
@@ -239,34 +190,21 @@ export default {
         "fade-out": "fade-out 0.5s ease-out",
         "slide-in-up": "slide-in-up 0.5s ease-out",
         "slide-in-down": "slide-in-down 0.5s ease-out",
-        "slide-in-left": "slide-in-left 0.5s ease-out",
-        "slide-in-right": "slide-in-right 0.5s ease-out",
         "scale-in": "scale-in 0.5s ease-out",
-        "scale-out": "scale-out 0.5s ease-out",
-        "shimmer": "shimmer 2s linear infinite",
-        "gradient-x": "gradient-x 3s ease infinite",
       },
-      
+
       // Transition durations
       transitionDuration: {
         '0': '0ms',
-        '50': '50ms',
-        '100': '100ms',
         '150': '150ms',
         '200': '200ms',
-        '250': '250ms',
         '300': '300ms',
-        '350': '350ms',
-        '400': '400ms',
-        '450': '450ms',
         '500': '500ms',
-        '750': '750ms',
-        '1000': '1000ms',
       },
     },
   },
   plugins: [
-    require("tailwindcss-animate"), 
+    require("tailwindcss-animate"),
     radixPlugin,
     require('@tailwindcss/typography'),
   ],
