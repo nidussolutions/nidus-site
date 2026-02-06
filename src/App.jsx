@@ -1,21 +1,17 @@
-import React, { useState, lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
 import { getSplashComponent, SPLASH_CONFIG } from '@/components/SplashConfig';
 
 import PublicLayout from '@/components/PublicLayout';
 import Home from '@/pages/Home';
-import About from '@/pages/About';
-import Services from '@/pages/Services';
-import Contact from '@/pages/Contact';
-
-const FAQ = lazy(() => import('@/pages/FAQ'));
-const Careers = lazy(() => import('@/pages/Careers'));
-const CookiesPolicy = lazy(() => import('@/pages/CookiesPolicy'));
-const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
-const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
+import CookiesPolicy from '@/pages/CookiesPolicy';
+import TermsOfService from '@/pages/TermsOfService';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
 
 const App = () => {
+  const location = useLocation();
   const [showSplash, setShowSplash] = useState(true);
   const [splashComplete, setSplashComplete] = useState(false);
 
@@ -24,46 +20,38 @@ const App = () => {
     setSplashComplete(true);
   };
 
-  // Mostra splash screen apenas no carregamento inicial
   if (showSplash && !splashComplete) {
     const SplashComponent = getSplashComponent();
     return (
-      <SplashComponent 
+      <SplashComponent
         onComplete={handleSplashComplete}
         showSkipButton={SPLASH_CONFIG.showSkipButton}
       />
     );
   }
 
-  // Renderiza o app principal com fade in suave
   return (
     <div className="animate-fade-in overflow-x-hidden">
-      <Routes>
-        <Route
-          path="/*"
-          element={
-            <PublicLayout>
-              <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Carregando...</div>}>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/*"
+            element={
+              <PublicLayout>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/careers" element={<Careers />} />
                   <Route path="/cookies-policy" element={<CookiesPolicy />} />
                   <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 </Routes>
-              </Suspense>
-            </PublicLayout>
-          }
-        />
-      </Routes>
+              </PublicLayout>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
       <Toaster />
     </div>
   );
 };
 
 export default App;
-

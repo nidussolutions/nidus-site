@@ -1,38 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Briefcase } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/SupabaseAuthContext';
 
 const navItems = [
-  { name: 'Início', path: '/' },
-  { name: 'Sobre', path: '/about' },
-  { name: 'Serviços', path: '/services' },
-  { name: 'Contato', path: '/contact' },
+  { name: 'Início', href: '#hero' },
+  { name: 'Serviços', href: '#services' },
+  { name: 'Contato', href: '#contact' },
 ];
 
 const Navigation = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const lastScrollY = useRef(0);
-  const { user } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const unsubscribe = scrollY.onChange((latest) => {
+      setScrolled(latest > 50);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -45,109 +34,107 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const headerHidden = !mobileMenuOpen && isHidden;
+  const handleNavClick = (href) => {
+    setMobileMenuOpen(false);
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const isHomePage = location.pathname === '/';
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 py-2.5 sm:py-3 bg-background/80 backdrop-blur-lg border-b border-border transition-transform duration-300 ease-in-out ${
-        headerHidden ? '-translate-y-full' : 'translate-y-0'
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 transition-all duration-300 ${
+        scrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border'
+          : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-            <span className="text-lg sm:text-xl font-bold text-primary">N</span>
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center">
+            <span className="text-lg font-bold text-white">N</span>
           </div>
-          <span className="text-lg sm:text-xl font-semibold text-foreground">Nidus</span>
+          <span className="text-xl font-display font-semibold text-foreground">
+            Nidus
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`relative text-sm font-medium transition-colors duration-200 ${
-                location.pathname === item.path
-                  ? 'text-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {item.name}
-              {location.pathname === item.path && (
-                <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-primary rounded-full" />
-              )}
-            </Link>
-          ))}
-        </nav>
+        {isHomePage && (
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.href)}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+        )}
 
-        <div className="hidden md:flex items-center gap-4">
+        {/* CTA Button */}
+        <div className="hidden md:block">
           <Button
-            onClick={() => navigate(user ? '/admin' : '/contact')}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold hover:scale-105 transition-transform duration-200"
+            onClick={() => handleNavClick('#contact')}
+            className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-500 hover:to-secondary-500 text-white font-medium"
           >
-            {user ? (
-              <>
-                <Briefcase className="mr-2 h-4 w-4" /> Admin
-              </>
-            ) : 'Começar Projeto'}
+            Fale Conosco
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-foreground z-50 p-2 -mr-2"
+          className="md:hidden text-foreground p-2"
           aria-label="Toggle menu"
         >
-          <div className={`transition-transform duration-200 ${mobileMenuOpen ? 'rotate-90' : 'rotate-0'}`}>
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </div>
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
       {/* Mobile Navigation */}
-      <div
-        className={`fixed inset-0 bg-background/95 backdrop-blur-lg md:hidden pt-24 transition-opacity duration-300 ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div
-          className={`flex flex-col items-center justify-center h-full pb-20 transition-all duration-300 ${
-            mobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'
-          }`}
-        >
-          <nav className="flex flex-col gap-8 text-center">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-3xl font-semibold transition-colors duration-200 ${
-                  location.pathname === item.path
-                    ? 'text-foreground'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 top-16 bg-background/95 backdrop-blur-xl md:hidden"
+          >
+            <nav className="flex flex-col items-center justify-center h-full gap-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-2xl font-display font-semibold text-foreground hover:text-primary-400 transition-colors"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <Button
+                onClick={() => handleNavClick('#contact')}
+                size="lg"
+                className="mt-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white"
               >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-          <div className="absolute bottom-10 w-[90%] max-w-xs">
-            <Button
-              onClick={() => {
-                navigate(user ? '/admin' : '/contact');
-                setMobileMenuOpen(false);
-              }}
-              size="lg"
-              className="bg-primary text-white hover:bg-primary/90 w-full font-semibold"
-            >
-              {user ? 'Painel Admin' : 'Começar Projeto'}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </header>
+                Fale Conosco
+              </Button>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

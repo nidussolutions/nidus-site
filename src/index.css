@@ -1,77 +1,49 @@
+/* Modern Tech Fonts - Space Grotesk (display) + Inter (body) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Design System - Light Pastel Theme */
-    /* Background Colors */
-    --background: 210 20% 98%;       /* neutral-50 #fafbfc */
-    --foreground: 210 24% 16%;       /* neutral-900 #1a252f */
+    /* Design System - Dark Mode Tech Theme */
+    /* Background Colors - Deep Dark */
+    --background: 222 47% 5%;          /* Deep navy #0a0b14 */
+    --foreground: 220 20% 95%;         /* Off-white #f0f1f5 */
 
-    --card: 0 0% 100%;               /* white */
-    --card-foreground: 210 24% 16%;
+    --card: 222 47% 8%;                /* Slightly lighter dark #0f1219 */
+    --card-foreground: 220 20% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 24% 16%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 220 20% 95%;
 
-    /* Primary - Sky Blue */
-    --primary: 199 89% 48%;          /* primary-500 #0ea5e9 */
+    /* Primary - Vibrant Purple */
+    --primary: 262 83% 58%;            /* Electric purple #8b5cf6 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Teal */
-    --secondary: 173 80% 40%;        /* secondary-500 #14b8a6 */
+    /* Secondary - Deep Blue */
+    --secondary: 217 91% 60%;          /* Bright blue #3b82f6 */
     --secondary-foreground: 0 0% 100%;
 
     /* Muted */
-    --muted: 210 20% 96%;            /* neutral-100 */
-    --muted-foreground: 210 15% 42%; /* neutral-600 */
+    --muted: 222 47% 12%;              /* Dark gray #141924 */
+    --muted-foreground: 220 15% 55%;   /* Medium gray #7d8590 */
 
-    /* Accent - Purple */
-    --accent: 271 91% 65%;           /* accent-500 #a855f7 */
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Cyan/Teal */
+    --accent: 192 91% 50%;             /* Cyan #06b6d4 */
+    --accent-foreground: 222 47% 5%;
 
-    /* Destructive - Error red */
-    --destructive: 0 84% 70%;        /* error light */
+    /* Destructive */
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
     /* Border & Input */
-    --border: 210 18% 91%;           /* neutral-200 */
-    --input: 210 18% 91%;
-    --ring: 199 89% 48%;             /* primary-500 */
+    --border: 222 30% 18%;             /* Subtle dark border */
+    --input: 222 30% 18%;
+    --ring: 262 83% 58%;               /* Purple ring */
 
     --radius: 0.75rem;
-  }
-
-  /* Dark mode (opcional para futuro) */
-  .dark {
-    --background: 210 24% 10%;       /* neutral-950 */
-    --foreground: 210 20% 98%;
-
-    --card: 210 24% 12%;             /* neutral-900 */
-    --card-foreground: 210 20% 98%;
-
-    --popover: 210 24% 12%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 24% 15%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 210 24% 15%;
-    --muted-foreground: 210 15% 60%;
-
-    --accent: 210 24% 15%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 210 24% 15%;
-    --input: 210 24% 15%;
-    --ring: 199 89% 48%;
   }
 }
 
@@ -79,15 +51,15 @@
   * {
     @apply border-border;
   }
-  
+
   html {
-    @apply scroll-smooth;
     overflow-x: hidden;
     width: 100%;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: 'rlig' 1, 'calt' 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -95,48 +67,89 @@
     overflow-x: hidden;
     width: 100%;
   }
-  
+
   #root {
     overflow-x: hidden;
     width: 100%;
   }
-  
-  /* Custom Scrollbar - Design System */
+
+  /* Custom Scrollbar - Dark Mode */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-neutral-100;
+    @apply bg-neutral-900;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-300 rounded-full transition-colors;
+    @apply bg-neutral-700 rounded-full transition-colors;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-neutral-400;
+    @apply bg-neutral-600;
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: theme('colors.neutral.300') theme('colors.neutral.100');
+    scrollbar-color: #334155 #0f172a;
   }
 }
 
 /* Utilities */
 @layer utilities {
-  /* Grid Pattern Background */
-  .bg-grid-pattern {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(14 165 233 / 0.08)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  /* Modern Gradient Backgrounds */
+  .gradient-dark {
+    background: linear-gradient(135deg, #0a0b14 0%, #1a1f2e 50%, #0f1219 100%);
   }
 
-  /* Dot Pattern Background */
-  .bg-dot-pattern {
-    background-image: radial-gradient(rgb(14 165 233 / 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
+  .gradient-purple-blue {
+    background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+  }
+
+  .gradient-glow {
+    background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  }
+
+  .gradient-glow-bottom {
+    background: radial-gradient(ellipse at bottom, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
+  }
+
+  .gradient-text-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+  }
+
+  /* Glow Effects */
+  .glow-purple {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.3);
+  }
+
+  /* Subtle Grid Pattern - Dark */
+  .bg-grid-dark {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(139 92 246 / 0.03)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  }
+
+  /* Dot Pattern - Dark */
+  .bg-dot-dark {
+    background-image: radial-gradient(rgb(139 92 246 / 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   /* Text Balance */
@@ -144,61 +157,30 @@
     text-wrap: balance;
   }
 
-  /* Glass Effect */
+  /* Glass Effect - Dark Mode */
   .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(14, 165, 233, 0.15);
+    background: rgba(15, 18, 25, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(139, 92, 246, 0.1);
   }
 
   .glass-strong {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(15, 18, 25, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.15);
   }
 
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      to right,
-      theme('colors.primary.400'),
-      theme('colors.secondary.400')
-    );
-  }
-
-  .gradient-text-purple {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      theme('colors.primary.400'),
-      theme('colors.accent.400')
-    );
-  }
-
-  /* Glow Effect */
-  .glow {
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
-  }
-
-  .glow-hover {
-    transition: box-shadow 0.3s ease;
-  }
-
-  .glow-hover:hover {
-    box-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
-  }
-
-  /* Selection */
+  /* Selection - Dark Mode */
   ::selection {
-    @apply bg-primary-200 text-primary-900;
+    background: rgba(139, 92, 246, 0.3);
+    color: #f0f1f5;
   }
 
   /* Focus visible */
   :focus-visible {
-    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 }
 
@@ -215,4 +197,30 @@
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
 }

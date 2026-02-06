@@ -390,73 +390,210 @@ export const WelcomeSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden grain-light"
       style={{
-        background: '#ffffff',
+        background: 'linear-gradient(135deg, #FFF8E7 0%, #F5E6D3 40%, #E9C46A 100%)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '2rem',
+        gap: '3rem',
         padding: '2rem',
       }}
     >
-      {/* Grid sutil de fundo */}
+      {/* Elementos geométricos sutis Neo-Retro */}
+      <div className="absolute top-20 left-20 w-32 h-32 rounded-full border-2 border-secondary-500 opacity-15" />
+      <div className="absolute bottom-32 right-24 w-28 h-28 rotate-45 border-2 border-primary-500 opacity-12" />
+      <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-accent-600 opacity-10" />
+      <div className="absolute bottom-1/3 left-1/4 w-20 h-20 border-2 border-neutral-800 opacity-12 rotate-12" />
+
+      {/* Logo Section - Neo-Retro Clean */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        {/* Welcome text - Minimalista */}
+        <div ref={welcomeRef}>
+          <h2
+            className="text-lg md:text-xl font-display font-medium tracking-wide uppercase"
+            style={{
+              color: '#264653',
+              letterSpacing: '0.15em',
+            }}
+          >
+            Bem-vindo à
+          </h2>
+        </div>
+
+        {/* NIDUS - Tipografia Space Grotesk bold */}
+        <div className="relative">
+          <h1
+            ref={nidusRef}
+            className="text-7xl md:text-9xl font-display font-bold tracking-tight"
+            style={{
+              color: '#C1440E',
+              textShadow: '3px 3px 0px rgba(42, 157, 143, 0.2)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            NIDUS
+          </h1>
+          
+          {/* Linha decorativa sutil */}
+          <div
+            ref={lineRef}
+            className="absolute -bottom-3 left-0 right-0 h-1.5 bg-secondary-500 origin-left rounded-full"
+          />
+        </div>
+
+      </div>
+
+      {/* Tagline - Sofisticado */}
       <div
-        className="absolute inset-0"
+        ref={phaseRef}
+        className="relative z-10 text-center"
+      >
+        <p className="text-base md:text-lg font-sans font-normal text-neutral-900 tracking-wide">
+          Transformando ideias em realidade digital
+        </p>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Variant 6: Dark Glitch - Cyberpunk dark mode
+ */
+export const DarkGlitchSplash = ({ onComplete, showSkipButton = false }) => {
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
+  const glowRef = useRef(null);
+
+  const handleSkip = () => {
+    gsap.to(containerRef.current, {
+      opacity: 0,
+      duration: 0.4,
+      ease: 'power2.inOut',
+      onComplete,
+    });
+  };
+
+  useEffect(() => {
+    const text = textRef.current;
+    const glow = glowRef.current;
+
+    // Glitch effect timeline
+    const glitchTl = gsap.timeline({ repeat: 3, repeatDelay: 0.5 });
+    glitchTl
+      .to(text, { x: -3, duration: 0.05, ease: 'steps(1)' })
+      .to(text, { x: 3, duration: 0.05, ease: 'steps(1)' })
+      .to(text, { x: -2, duration: 0.03, ease: 'steps(1)' })
+      .to(text, { x: 2, duration: 0.03, ease: 'steps(1)' })
+      .to(text, { x: 0, duration: 0.02, ease: 'steps(1)' });
+
+    // Main timeline
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setTimeout(() => {
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power2.inOut',
+            onComplete,
+          });
+        }, 800);
+      },
+    });
+
+    // Logo entrance
+    tl.from(text, {
+      opacity: 0,
+      scale: 1.5,
+      duration: 0.8,
+      ease: 'power3.out',
+    })
+      // Glow pulse
+      .from(glow, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.6,
+        ease: 'power2.out',
+      }, '-=0.6')
+      // Add glitch effect
+      .add(glitchTl, '-=0.2')
+      // Chromatic aberration
+      .to(text, {
+        textShadow: '-3px 0 #06b6d4, 3px 0 #c084fc, 0 0 30px rgba(139, 92, 246, 0.6)',
+        duration: 0.4,
+        ease: 'power2.out',
+      }, '-=1')
+      // Final glow pulse
+      .to(glow, {
+        scale: 1.1,
+        opacity: 0.8,
+        duration: 0.3,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut',
+      });
+
+    return () => {
+      tl.kill();
+      glitchTl.kill();
+    };
+  }, [onComplete]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #0a0b14 0%, #1a1f2e 50%, #0f1219 100%)',
+      }}
+    >
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-grid-dark opacity-50" />
+
+      {/* Scanlines effect */}
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 92, 246, 0.03) 2px, rgba(139, 92, 246, 0.03) 4px)',
         }}
       />
 
-      {/* Texto */}
-      <div className="relative z-10 flex items-center gap-6">
-        <h2
-          ref={welcomeRef}
-          className="text-2xl md:text-4xl font-light tracking-wide"
-          style={{
-            color: '#64748b',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          Welcome to
-        </h2>
+      {/* Gradient orbs */}
+      <div className="absolute top-1/4 -left-1/4 w-[400px] h-[400px] bg-primary-700/20 rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] bg-secondary-600/20 rounded-full blur-[100px]" />
 
-        {/* Linha divisória */}
-        <div
-          ref={lineRef}
-          className="w-16 h-0.5 origin-left"
-          style={{
-            background: 'linear-gradient(90deg, #0ea5e9, #14b8a6)',
-          }}
-        />
-
-        <h1
-          ref={nidusRef}
-          className="text-6xl md:text-8xl font-bold tracking-tight"
-          style={{
-            background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          NIDUS
-        </h1>
-
-      </div>
-
+      {/* Glow behind text */}
       <div
-        ref={phaseRef}
-        className="relative z-10 text-center text-lg md:text-2xl font-medium text-gray-600"
+        ref={glowRef}
+        className="absolute w-[300px] h-[150px] sm:w-[500px] sm:h-[200px] rounded-full blur-[60px]"
         style={{
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          background: 'radial-gradient(ellipse, rgba(139, 92, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 70%)',
+        }}
+      />
+
+      {/* Logo */}
+      <h1
+        ref={textRef}
+        className="text-7xl sm:text-8xl md:text-9xl font-display font-bold tracking-tight relative z-10"
+        style={{
+          background: 'linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          textShadow: '0 0 20px rgba(139, 92, 246, 0.3)',
         }}
       >
-        <span>
-          Transformando ideias em realidade digital
-        </span>
-      </div>
+        NIDUS
+      </h1>
+
+      {/* Skip button */}
+      {showSkipButton && (
+        <button
+          onClick={handleSkip}
+          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border hover:border-primary/30 rounded-lg transition-all"
+        >
+          Pular →
+        </button>
+      )}
     </div>
   );
 };
@@ -467,4 +604,5 @@ export default {
   CinematicSplash,
   ParticlesSplash,
   WelcomeSplash,
+  DarkGlitchSplash,
 };
