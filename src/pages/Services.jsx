@@ -90,12 +90,15 @@ const Services = () => {
             const features = card.querySelectorAll('.service-feature');
 
             const handleMouseEnter = () => {
+              // Kill existing animations to prevent conflicts
+              gsap.killTweensOf(card);
+              if (icon) gsap.killTweensOf(icon);
+              if (features.length > 0) gsap.killTweensOf(features);
+
               gsap.to(card, {
                 y: -8,
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.15)',
-                borderColor: 'rgba(139, 92, 246, 0.5)',
                 duration: 0.3,
-                ease: 'power2.out',
+                ease: 'power1.out',
               });
 
               if (icon) {
@@ -103,7 +106,7 @@ const Services = () => {
                   scale: 1.15,
                   rotation: 5,
                   duration: 0.4,
-                  ease: 'back.out(2)',
+                  ease: 'back.out(1.5)',
                 });
               }
 
@@ -112,18 +115,22 @@ const Services = () => {
                   x: 5,
                   duration: 0.3,
                   stagger: 0.05,
-                  ease: 'power2.out',
+                  ease: 'power1.out',
                 });
               }
             };
 
             const handleMouseLeave = () => {
+              // Kill existing animations to prevent conflicts
+              gsap.killTweensOf(card);
+              if (icon) gsap.killTweensOf(icon);
+              if (features.length > 0) gsap.killTweensOf(features);
+
               gsap.to(card, {
                 y: 0,
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-                borderColor: 'hsl(var(--border))',
                 duration: 0.3,
-                ease: 'power2.out',
+                ease: 'power1.out',
+                clearProps: 'all'
               });
 
               if (icon) {
@@ -131,7 +138,8 @@ const Services = () => {
                   scale: 1,
                   rotation: 0,
                   duration: 0.3,
-                  ease: 'power2.out',
+                  ease: 'power1.out',
+                  clearProps: 'all'
                 });
               }
 
@@ -139,7 +147,8 @@ const Services = () => {
                 gsap.to(features, {
                   x: 0,
                   duration: 0.3,
-                  ease: 'power2.out',
+                  ease: 'power1.out',
+                  clearProps: 'all'
                 });
               }
             };
@@ -215,18 +224,21 @@ const Services = () => {
       const button = ctaButtonRef.current;
       if (button) {
         const handleButtonEnter = () => {
+          gsap.killTweensOf(button);
           gsap.to(button, {
             scale: 1.05,
             duration: 0.3,
-            ease: 'power2.out',
+            ease: 'power1.out',
           });
         };
 
         const handleButtonLeave = () => {
+          gsap.killTweensOf(button);
           gsap.to(button, {
             scale: 1,
             duration: 0.3,
-            ease: 'power2.out',
+            ease: 'power1.out',
+            clearProps: 'all'
           });
         };
 
@@ -273,7 +285,7 @@ const Services = () => {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="p-6 sm:p-8 bg-card rounded-lg border border-border flex flex-col shadow-sm cursor-pointer"
+                className="p-6 sm:p-8 bg-card rounded-lg border border-border flex flex-col shadow-sm hover:shadow-xl hover:border-primary/50 cursor-pointer transition-shadow duration-300"
               >
                 <div className="service-icon flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
                   <service.icon className="w-6 h-6 text-primary" />

@@ -11,30 +11,38 @@ const services = [
         title: 'Desenvolvimento Web Moderno',
         description:
             'Criamos sites e aplicações web de alta performance com foco em UX, conversão e resultados mensuráveis.',
-        gradient: 'from-primary/20 to-primary/5',
-        iconColor: 'text-primary',
+        bgColor: 'bg-primary-400',
+        borderColor: 'border-primary-600',
+        iconColor: 'text-white',
+        shadowColor: 'shadow-retro-color',
     },
     {
         icon: Zap,
         title: 'Automação Inteligente',
         description:
             'Integração de ferramentas e automações customizadas para ganho de eficiência e escalabilidade operacional.',
-        gradient: 'from-secondary/20 to-secondary/5',
-        iconColor: 'text-secondary',
+        bgColor: 'bg-secondary-400',
+        borderColor: 'border-secondary-600',
+        iconColor: 'text-neutral-900',
+        shadowColor: 'shadow-retro',
     },
     {
         icon: Database,
         title: 'Backend e APIs',
         description: 'Desenvolvemos a espinha dorsal de suas aplicações com Node.js e tecnologias modernas, garantindo escalabilidade e segurança.',
-        gradient: 'from-accent/20 to-accent/5',
-        iconColor: 'text-accent',
+        bgColor: 'bg-accent-500',
+        borderColor: 'border-accent-700',
+        iconColor: 'text-white',
+        shadowColor: 'shadow-retro-lg',
     },
     {
         icon: Smartphone,
         title: 'Desenvolvimento Mobile',
         description: 'Construímos aplicativos nativos para iOS e Android com React Native, oferecendo experiência premium com código unificado.',
-        gradient: 'from-primary/20 to-secondary/5',
-        iconColor: 'text-primary',
+        bgColor: 'bg-gradient-to-br from-primary-500 to-secondary-500',
+        borderColor: 'border-neutral-900',
+        iconColor: 'text-white',
+        shadowColor: 'shadow-retro-color-double',
     }
 ];
 
@@ -126,18 +134,24 @@ const ServicesPreview = () => {
         const card = e.currentTarget;
         const icon = card.querySelector('.icon-wrapper');
         
+        // Kill any existing tweens on these elements
+        gsap.killTweensOf(card);
+        if (icon) gsap.killTweensOf(icon);
+        
         gsap.to(card, {
-            y: isEntering ? -8 : 0,
-            duration: 0.3,
-            ease: 'power2.out'
+            y: isEntering ? -4 : 0,
+            duration: 0.25,
+            ease: 'power1.out',
+            clearProps: isEntering ? '' : 'all'
         });
         
         if (icon) {
             gsap.to(icon, {
-                scale: isEntering ? 1.1 : 1,
-                rotate: isEntering ? 5 : 0,
-                duration: 0.3,
-                ease: 'power2.out'
+                scale: isEntering ? 1.05 : 1,
+                rotate: isEntering ? -3 : 0,
+                duration: 0.25,
+                ease: 'power1.out',
+                clearProps: isEntering ? '' : 'all'
             });
         }
     };
@@ -146,26 +160,30 @@ const ServicesPreview = () => {
         <section
             ref={sectionRef}
             id="services-preview"
-            className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background relative"
+            className="py-16 sm:py-20 lg:py-24 bg-neutral-100 relative grain-light"
         >
-            {/* Decorative Elements */}
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+            {/* Retro Decorative Border */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500" />
+            
+            {/* Geometric Shapes Background */}
+            <div className="absolute top-20 right-10 w-24 h-24 rounded-full border-4 border-primary-300 opacity-15" />
+            <div className="absolute bottom-32 left-10 w-32 h-32 rotate-12 border-4 border-secondary-300 opacity-15" />
             
             <div className="max-w-7xl mx-auto px-3 sm:px-6">
                 <div
                     ref={headerRef}
                     className="text-center mb-10 sm:mb-16"
                 >
-                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
+                    <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-black mb-4 px-2 sm:px-0 text-neutral-900">
                         Soluções Completas para seu Negócio
                     </h2>
-                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
+                    <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-medium max-w-2xl mx-auto px-3 sm:px-0">
                         Do conceito ao deploy, cuidamos de cada detalhe do seu projeto digital
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto mb-8 sm:mb-12">
-                    {services.map(({ icon: Icon, title, description, gradient, iconColor }, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 sm:mb-14">
+                    {services.map(({ icon: Icon, title, description, bgColor, borderColor, iconColor, shadowColor }, index) => (
                         <div
                             key={title}
                             ref={(el) => (cardsRef.current[index] = el)}
@@ -173,35 +191,34 @@ const ServicesPreview = () => {
                             onMouseLeave={(e) => handleCardHover(e, false)}
                             className="group relative"
                         >
-                            {/* Card */}
-                            <div className="relative h-full p-5 sm:p-6 md:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 overflow-hidden">
-                                {/* Gradient Background */}
-                                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                                
+                            {/* Retro Card */}
+                            <div className={`grain-light relative h-full p-6 sm:p-8 bg-white border-4 ${borderColor} rounded-3xl ${shadowColor} hover:shadow-retro-xl`}>
                                 {/* Content */}
                                 <div className="relative z-10">
+                                    {/* Icon in colored circle */}
                                     <div
-                                        className={`icon-wrapper w-12 h-12 sm:w-14 sm:h-14 mb-4 sm:mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
+                                        className={`icon-wrapper w-16 h-16 sm:w-20 sm:h-20 mb-5 sm:mb-6 flex items-center justify-center rounded-full ${bgColor} border-3 border-neutral-900 ${shadowColor}`}
                                     >
-                                        <Icon className={`${iconColor} w-6 h-6 sm:w-7 sm:h-7`} />
+                                        <Icon className={`${iconColor} w-8 h-8 sm:w-10 sm:h-10 stroke-[2.5]`} />
                                     </div>
                                     
-                                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">
+                                    <h3 className="text-xl sm:text-2xl font-display font-bold mb-3 text-neutral-900">
                                         {title}
                                     </h3>
-                                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                                    <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-medium">
                                         {description}
                                     </p>
                                 </div>
 
-                                {/* Corner Accent */}
-                                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                {/* Retro Corner Decoration */}
+                                <div className={`absolute top-4 right-4 w-4 h-4 rounded-full ${bgColor} opacity-40`} />
+                                <div className={`absolute bottom-4 left-4 w-3 h-3 ${bgColor} rotate-45 opacity-30`} />
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* CTA Button */}
+                {/* Retro CTA Button */}
                 <div
                     ref={ctaRef}
                     className="text-center"
@@ -209,10 +226,10 @@ const ServicesPreview = () => {
                     <Button
                         size="lg"
                         onClick={() => navigate('/services')}
-                        className="group"
+                        className="group bg-primary-500 hover:bg-primary-600 text-white font-display font-bold text-lg px-10 py-6 rounded-2xl border-3 border-neutral-900 shadow-retro-lg hover:shadow-retro-color-offset transition-all"
                     >
                         Ver Todos os Serviços
-                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                     </Button>
                 </div>
             </div>

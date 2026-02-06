@@ -18,24 +18,29 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+      },
       colors: {
-        // Brand Primary (Sky Blue - Tecnológico)
+        // Brand Primary (Rust - Laranja queimado profissional)
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+          50: '#fef6ee',
+          100: '#fdebd8',
+          200: '#fad3b0',
+          300: '#f7b37d',
+          400: '#ef6820',
+          500: '#C1440E', // Rust principal - FORTE
+          600: '#a33a0c',
+          700: '#8a310a',
+          800: '#712808',
+          900: '#5a2007',
+          950: '#3d1504',
         },
-        // Brand Secondary (Teal - Verde menta)
+        // Brand Secondary (Teal - Verde-água profissional)
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -43,71 +48,70 @@ export default {
           100: '#ccfbf1',
           200: '#99f6e4',
           300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-          950: '#042f2e',
+          400: '#14b8a6',
+          500: '#2A9D8F', // Teal principal - FORTE
+          600: '#0f766e',
+          700: '#115e59',
+          800: '#134e4a',
+          900: '#042f2e',
+          950: '#031f1c',
         },
-        // Brand Accent (Purple - Lilás pastel)
+        // Brand Accent (Mustard/Coral - Tons quentes profissionais)
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
-          700: '#7e22ce',
-          800: '#6b21a8',
-          900: '#581c87',
-          950: '#3b0764',
+          50: '#fefce8',
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15',
+          500: '#E9C46A', // Mustard principal - FORTE
+          600: '#F4A261', // Coral - FORTE
+          700: '#d97706',
+          800: '#a16207',
+          900: '#854d0e',
+          950: '#713f12',
         },
-        // Neutral (Grayscale suave)
+        // Neutral (Vintage Paper & Modern Slate)
         neutral: {
-          50: '#fafbfc',
-          100: '#f5f7fa',
-          200: '#e8ecf1',
-          300: '#d1dae6',
-          400: '#9fb3c8',
-          500: '#6b7f95',
-          600: '#4a5c70',
-          700: '#384959',
-          800: '#283642',
-          900: '#1a252f',
-          950: '#0f1720',
+          50: '#F8FAFC',   // Ghost - branco moderno
+          100: '#FFF8E7',  // Cream
+          200: '#F5E6D3',  // Beige papel vintage
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#264653',  // Navy - FORTE
+          900: '#1E293B',  // Slate - FORTE
+          950: '#0f172a',
         },
-        // Semantic colors
+        // Semantic colors - Retro warm tones
         success: {
-          light: '#6ee7b7',
-          DEFAULT: '#34d399',
-          dark: '#10b981',
+          light: '#86efac',
+          DEFAULT: '#22c55e',
+          dark: '#16a34a',
         },
         warning: {
           light: '#fcd34d',
-          DEFAULT: '#fbbf24',
-          dark: '#f59e0b',
+          DEFAULT: '#f59e0b',
+          dark: '#d97706',
         },
         error: {
           light: '#fca5a5',
-          DEFAULT: '#f87171',
-          dark: '#ef4444',
+          DEFAULT: '#dc2626',
+          dark: '#b91c1c',
         },
         info: {
-          light: '#7dd3fc',
-          DEFAULT: '#38bdf8',
-          dark: '#0ea5e9',
+          light: '#fed7aa',
+          DEFAULT: '#f97316',
+          dark: '#ea580c',
         },
-        // Legacy support
-        'nidus-purple': '#a855f7',
-        'nidus-blue': '#0ea5e9',
-        'nidus-blue-dark': '#0369a1',
-        'nidus-blue-light': '#38bdf8',
-        'nidus-white': '#fafbfc',
+        // Legacy support - Updated to retro colors
+        'nidus-orange': '#f97316',
+        'nidus-mustard': '#f59e0b',
+        'nidus-brown': '#9c6644',
+        'nidus-cream': '#f9f6f0',
         // CSS Variables for shadcn/ui
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -132,23 +136,43 @@ export default {
         },
       },
       
-      // Shadows
+      // Shadows - Retro heavy offset style
       boxShadow: {
-        'glow': '0 0 20px rgba(14, 165, 233, 0.3)',
-        'glow-sm': '0 0 10px rgba(14, 165, 233, 0.2)',
-        'glow-lg': '0 0 30px rgba(14, 165, 233, 0.4)',
-        'glow-xl': '0 0 40px rgba(14, 165, 233, 0.5)',
-        'colored-primary': '0 10px 25px -5px rgba(14, 165, 233, 0.25), 0 8px 10px -6px rgba(14, 165, 233, 0.15)',
-        'colored-secondary': '0 10px 25px -5px rgba(20, 184, 166, 0.25), 0 8px 10px -6px rgba(20, 184, 166, 0.15)',
-        'colored-accent': '0 10px 25px -5px rgba(168, 85, 247, 0.25), 0 8px 10px -6px rgba(168, 85, 247, 0.15)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.08)',
+        'glow': '0 0 30px rgba(249, 115, 22, 0.3)',
+        'glow-sm': '0 0 15px rgba(249, 115, 22, 0.2)',
+        'glow-lg': '0 0 40px rgba(249, 115, 22, 0.4)',
+        'glow-xl': '0 0 50px rgba(249, 115, 22, 0.5)',
+        'retro': '8px 8px 0px rgba(38, 31, 26, 0.15)',
+        'retro-sm': '4px 4px 0px rgba(38, 31, 26, 0.12)',
+        'retro-lg': '12px 12px 0px rgba(38, 31, 26, 0.2)',
+        'retro-xl': '16px 16px 0px rgba(38, 31, 26, 0.25)',
+        'retro-color': '6px 6px 0px rgba(249, 115, 22, 0.4)',
+        'retro-color-double': '8px 8px 0px #f59e0b, 12px 12px 0px rgba(38, 31, 26, 0.15)',
+        'colored-primary': '0 10px 25px -5px rgba(249, 115, 22, 0.3), 0 8px 10px -6px rgba(249, 115, 22, 0.2)',
+        'colored-secondary': '0 10px 25px -5px rgba(245, 158, 11, 0.3), 0 8px 10px -6px rgba(245, 158, 11, 0.2)',
+        'colored-accent': '0 10px 25px -5px rgba(156, 102, 68, 0.3), 0 8px 10px -6px rgba(156, 102, 68, 0.2)',
+        'glass': '0 8px 32px 0 rgba(38, 31, 26, 0.1)',
       },
       
-      // Border Radius
+      // Border Radius - More rounded retro style
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
+        xl: "calc(var(--radius) + 4px)",
+        '2xl': "calc(var(--radius) + 8px)",
+        '3xl': "calc(var(--radius) + 12px)",
+      },
+      
+      // Border Width - Thicker borders for retro look
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
       },
       
       // Animations

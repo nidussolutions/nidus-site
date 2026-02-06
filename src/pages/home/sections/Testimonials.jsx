@@ -11,6 +11,8 @@ const testimonials = [
     rating: 5,
     text: 'A Nidus transformou completamente nosso processo de vendas. O sistema desenvolvido aumentou nossa eficiência em 60% e a experiência do cliente melhorou drasticamente.',
     avatar: 'CS',
+    bgColor: 'bg-primary-400',
+    borderColor: 'border-primary-600',
   },
   {
     name: 'Marina Costa',
@@ -19,6 +21,8 @@ const testimonials = [
     rating: 5,
     text: 'Profissionalismo e qualidade excepcionais. A equipe entendeu perfeitamente nossa visão e entregou além das expectativas. Recomendo fortemente!',
     avatar: 'MC',
+    bgColor: 'bg-secondary-400',
+    borderColor: 'border-secondary-600',
   },
   {
     name: 'Pedro Santos',
@@ -27,6 +31,8 @@ const testimonials = [
     rating: 5,
     text: 'O app desenvolvido pela Nidus revolucionou nosso negócio. Interface intuitiva, performance impecável e suporte sempre presente. Parceria de longo prazo garantida!',
     avatar: 'PS',
+    bgColor: 'bg-accent-500',
+    borderColor: 'border-accent-700',
   },
 ];
 
@@ -96,28 +102,32 @@ const Testimonials = () => {
   }, []);
 
   const handleTestimonialHover = (e, isEntering) => {
+    gsap.killTweensOf(e.currentTarget);
     gsap.to(e.currentTarget, {
-      y: isEntering ? -8 : 0,
-      duration: 0.3,
-      ease: 'power2.out'
+      y: isEntering ? -4 : 0,
+      rotate: isEntering ? -1 : 0,
+      duration: 0.25,
+      ease: 'power1.out',
+      clearProps: isEntering ? '' : 'all'
     });
   };
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+    <section className="py-16 sm:py-20 lg:py-24 bg-neutral-100 relative overflow-hidden grain-light">
+      {/* Warm Retro Decorative Elements */}
+      <div className="absolute top-20 left-0 w-64 h-64 bg-secondary-300/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-64 h-64 bg-primary-300/30 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-accent-400/20 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 relative z-10">
         <div
           ref={headerRef}
           className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-black mb-4 px-2 sm:px-0 text-neutral-900">
             O Que Nossos Clientes Dizem
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-3 sm:px-0">
+          <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-medium max-w-2xl mx-auto px-3 sm:px-0">
             Confiança construída através de resultados reais
           </p>
         </div>
@@ -131,63 +141,73 @@ const Testimonials = () => {
               onMouseLeave={(e) => handleTestimonialHover(e, false)}
               className="relative group"
             >
-              <div className="relative h-full p-6 sm:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
-                {/* Quote Icon */}
-                <div className="absolute top-4 sm:top-6 right-4 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-primary/10 opacity-50 group-hover:opacity-100 transition-opacity">
-                  <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+              {/* Polaroid-style card with heavy grain */}
+              <div className="grain-heavy relative h-full p-6 sm:p-7 pb-8 sm:pb-10 bg-white border-4 border-neutral-900 rounded-2xl shadow-retro-lg hover:shadow-retro-xl transition-all duration-300">
+                {/* Photo tape effect at top */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-secondary-300/60 border-2 border-neutral-900/20 rotate-1" />
+                
+                {/* Quote Icon - Retro style */}
+                <div className={`absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full ${testimonial.bgColor} border-2 border-neutral-900 shadow-retro-sm`}>
+                  <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-white" />
                 </div>
 
-                {/* Rating */}
+                {/* Rating with retro stars */}
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    <div key={i} className="w-5 h-5 rounded-sm bg-secondary-400 border-2 border-neutral-900 flex items-center justify-center">
+                      <Star className="w-3 h-3 fill-white text-white" />
+                    </div>
                   ))}
                 </div>
 
                 {/* Testimonial Text */}
-                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed italic">
-                  "{testimonial.text}"
+                <p className="text-sm sm:text-base text-neutral-800 font-medium mb-5 sm:mb-6 leading-relaxed">
+                  “{testimonial.text}”
                 </p>
 
-                {/* Author */}
-                <div className="flex items-center gap-4 pt-4 border-t border-border">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                {/* Author - Polaroid bottom section */}
+                <div className="flex items-center gap-4 pt-4 border-t-4 border-neutral-200">
+                  {/* Large colored circle avatar */}
+                  <div className={`w-14 h-14 rounded-full ${testimonial.bgColor} border-3 border-neutral-900 flex items-center justify-center text-white font-display font-black text-lg shadow-retro-sm`}>
                     {testimonial.avatar}
                   </div>
-                  <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                  <div className="flex-1">
+                    <div className="font-display font-bold text-base text-neutral-900">{testimonial.name}</div>
+                    <div className="text-sm text-neutral-700 font-medium">
                       {testimonial.role}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-xs text-neutral-600 font-medium">
                       {testimonial.company}
                     </div>
                   </div>
                 </div>
+                
+                {/* Vintage corner stamp */}
+                <div className={`absolute bottom-3 right-3 w-4 h-4 rounded-full ${testimonial.bgColor} opacity-30 rotate-45`} />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Trust Indicators */}
+        {/* Retro Trust Indicators */}
         <div
           ref={trustRef}
-          className="mt-16 text-center"
+          className="mt-12 sm:mt-16 text-center"
         >
-          <div className="inline-flex items-center gap-8 p-6 bg-card border rounded-2xl">
+          <div className="inline-flex flex-wrap justify-center items-center gap-6 sm:gap-8 p-6 sm:p-8 bg-white border-4 border-neutral-900 rounded-3xl shadow-retro-lg grain-light">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-1">4.8/5</div>
-              <div className="text-sm text-muted-foreground">Avaliação Média</div>
+              <div className="text-4xl sm:text-5xl font-display font-black bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent mb-2">4.8/5</div>
+              <div className="text-sm font-display font-bold text-neutral-700 uppercase tracking-wider">Avaliação Média</div>
             </div>
-            <div className="h-12 w-px bg-border" />
+            <div className="h-12 sm:h-16 w-1 bg-neutral-300 rounded-full" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-secondary mb-1">98%</div>
-              <div className="text-sm text-muted-foreground">Satisfação</div>
+              <div className="text-4xl sm:text-5xl font-display font-black bg-gradient-to-r from-secondary-500 to-secondary-600 bg-clip-text text-transparent mb-2">98%</div>
+              <div className="text-sm font-display font-bold text-neutral-700 uppercase tracking-wider">Satisfação</div>
             </div>
-            <div className="h-12 w-px bg-border" />
+            <div className="h-12 sm:h-16 w-1 bg-neutral-300 rounded-full" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">200+</div>
-              <div className="text-sm text-muted-foreground">Clientes Felizes</div>
+              <div className="text-4xl sm:text-5xl font-display font-black bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent mb-2">200+</div>
+              <div className="text-sm font-display font-bold text-neutral-700 uppercase tracking-wider">Clientes Felizes</div>
             </div>
           </div>
         </div>

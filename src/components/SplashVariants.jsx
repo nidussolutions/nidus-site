@@ -390,72 +390,67 @@ export const WelcomeSplash = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden grain-light"
       style={{
-        background: '#ffffff',
+        background: 'linear-gradient(135deg, #FFF8E7 0%, #F5E6D3 40%, #E9C46A 100%)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '2rem',
+        gap: '3rem',
         padding: '2rem',
       }}
     >
-      {/* Grid sutil de fundo */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-        }}
-      />
+      {/* Elementos geométricos sutis Neo-Retro */}
+      <div className="absolute top-20 left-20 w-32 h-32 rounded-full border-2 border-secondary-500 opacity-15" />
+      <div className="absolute bottom-32 right-24 w-28 h-28 rotate-45 border-2 border-primary-500 opacity-12" />
+      <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-accent-600 opacity-10" />
+      <div className="absolute bottom-1/3 left-1/4 w-20 h-20 border-2 border-neutral-800 opacity-12 rotate-12" />
 
-      {/* Texto */}
-      <div className="relative z-10 flex items-center gap-6">
-        <h2
-          ref={welcomeRef}
-          className="text-2xl md:text-4xl font-light tracking-wide"
-          style={{
-            color: '#64748b',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          Welcome to
-        </h2>
+      {/* Logo Section - Neo-Retro Clean */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        {/* Welcome text - Minimalista */}
+        <div ref={welcomeRef}>
+          <h2
+            className="text-lg md:text-xl font-display font-medium tracking-wide uppercase"
+            style={{
+              color: '#264653',
+              letterSpacing: '0.15em',
+            }}
+          >
+            Bem-vindo à
+          </h2>
+        </div>
 
-        {/* Linha divisória */}
-        <div
-          ref={lineRef}
-          className="w-16 h-0.5 origin-left"
-          style={{
-            background: 'linear-gradient(90deg, #0ea5e9, #14b8a6)',
-          }}
-        />
-
-        <h1
-          ref={nidusRef}
-          className="text-6xl md:text-8xl font-bold tracking-tight"
-          style={{
-            background: 'linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          NIDUS
-        </h1>
+        {/* NIDUS - Tipografia Space Grotesk bold */}
+        <div className="relative">
+          <h1
+            ref={nidusRef}
+            className="text-7xl md:text-9xl font-display font-bold tracking-tight"
+            style={{
+              color: '#C1440E',
+              textShadow: '3px 3px 0px rgba(42, 157, 143, 0.2)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            NIDUS
+          </h1>
+          
+          {/* Linha decorativa sutil */}
+          <div
+            ref={lineRef}
+            className="absolute -bottom-3 left-0 right-0 h-1.5 bg-secondary-500 origin-left rounded-full"
+          />
+        </div>
 
       </div>
 
+      {/* Tagline - Sofisticado */}
       <div
         ref={phaseRef}
-        className="relative z-10 text-center text-lg md:text-2xl font-medium text-gray-600"
-        style={{
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-        }}
+        className="relative z-10 text-center"
       >
-        <span>
+        <p className="text-base md:text-lg font-sans font-normal text-neutral-900 tracking-wide">
           Transformando ideias em realidade digital
-        </span>
+        </p>
       </div>
     </div>
   );

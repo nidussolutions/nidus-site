@@ -7,7 +7,7 @@
 import gsap from 'gsap';
 
 /**
- * Fade in animation
+ * Fade in animation - Retro style
  */
 export const fadeIn = (element, config = {}) => {
   return gsap.fromTo(
@@ -15,34 +15,34 @@ export const fadeIn = (element, config = {}) => {
     { opacity: 0 },
     {
       opacity: 1,
-      duration: 0.6,
-      ease: 'power2.out',
+      duration: 0.5,
+      ease: 'power1.out',
       ...config,
     }
   );
 };
 
 /**
- * Fade out animation
+ * Fade out animation - Retro style
  */
 export const fadeOut = (element, config = {}) => {
   return gsap.to(element, {
     opacity: 0,
-    duration: 0.4,
-    ease: 'power2.in',
+    duration: 0.35,
+    ease: 'power1.in',
     ...config,
   });
 };
 
 /**
- * Slide in from direction
+ * Slide in from direction - Retro style
  */
 export const slideIn = (element, direction = 'up', config = {}) => {
   const directionMap = {
-    up: { y: 30 },
-    down: { y: -30 },
-    left: { x: 30 },
-    right: { x: -30 },
+    up: { y: 25 },
+    down: { y: -25 },
+    left: { x: 25 },
+    right: { x: -25 },
   };
 
   return gsap.fromTo(
@@ -52,65 +52,65 @@ export const slideIn = (element, direction = 'up', config = {}) => {
       opacity: 1,
       x: 0,
       y: 0,
-      duration: 0.6,
-      ease: 'power2.out',
+      duration: 0.5,
+      ease: 'power1.out',
       ...config,
     }
   );
 };
 
 /**
- * Scale in animation
+ * Scale in animation - Retro style with subtle overshoot
  */
 export const scaleIn = (element, config = {}) => {
   return gsap.fromTo(
     element,
-    { scale: 0.9, opacity: 0 },
+    { scale: 0.92, opacity: 0 },
     {
       scale: 1,
       opacity: 1,
-      duration: 0.5,
-      ease: 'back.out(1.7)',
+      duration: 0.45,
+      ease: 'back.out(1.3)',
       ...config,
     }
   );
 };
 
 /**
- * Stagger animation para múltiplos elementos
+ * Stagger animation para múltiplos elementos - Retro style
  */
 export const staggerFadeIn = (elements, config = {}) => {
   return gsap.fromTo(
     elements,
-    { opacity: 0, y: 20 },
+    { opacity: 0, y: 15 },
     {
       opacity: 1,
       y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power2.out',
+      duration: 0.45,
+      stagger: 0.08,
+      ease: 'power1.out',
       ...config,
     }
   );
 };
 
 /**
- * Hover scale effect
+ * Hover scale effect - Retro style
  */
-export const hoverScale = (element, scale = 1.05) => {
+export const hoverScale = (element, scale = 1.04) => {
   const onEnter = () => {
     gsap.to(element, {
       scale,
-      duration: 0.3,
-      ease: 'power2.out',
+      duration: 0.25,
+      ease: 'power1.out',
     });
   };
 
   const onLeave = () => {
     gsap.to(element, {
       scale: 1,
-      duration: 0.3,
-      ease: 'power2.out',
+      duration: 0.25,
+      ease: 'power1.out',
     });
   };
 
@@ -124,13 +124,13 @@ export const hoverScale = (element, scale = 1.05) => {
 };
 
 /**
- * Glow effect animation
+ * Glow effect animation - Retro warm glow
  */
 export const glowEffect = (element, config = {}) => {
   return gsap.to(element, {
-    boxShadow: '0 0 30px rgba(139, 92, 246, 0.6)',
-    duration: 0.3,
-    ease: 'power2.out',
+    boxShadow: '0 0 30px rgba(249, 115, 22, 0.5)',
+    duration: 0.25,
+    ease: 'power1.out',
     ...config,
   });
 };
@@ -140,9 +140,9 @@ export const glowEffect = (element, config = {}) => {
  */
 export const removeGlow = (element, config = {}) => {
   return gsap.to(element, {
-    boxShadow: '0 0 0px rgba(139, 92, 246, 0)',
-    duration: 0.3,
-    ease: 'power2.out',
+    boxShadow: '0 0 0px rgba(249, 115, 22, 0)',
+    duration: 0.25,
+    ease: 'power1.out',
     ...config,
   });
 };
