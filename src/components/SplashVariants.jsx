@@ -456,10 +456,153 @@ export const WelcomeSplash = ({ onComplete }) => {
   );
 };
 
+/**
+ * Variant 6: Dark Glitch - Cyberpunk dark mode
+ */
+export const DarkGlitchSplash = ({ onComplete, showSkipButton = false }) => {
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
+  const glowRef = useRef(null);
+
+  const handleSkip = () => {
+    gsap.to(containerRef.current, {
+      opacity: 0,
+      duration: 0.4,
+      ease: 'power2.inOut',
+      onComplete,
+    });
+  };
+
+  useEffect(() => {
+    const text = textRef.current;
+    const glow = glowRef.current;
+
+    // Glitch effect timeline
+    const glitchTl = gsap.timeline({ repeat: 3, repeatDelay: 0.5 });
+    glitchTl
+      .to(text, { x: -3, duration: 0.05, ease: 'steps(1)' })
+      .to(text, { x: 3, duration: 0.05, ease: 'steps(1)' })
+      .to(text, { x: -2, duration: 0.03, ease: 'steps(1)' })
+      .to(text, { x: 2, duration: 0.03, ease: 'steps(1)' })
+      .to(text, { x: 0, duration: 0.02, ease: 'steps(1)' });
+
+    // Main timeline
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setTimeout(() => {
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power2.inOut',
+            onComplete,
+          });
+        }, 800);
+      },
+    });
+
+    // Logo entrance
+    tl.from(text, {
+      opacity: 0,
+      scale: 1.5,
+      duration: 0.8,
+      ease: 'power3.out',
+    })
+      // Glow pulse
+      .from(glow, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.6,
+        ease: 'power2.out',
+      }, '-=0.6')
+      // Add glitch effect
+      .add(glitchTl, '-=0.2')
+      // Chromatic aberration
+      .to(text, {
+        textShadow: '-3px 0 #06b6d4, 3px 0 #c084fc, 0 0 30px rgba(139, 92, 246, 0.6)',
+        duration: 0.4,
+        ease: 'power2.out',
+      }, '-=1')
+      // Final glow pulse
+      .to(glow, {
+        scale: 1.1,
+        opacity: 0.8,
+        duration: 0.3,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut',
+      });
+
+    return () => {
+      tl.kill();
+      glitchTl.kill();
+    };
+  }, [onComplete]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #0a0b14 0%, #1a1f2e 50%, #0f1219 100%)',
+      }}
+    >
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-grid-dark opacity-50" />
+
+      {/* Scanlines effect */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 92, 246, 0.03) 2px, rgba(139, 92, 246, 0.03) 4px)',
+        }}
+      />
+
+      {/* Gradient orbs */}
+      <div className="absolute top-1/4 -left-1/4 w-[400px] h-[400px] bg-primary-700/20 rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] bg-secondary-600/20 rounded-full blur-[100px]" />
+
+      {/* Glow behind text */}
+      <div
+        ref={glowRef}
+        className="absolute w-[300px] h-[150px] sm:w-[500px] sm:h-[200px] rounded-full blur-[60px]"
+        style={{
+          background: 'radial-gradient(ellipse, rgba(139, 92, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 70%)',
+        }}
+      />
+
+      {/* Logo */}
+      <h1
+        ref={textRef}
+        className="text-7xl sm:text-8xl md:text-9xl font-display font-bold tracking-tight relative z-10"
+        style={{
+          background: 'linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          textShadow: '0 0 20px rgba(139, 92, 246, 0.3)',
+        }}
+      >
+        NIDUS
+      </h1>
+
+      {/* Skip button */}
+      {showSkipButton && (
+        <button
+          onClick={handleSkip}
+          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border hover:border-primary/30 rounded-lg transition-all"
+        >
+          Pular →
+        </button>
+      )}
+    </div>
+  );
+};
+
 export default {
   MinimalSplash,
   GlitchSplash,
   CinematicSplash,
   ParticlesSplash,
   WelcomeSplash,
+  DarkGlitchSplash,
 };
